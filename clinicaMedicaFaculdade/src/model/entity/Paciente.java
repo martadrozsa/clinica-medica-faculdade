@@ -11,6 +11,8 @@ public class Paciente extends Pessoa{
         super(id, nome, dataNascimento, endereco, telefone);
     }
     
-    
+    public Paciente(String nome, Date dataNascimento, String endereco, String telefone) {
+        super(nome, dataNascimento, endereco, telefone);
+    }
     
 }

@@ -5,6 +5,11 @@
  */
 package view.telaPaciente.telaCadastroPaciente;
 
+import contoller.PacienteController;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import view.Mensagem;
+
 /**
  *
  * @author Marta
@@ -14,8 +19,12 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
     /**
      * Creates new form TelaCadastroPaciente
      */
+    
+    private PacienteController controlador;
+    
     public TelaCadastroPaciente() {
         initComponents();
+        this.controlador = new PacienteController();
     }
 
     /**
@@ -27,21 +36,177 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        dateComponentFormatter1 = new org.jdatepicker.impl.DateComponentFormatter();
+        jDateComponentFactory1 = new org.jdatepicker.JDateComponentFactory();
+        jDatePickerUtil1 = new org.jdatepicker.util.JDatePickerUtil();
+        utilCalendarModel1 = new org.jdatepicker.impl.UtilCalendarModel();
+        utilDateModel1 = new org.jdatepicker.impl.UtilDateModel();
+        jLabel1 = new javax.swing.JLabel();
+        txtTituloPaciente = new javax.swing.JLabel();
+        txtNome = new javax.swing.JLabel();
+        inputNome = new javax.swing.JTextField();
+        txtDataNascimento = new javax.swing.JLabel();
+        calendarDataNascimento = new com.toedter.calendar.JDateChooser();
+        txtEndereco = new javax.swing.JLabel();
+        inputEndereco = new javax.swing.JTextField();
+        txtTelefone = new javax.swing.JLabel();
+        inputTelefone = new javax.swing.JTextField();
+        btnCancelar = new javax.swing.JButton();
+        btnCadastrar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/topo.png"))); // NOI18N
+        jLabel1.setToolTipText("");
+
+        txtTituloPaciente.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
+        txtTituloPaciente.setText("Cadastro Paciente");
+
+        txtNome.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtNome.setText("Nome");
+
+        txtDataNascimento.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtDataNascimento.setText("Data de Nascimento");
+
+        txtEndereco.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtEndereco.setText("Endereço");
+
+        txtTelefone.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtTelefone.setText("Telefone");
+
+        btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCancelar.setText("Cancelar");
+
+        btnCadastrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCadastrar.setText("Cadastrar");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(txtTituloPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtDataNascimento)
+                    .addComponent(txtEndereco)
+                    .addComponent(txtNome)
+                    .addComponent(txtTelefone))
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(inputNome)
+                    .addComponent(calendarDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inputTelefone)
+                    .addComponent(inputEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCancelar)
+                .addGap(189, 189, 189))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(1146, Short.MAX_VALUE)
+                    .addComponent(btnCadastrar)
+                    .addGap(51, 51, 51)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 850, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtTituloPaciente)
+                .addGap(109, 109, 109)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNome)
+                    .addComponent(inputNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtDataNascimento)
+                    .addComponent(calendarDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtEndereco)
+                    .addComponent(inputEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTelefone)
+                    .addComponent(inputTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 171, Short.MAX_VALUE)
+                .addComponent(btnCancelar)
+                .addGap(68, 68, 68))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(744, Short.MAX_VALUE)
+                    .addComponent(btnCadastrar)
+                    .addGap(69, 69, 69)))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        // TODO add your handling code here:
+        try{
+            // recebendo e validando dados da interface gráfica
+            String nome = "";
+            Date dataNascimento = null;
+            String endereco = "";
+            String telefone = "";
+
+            if (this.inputNome.getText().length() < 2) {
+                throw new Mensagem ("Nome deve conter ao menos 2 caracteres.");
+            } else {
+                nome = this.inputNome.getText();
+            }
+
+            if (this.calendarDataNascimento.getDate()== null) {
+                throw new Mensagem("Informe uma data de nascimento válida");
+            } else {
+                dataNascimento = calendarDataNascimento.getDate();
+            }
+
+            if (this.inputEndereco.getText().length() < 2) {
+                throw new Mensagem ("Endereço deve conter ao menos 2 caracteres.");
+            } else {
+                endereco = this.inputEndereco.getText();
+            }
+
+            if (this.inputTelefone.getText().length() <= 0) {
+                throw new Mensagem ("Telefone deve ser um número e conter 9 dígitos.");
+            }else {
+                telefone = this.inputTelefone.getText();
+            }
+                      
+
+            // envia os dados para o Controlador cadastrar
+            if (this.controlador.cadastrar(nome, dataNascimento, endereco, telefone)){
+                JOptionPane.showMessageDialog(rootPane, "Paciente cadastrado com sucesso!");
+
+                this.inputNome.setText("");
+                this.calendarDataNascimento.setDate(null);
+                this.inputEndereco.setText("");
+                this.inputTelefone.setText("");
+            }
+
+            System.out.println(this.controlador.getMinhaLista().toString());
+        
+        }catch (Mensagem erro) {
+            JOptionPane.showMessageDialog(null,erro.getMessage());
+        }    
+    }//GEN-LAST:event_btnCadastrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +244,22 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnCancelar;
+    private com.toedter.calendar.JDateChooser calendarDataNascimento;
+    private org.jdatepicker.impl.DateComponentFormatter dateComponentFormatter1;
+    private javax.swing.JTextField inputEndereco;
+    private javax.swing.JTextField inputNome;
+    private javax.swing.JTextField inputTelefone;
+    private org.jdatepicker.JDateComponentFactory jDateComponentFactory1;
+    private org.jdatepicker.util.JDatePickerUtil jDatePickerUtil1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel txtDataNascimento;
+    private javax.swing.JLabel txtEndereco;
+    private javax.swing.JLabel txtNome;
+    private javax.swing.JLabel txtTelefone;
+    private javax.swing.JLabel txtTituloPaciente;
+    private org.jdatepicker.impl.UtilCalendarModel utilCalendarModel1;
+    private org.jdatepicker.impl.UtilDateModel utilDateModel1;
     // End of variables declaration//GEN-END:variables
 }

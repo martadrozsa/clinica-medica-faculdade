@@ -21,7 +21,15 @@ public class Pessoa {
         this.endereco = endereco;
         this.telefone = telefone;
     }
-
+    
+    public Pessoa(String nome, Date dataNascimento, String endereco, String telefone) {
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.endereco = endereco;
+        this.telefone = telefone;
+    }
+    
+    
     public int getId() {
         return id;
     }
@@ -61,6 +69,5 @@ public class Pessoa {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-    
-    
+ 
 }
