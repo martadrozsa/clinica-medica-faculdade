@@ -27,20 +27,187 @@ public class TelaEdicaoExclusaoMedico extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        txtTituloMedico = new javax.swing.JLabel();
+        txtNome = new javax.swing.JLabel();
+        inputNome = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        txtTituloMedico1 = new javax.swing.JLabel();
+        txtNome1 = new javax.swing.JLabel();
+        inputNome1 = new javax.swing.JTextField();
+        txtDataNascimento = new javax.swing.JLabel();
+        calendarDataNascimento = new com.toedter.calendar.JDateChooser();
+        txtCRM = new javax.swing.JLabel();
+        inputCRM = new javax.swing.JTextField();
+        txtPeriodo1 = new javax.swing.JLabel();
+        inputEspecialidade = new javax.swing.JTextField();
+        txtPeriodo = new javax.swing.JLabel();
+        comboBoxPeriodo = new javax.swing.JComboBox<>();
+        txtPeriodo2 = new javax.swing.JLabel();
+        comboBoxConsultorio = new javax.swing.JComboBox<>();
+        txtEndereco = new javax.swing.JLabel();
+        inputEndereco = new javax.swing.JTextField();
+        txtTelefone = new javax.swing.JLabel();
+        inputTelefone = new javax.swing.JTextField();
+        btnCancelar = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
+        btnFechar = new javax.swing.JButton();
+
+        txtTituloMedico.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
+        txtTituloMedico.setText("CADASTRO MÉDICO");
+
+        txtNome.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtNome.setText("Nome");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Informações do Médico");
+        setResizable(false);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/topo.png"))); // NOI18N
+        jLabel2.setToolTipText("");
+
+        txtTituloMedico1.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
+        txtTituloMedico1.setText("INFORMAÇÕES DO MÉDICO");
+
+        txtNome1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtNome1.setText("Nome");
+
+        txtDataNascimento.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtDataNascimento.setText("Data de Nascimento");
+
+        txtCRM.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtCRM.setText("CRM");
+
+        txtPeriodo1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtPeriodo1.setText("Especialidade");
+
+        txtPeriodo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtPeriodo.setText("Período");
+
+        comboBoxPeriodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vespertino", "Matutino" }));
+        comboBoxPeriodo.setSelectedIndex(-1);
+
+        txtPeriodo2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtPeriodo2.setText("Consultório");
+
+        comboBoxConsultorio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Consultório 1", "Consultório 2" }));
+        comboBoxConsultorio.setSelectedIndex(-1);
+
+        txtEndereco.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtEndereco.setText("Endereço");
+
+        txtTelefone.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtTelefone.setText("Telefone");
+
+        btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnCancelar.setText("Cancelar");
+
+        btnSalvar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnSalvar.setText("Salvar");
+
+        btnExcluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnExcluir.setText("Excluir");
+
+        btnFechar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnFechar.setText("Fechar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1300, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtTituloMedico1, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCRM, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDataNascimento)
+                            .addComponent(txtPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPeriodo1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtEndereco)
+                            .addComponent(txtTelefone)
+                            .addComponent(txtNome1))
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(comboBoxPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtPeriodo2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(56, 56, 56)
+                                .addComponent(comboBoxConsultorio, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(164, 164, 164))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnCancelar)
+                                .addGap(73, 73, 73)
+                                .addComponent(btnFechar)
+                                .addGap(70, 70, 70)
+                                .addComponent(btnExcluir)
+                                .addGap(52, 52, 52)
+                                .addComponent(btnSalvar)
+                                .addGap(63, 63, 63))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(inputNome1, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(inputTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(inputEspecialidade, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(inputCRM, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(calendarDataNascimento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(inputEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 850, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
+                .addComponent(txtTituloMedico1)
+                .addGap(69, 69, 69)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNome1)
+                    .addComponent(inputNome1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(55, 55, 55)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtDataNascimento)
+                    .addComponent(calendarDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtCRM)
+                    .addComponent(inputCRM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPeriodo1)
+                    .addComponent(inputEspecialidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(51, 51, 51)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPeriodo)
+                    .addComponent(comboBoxPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPeriodo2)
+                    .addComponent(comboBoxConsultorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtEndereco)
+                    .addComponent(inputEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTelefone)
+                    .addComponent(inputTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelar)
+                    .addComponent(btnFechar)
+                    .addComponent(btnExcluir)
+                    .addComponent(btnSalvar))
+                .addGap(31, 31, 31))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -79,5 +246,30 @@ public class TelaEdicaoExclusaoMedico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnFechar;
+    private javax.swing.JButton btnSalvar;
+    private com.toedter.calendar.JDateChooser calendarDataNascimento;
+    private javax.swing.JComboBox<String> comboBoxConsultorio;
+    private javax.swing.JComboBox<String> comboBoxPeriodo;
+    private javax.swing.JTextField inputCRM;
+    private javax.swing.JTextField inputEndereco;
+    private javax.swing.JTextField inputEspecialidade;
+    private javax.swing.JTextField inputNome;
+    private javax.swing.JTextField inputNome1;
+    private javax.swing.JTextField inputTelefone;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel txtCRM;
+    private javax.swing.JLabel txtDataNascimento;
+    private javax.swing.JLabel txtEndereco;
+    private javax.swing.JLabel txtNome;
+    private javax.swing.JLabel txtNome1;
+    private javax.swing.JLabel txtPeriodo;
+    private javax.swing.JLabel txtPeriodo1;
+    private javax.swing.JLabel txtPeriodo2;
+    private javax.swing.JLabel txtTelefone;
+    private javax.swing.JLabel txtTituloMedico;
+    private javax.swing.JLabel txtTituloMedico1;
     // End of variables declaration//GEN-END:variables
 }

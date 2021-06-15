@@ -27,17 +27,122 @@ public class TelaEdicaoExclusaoPaciente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtTituloMedico2 = new javax.swing.JLabel();
+        txtNome = new javax.swing.JLabel();
+        inputNome = new javax.swing.JTextField();
+        txtDataNascimento = new javax.swing.JLabel();
+        calendarDataNascimento = new com.toedter.calendar.JDateChooser();
+        txtEndereco = new javax.swing.JLabel();
+        inputEndereco = new javax.swing.JTextField();
+        txtTelefone = new javax.swing.JLabel();
+        inputTelefone = new javax.swing.JTextField();
+        btnCancelar = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
+        btnFechar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/topo.png"))); // NOI18N
+        jLabel2.setToolTipText("");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Informações do Paciente");
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/topo.png"))); // NOI18N
+        jLabel3.setToolTipText("");
+
+        txtTituloMedico2.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
+        txtTituloMedico2.setText("INFORMAÇÕES DO PACIENTE");
+
+        txtNome.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtNome.setText("Nome");
+
+        txtDataNascimento.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtDataNascimento.setText("Data de Nascimento");
+
+        txtEndereco.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtEndereco.setText("Endereço");
+
+        txtTelefone.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtTelefone.setText("Telefone");
+
+        btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnCancelar.setText("Cancelar");
+
+        btnSalvar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnSalvar.setText("Salvar");
+
+        btnFechar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnFechar.setText("Fechar");
+
+        btnExcluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnExcluir.setText("Excluir");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1300, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(txtTituloMedico2, javax.swing.GroupLayout.PREFERRED_SIZE, 711, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtDataNascimento)
+                            .addComponent(txtNome)
+                            .addComponent(txtEndereco)
+                            .addComponent(txtTelefone))
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(calendarDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputNome, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
+                            .addComponent(inputEndereco))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCancelar)
+                .addGap(68, 68, 68)
+                .addComponent(btnFechar)
+                .addGap(46, 46, 46)
+                .addComponent(btnExcluir)
+                .addGap(54, 54, 54)
+                .addComponent(btnSalvar)
+                .addGap(70, 70, 70))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 850, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txtTituloMedico2)
+                .addGap(80, 80, 80)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtNome)
+                    .addComponent(inputNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtDataNascimento, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(calendarDataNascimento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(56, 56, 56)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtEndereco)
+                    .addComponent(inputEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTelefone)
+                    .addComponent(inputTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(159, 159, 159)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelar)
+                    .addComponent(btnFechar)
+                    .addComponent(btnExcluir)
+                    .addComponent(btnSalvar))
+                .addGap(51, 51, 51))
         );
 
         pack();
@@ -79,5 +184,20 @@ public class TelaEdicaoExclusaoPaciente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnFechar;
+    private javax.swing.JButton btnSalvar;
+    private com.toedter.calendar.JDateChooser calendarDataNascimento;
+    private javax.swing.JTextField inputEndereco;
+    private javax.swing.JTextField inputNome;
+    private javax.swing.JTextField inputTelefone;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel txtDataNascimento;
+    private javax.swing.JLabel txtEndereco;
+    private javax.swing.JLabel txtNome;
+    private javax.swing.JLabel txtTelefone;
+    private javax.swing.JLabel txtTituloMedico2;
     // End of variables declaration//GEN-END:variables
 }

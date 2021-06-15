@@ -75,10 +75,10 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
         txtTelefone.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtTelefone.setText("Telefone");
 
-        btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCancelar.setText("Cancelar");
 
-        btnCadastrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCadastrar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCadastrar.setText("Cadastrar");
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,10 +106,10 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
                     .addComponent(txtTelefone))
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(inputNome)
                     .addComponent(calendarDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inputTelefone)
-                    .addComponent(inputEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(inputNome, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
+                    .addComponent(inputEndereco)
+                    .addComponent(inputTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -117,7 +117,7 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
                 .addGap(189, 189, 189))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(1146, Short.MAX_VALUE)
+                    .addContainerGap(1158, Short.MAX_VALUE)
                     .addComponent(btnCadastrar)
                     .addGap(51, 51, 51)))
         );

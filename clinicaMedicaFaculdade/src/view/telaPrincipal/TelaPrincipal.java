@@ -5,6 +5,11 @@
  */
 package view.telaPrincipal;
 
+import java.awt.Frame;
+import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import view.telaPrincipal.menu.MenuItem;
+
 /**
  *
  * @author Marta
@@ -16,6 +21,57 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     public TelaPrincipal() {
         initComponents();
+        this.setExtendedState(Frame.MAXIMIZED_BOTH);
+        execute();
+        
+    }
+    
+    private void execute(){
+        ImageIcon iconAdd = new ImageIcon(getClass().getResource("menu/add.png"));
+        ImageIcon iconSearch = new ImageIcon(getClass().getResource("menu/search.png"));
+        ImageIcon iconAgenda = new ImageIcon(getClass().getResource("menu/agenda.png"));
+        ImageIcon iconHelp = new ImageIcon(getClass().getResource("menu/help.png"));
+        ImageIcon iconAbout = new ImageIcon(getClass().getResource("menu/about.png"));
+        ImageIcon iconExit = new ImageIcon(getClass().getResource("menu/exit.png"));
+        
+        ImageIcon iconDoctor = new ImageIcon(getClass().getResource("menu/doctor.png"));
+        ImageIcon iconPacient = new ImageIcon(getClass().getResource("menu/pacient.png"));
+        ImageIcon iconAgendar = new ImageIcon(getClass().getResource("menu/agendar.png"));
+        ImageIcon iconConsultar = new ImageIcon(getClass().getResource("menu/consultar.png"));
+          
+        //create submenu Add
+        MenuItem menuAdd1 = new MenuItem(iconDoctor,"Médico");
+        MenuItem menuAdd2 = new MenuItem(iconPacient,"Paciente");
+        
+        //create submenu Agenda
+        MenuItem menuAgenda1 = new MenuItem(iconAgendar, "Agendar");
+        MenuItem menuAgenda2 = new MenuItem(iconConsultar, "Consultar");
+        
+        //MenuItem menuDoctor = new MenuItem(iconDoctor, "Staff Manegemnt"); 
+        //MenuItem menuPacient = new MenuItem(iconPacient, "Staff Manegemnt");
+        //MenuItem menuAgendar = new MenuItem(iconAgendar, "Staff Manegemnt");
+        //MenuItem menuConsultar = new MenuItem(iconConsultar, "Staff Manegemnt"); 
+
+        MenuItem menuAdd = new MenuItem(iconAdd, "CADASTRAR", menuAdd1, menuAdd2);
+        MenuItem menuSearch = new MenuItem(iconSearch, "PESQUISAR"); 
+        MenuItem menuAgenda = new MenuItem(iconAgenda, "AGENDA", menuAgenda1, menuAgenda2); 
+        MenuItem menuHelp = new MenuItem(iconHelp, "AJUDA"); 
+        MenuItem menuAbout = new MenuItem(iconAbout, "SOBRE"); 
+        MenuItem menuExit = new MenuItem(iconExit, "SAIR"); 
+        addMenu(menuAdd, menuSearch, menuAgenda, menuHelp, menuAbout, menuExit);
+        
+    }
+    
+    private void addMenu(MenuItem... menu){
+        for(int i = 0; i < menu.length; i++){
+            menus.add(menu[i]);
+            ArrayList<MenuItem> subMenu = menu[i].getSubMenu();
+            for(MenuItem m:subMenu){
+                addMenu(m);
+            }
+            
+        } 
+        menus.revalidate();
     }
 
     /**
@@ -27,20 +83,81 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelHeader = new javax.swing.JPanel();
+        panelMenu = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        menus = new javax.swing.JPanel();
+        panelBody = new javax.swing.JPanel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+
+        panelHeader.setBackground(new java.awt.Color(236, 214, 214));
+
+        javax.swing.GroupLayout panelHeaderLayout = new javax.swing.GroupLayout(panelHeader);
+        panelHeader.setLayout(panelHeaderLayout);
+        panelHeaderLayout.setHorizontalGroup(
+            panelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelHeaderLayout.setVerticalGroup(
+            panelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        panelMenu.setBackground(new java.awt.Color(236, 214, 214));
+
+        jScrollPane1.setBorder(null);
+
+        menus.setLayout(new javax.swing.BoxLayout(menus, javax.swing.BoxLayout.Y_AXIS));
+        jScrollPane1.setViewportView(menus);
+
+        javax.swing.GroupLayout panelMenuLayout = new javax.swing.GroupLayout(panelMenu);
+        panelMenu.setLayout(panelMenuLayout);
+        panelMenuLayout.setHorizontalGroup(
+            panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+        );
+        panelMenuLayout.setVerticalGroup(
+            panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE)
+        );
+
+        panelBody.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout panelBodyLayout = new javax.swing.GroupLayout(panelBody);
+        panelBody.setLayout(panelBodyLayout);
+        panelBodyLayout.setHorizontalGroup(
+            panelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1031, Short.MAX_VALUE)
+        );
+        panelBodyLayout.setVerticalGroup(
+            panelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addComponent(panelBody, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(panelHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 850, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelBody, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        pack();
+        setSize(new java.awt.Dimension(1316, 883));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -79,5 +196,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel menus;
+    private javax.swing.JPanel panelBody;
+    private javax.swing.JPanel panelHeader;
+    private javax.swing.JPanel panelMenu;
     // End of variables declaration//GEN-END:variables
 }

@@ -79,7 +79,7 @@ public class MedicoDAO {
             Periodo periodo = Periodo.valueOf(nomePeriodo);
             Consultorio consultorio = Consultorio.valueOf(nomeConsultorio);
             
-            Medico medico = new Medico(crm, especialidade, periodo, consultorio, id, nome, dataNascimento, endereco, telefone);
+            Medico medico = new Medico(crm, especialidade, periodo, consultorio, id, nome,telefone);
             medicos.add(medico);
             
         }
@@ -88,10 +88,8 @@ public class MedicoDAO {
     
     public boolean insertMedico(Medico medico) {
         try {
-            String insertStatement = "INSERT INTO medico(crm, especialidade, periodo, consultorio, nome, data_nascimento, endereco, telefone) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            String insertStatement = "INSERT INTO medico(crm, especialidade, periodo, consultorio, nome, telefone) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = connect.prepareStatement(insertStatement);
-            
-            java.sql.Date sqlDate = new java.sql.Date(medico.getDataNascimento().getTime());
             
             //converse tipo
             String periodo = medico.getPeriodo().toString();
@@ -102,8 +100,6 @@ public class MedicoDAO {
             preparedStatement.setString(3, periodo);
             preparedStatement.setString(4, consultorio);
             preparedStatement.setString(5, medico.getNome());
-            preparedStatement.setDate(6, sqlDate);
-            preparedStatement.setString(7, medico.getEndereco());
             preparedStatement.setString(8, medico.getTelefone());
 
             preparedStatement.executeUpdate();
@@ -116,12 +112,10 @@ public class MedicoDAO {
     }
     
     public boolean updateMedico(Medico medico) {
-        String updateStatement = "UPDATE medico SET crm=?, especialidade=?, periodo=?, consultorio=?, nome=?, data_nascimento=?, endereco=?, telefone=? WHERE id=?";
+        String updateStatement = "UPDATE medico SET crm=?, especialidade=?, periodo=?, consultorio=?, nome=?, telefone=? WHERE id=?";
         try {
             PreparedStatement preparedStatement = connect.prepareStatement(updateStatement);
-            
-            java.sql.Date sqlDate = new java.sql.Date(medico.getDataNascimento().getTime());
-            
+                      
             String periodo = medico.getPeriodo().toString();
             String consultorio = medico.getConsultorio().toString();
                    
@@ -130,8 +124,6 @@ public class MedicoDAO {
             preparedStatement.setString(3, periodo);
             preparedStatement.setString(4, consultorio);
             preparedStatement.setString(5, medico.getNome());
-            preparedStatement.setDate(6, sqlDate);
-            preparedStatement.setString(7, medico.getEndereco());
             preparedStatement.setString(8, medico.getTelefone());
             
             preparedStatement.executeUpdate();

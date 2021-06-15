@@ -16,12 +16,12 @@ public class MedicoController {
         this.medicoBusiness = new MedicoBusiness();
     }
 
-    public boolean cadastrar(int crm, String especialidade, String nomePeriodo, String nomeConsultorio, String nome, Date dataNascimento, String endereco, String telefone) {
+    public boolean cadastrar(int crm, String especialidade, String nomePeriodo, String nomeConsultorio, String nome, String telefone) {
         // convertendo String em ENUM
         Periodo periodo = Periodo.valueOf(nomePeriodo);
         Consultorio consultorio = Consultorio.valueOf(nomeConsultorio);
         
-        Medico medico = new Medico(crm, especialidade, periodo, consultorio, nome, dataNascimento, endereco, telefone);
+        Medico medico = new Medico(crm, especialidade, periodo, consultorio, nome, telefone);
         return medicoBusiness.insertMedicoIntoBD(medico);
     }
 
@@ -46,8 +46,6 @@ public class MedicoController {
         for (int i = 0; i < tamanho; i++) {
             matrizPacientes[i][0] = minhalista.get(i).getId() + "";
             matrizPacientes[i][1] = minhalista.get(i).getNome();
-            matrizPacientes[i][2] = minhalista.get(i).getDataNascimento() + "";
-            matrizPacientes[i][3] = minhalista.get(i).getEndereco();
             matrizPacientes[i][4] = minhalista.get(i).getTelefone() + "";
         }
         return matrizPacientes;

@@ -69,7 +69,7 @@ public class PacienteDAO {
             String endereco = resultSet.getString("endereco");
             String telefone = resultSet.getString("telefone");
 
-            Paciente paciente = new Paciente(id, nome, dataNascimento, endereco, telefone);
+            Paciente paciente = new Paciente(dataNascimento, endereco,id, nome, telefone);
             pacientes.add(paciente);
         }
         return pacientes;
@@ -157,24 +157,4 @@ public class PacienteDAO {
         }
     }
  
-    public List<Paciente> getMinhaListByNomeCompleto(String nome) {
-        // database, me entrega todos as linhas na tabela paciente que tem a nome = ?
-            String queryStatement = "SELECT * FROM paciente WHERE nome=?";
-
-        try {  
-            PreparedStatement preparedStatement = connect.prepareStatement(queryStatement);
-            preparedStatement.setString(1, nome);
-
-            // Recupera dados da base
-            ResultSet resultSet = preparedStatement.executeQuery();
-            List<Paciente> pacientes = parseResultSetToPaciente(resultSet);           
-            preparedStatement.close();
-            // Todos os pacientes na lista "pacientes"
-            return pacientes;
-            
-        } catch (Exception ex) {
-            System.out.println("Error while querying data: " + ex.toString());
-            return new ArrayList<>();
-        }
-    }
 }
