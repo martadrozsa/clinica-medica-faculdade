@@ -24,8 +24,6 @@ public class TelaBuscarPaciente extends javax.swing.JFrame {
     public TelaBuscarPaciente() {
         initComponents();
         this.pacienteController = new PacienteController();
-        this.carregaTabela();
-
     }
 
     /**
@@ -57,14 +55,13 @@ public class TelaBuscarPaciente extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Buscar Paciente");
         setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 16)); // NOI18N
         jLabel1.setText("Nome");
 
-        btnBuscarPaciente.setBackground(new java.awt.Color(255, 255, 255));
         btnBuscarPaciente.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnBuscarPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/lupa.png"))); // NOI18N
         btnBuscarPaciente.setOpaque(false);
@@ -113,51 +110,49 @@ public class TelaBuscarPaciente extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnFechar)
-                .addGap(104, 104, 104)
-                .addComponent(btnSelecionar)
-                .addGap(145, 145, 145))
             .addGroup(layout.createSequentialGroup()
-                .addGap(77, 77, 77)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 951, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(inputBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnFechar)
+                        .addGap(49, 49, 49)
+                        .addComponent(btnSelecionar))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(77, 77, 77)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 951, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(86, 86, 86)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(29, 29, 29)
+                            .addComponent(inputBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(btnBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(84, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(80, 80, 80)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(inputBuscarPaciente)
-                        .addComponent(btnBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(123, 123, 123)
+                .addGap(126, 126, 126)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(inputBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(77, 77, 77)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
+                .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnFechar)
                     .addComponent(btnSelecionar))
-                .addGap(128, 128, 128))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    
-    public void carregaTabela() {
-        String[][] linhasMatriz = pacienteController.getMinhaMatrizTexto();
-        carregaTabela(linhasMatriz);
-        
-    }
+  
+  
 
    //@SuppressWarnings("uncheced")
    public void carregaTabela(String[][] linhasMatriz) {
@@ -175,7 +170,7 @@ public class TelaBuscarPaciente extends javax.swing.JFrame {
            });
        }
    }
-    
+  
     public boolean validaInput(String input) {
         if (input.equals("")){
                 JOptionPane.showMessageDialog(rootPane, "Informe um texto válido");
@@ -183,6 +178,27 @@ public class TelaBuscarPaciente extends javax.swing.JFrame {
             }
             return true;
      }
+    
+    private void limpaTabela() {
+        // inicializa a matriz  com strings vazias.
+        String[][] matrizVazia = new String[4][5];
+        
+        // fazer "for" que passa por todas as linhas e seta uma String vazia na  coluna.
+        for (int i = 0; i< matrizVazia.length; i++) {
+           matrizVazia[i][0] = "";
+           matrizVazia[i][1] = "";
+           matrizVazia[i][2] = "";
+           matrizVazia[i][3] = "";
+           matrizVazia[i][4] = "";
+        }
+        carregaTabela(matrizVazia);
+        
+    }
+    
+    public void mostrar() {
+        limpaTabela();
+        setVisible(true);
+    }
     
     
     private void btnBuscarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPacienteActionPerformed
@@ -195,7 +211,11 @@ public class TelaBuscarPaciente extends javax.swing.JFrame {
         }
 
         String[][] linhasMatriz = pacienteController.getMinhaMatrizTexto(input);
-        carregaTabela(linhasMatriz);
+        if (linhasMatriz.length > 0) {
+            carregaTabela(linhasMatriz);
+        } else {
+          limpaTabela();  
+        }
         this.inputBuscarPaciente.setText("");
         
     }//GEN-LAST:event_btnBuscarPacienteActionPerformed
