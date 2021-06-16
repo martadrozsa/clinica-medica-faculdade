@@ -5,6 +5,10 @@
  */
 package view.telaAgenda.telaAgendamento.telaBuscarPaciente;
 
+import contoller.PacienteController;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Marta
@@ -14,8 +18,14 @@ public class TelaBuscarPaciente extends javax.swing.JFrame {
     /**
      * Creates new form TelaBuscarPaciente
      */
+    
+    private PacienteController pacienteController;
+    
     public TelaBuscarPaciente() {
         initComponents();
+        this.pacienteController = new PacienteController();
+        this.carregaTabela();
+
     }
 
     /**
@@ -32,7 +42,7 @@ public class TelaBuscarPaciente extends javax.swing.JFrame {
         inputBuscarPaciente = new javax.swing.JTextField();
         btnBuscarPaciente = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelaPacientes = new javax.swing.JTable();
         btnFechar = new javax.swing.JButton();
         btnSelecionar = new javax.swing.JButton();
 
@@ -51,13 +61,20 @@ public class TelaBuscarPaciente extends javax.swing.JFrame {
         setTitle("Buscar Paciente");
         setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Nome");
 
+        btnBuscarPaciente.setBackground(new java.awt.Color(255, 255, 255));
         btnBuscarPaciente.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnBuscarPaciente.setText("Pesquisar");
+        btnBuscarPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/lupa.png"))); // NOI18N
+        btnBuscarPaciente.setOpaque(false);
+        btnBuscarPaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarPacienteActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaPacientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -83,8 +100,8 @@ public class TelaBuscarPaciente extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
+        tabelaPacientes.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tabelaPacientes);
 
         btnFechar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnFechar.setText("Fechar");
@@ -107,24 +124,25 @@ public class TelaBuscarPaciente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 951, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(31, 31, 31)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(inputBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
-                        .addComponent(btnBuscarPaciente)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(84, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(90, 90, 90)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(inputBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscarPaciente))
-                .addGap(119, 119, 119)
+                .addGap(80, 80, 80)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(inputBuscarPaciente)
+                        .addComponent(btnBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(123, 123, 123)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnFechar)
                     .addComponent(btnSelecionar))
@@ -134,6 +152,53 @@ public class TelaBuscarPaciente extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+    
+    public void carregaTabela() {
+        String[][] linhasMatriz = pacienteController.getMinhaMatrizTexto();
+        carregaTabela(linhasMatriz);
+        
+    }
+
+   //@SuppressWarnings("uncheced")
+   public void carregaTabela(String[][] linhasMatriz) {
+
+       DefaultTableModel modelo = (DefaultTableModel) this.tabelaPacientes.getModel();
+       modelo.setNumRows(0);
+
+       for (int i = 0; i < linhasMatriz.length; i++) {
+           modelo.addRow(new Object[]{
+           linhasMatriz[i][0],
+           linhasMatriz[i][1],
+           linhasMatriz[i][2],
+           linhasMatriz[i][3],
+           linhasMatriz[i][4]
+           });
+       }
+   }
+    
+    public boolean validaInput(String input) {
+        if (input.equals("")){
+                JOptionPane.showMessageDialog(rootPane, "Informe um texto válido");
+                 return false;
+            }
+            return true;
+     }
+    
+    
+    private void btnBuscarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPacienteActionPerformed
+        
+        String input = this.inputBuscarPaciente.getText();
+
+        boolean valido = validaInput(input);
+        if (valido != true) {
+            return;
+        }
+
+        String[][] linhasMatriz = pacienteController.getMinhaMatrizTexto(input);
+        carregaTabela(linhasMatriz);
+        this.inputBuscarPaciente.setText("");
+        
+    }//GEN-LAST:event_btnBuscarPacienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -178,6 +243,6 @@ public class TelaBuscarPaciente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tabelaPacientes;
     // End of variables declaration//GEN-END:variables
 }

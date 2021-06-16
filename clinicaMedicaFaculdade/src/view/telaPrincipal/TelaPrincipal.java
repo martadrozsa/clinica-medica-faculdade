@@ -5,10 +5,11 @@
  */
 package view.telaPrincipal;
 
-import java.awt.Frame;
-import java.util.ArrayList;
-import javax.swing.ImageIcon;
-import view.telaPrincipal.menu.MenuItem;
+import view.telaAgenda.telaAgendamento.TelaAgendamento;
+import view.telaAgenda.telaConsultaAgendamento.TelaConsulta;
+import view.telaMedico.telaCadastroMedico.TelaCadastroMedico;
+import view.telaPaciente.telaCadastroPaciente.TelaCadastroPaciente;
+import view.telaPesquisa.TelaPesquisa;
 
 /**
  *
@@ -19,59 +20,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form TelaPrincipal
      */
+    
+    public TelaCadastroMedico cadastroMedico;
+    public TelaCadastroPaciente cadastraPaciente;
+    public TelaPesquisa pesquisaMedicoPaciente;
+    public TelaAgendamento novoAgendamento;
+    public TelaConsulta consultarAgendamento;
+    
     public TelaPrincipal() {
         initComponents();
-        this.setExtendedState(Frame.MAXIMIZED_BOTH);
-        execute();
-        
-    }
-    
-    private void execute(){
-        ImageIcon iconAdd = new ImageIcon(getClass().getResource("menu/add.png"));
-        ImageIcon iconSearch = new ImageIcon(getClass().getResource("menu/search.png"));
-        ImageIcon iconAgenda = new ImageIcon(getClass().getResource("menu/agenda.png"));
-        ImageIcon iconHelp = new ImageIcon(getClass().getResource("menu/help.png"));
-        ImageIcon iconAbout = new ImageIcon(getClass().getResource("menu/about.png"));
-        ImageIcon iconExit = new ImageIcon(getClass().getResource("menu/exit.png"));
-        
-        ImageIcon iconDoctor = new ImageIcon(getClass().getResource("menu/doctor.png"));
-        ImageIcon iconPacient = new ImageIcon(getClass().getResource("menu/pacient.png"));
-        ImageIcon iconAgendar = new ImageIcon(getClass().getResource("menu/agendar.png"));
-        ImageIcon iconConsultar = new ImageIcon(getClass().getResource("menu/consultar.png"));
-          
-        //create submenu Add
-        MenuItem menuAdd1 = new MenuItem(iconDoctor,"Médico");
-        MenuItem menuAdd2 = new MenuItem(iconPacient,"Paciente");
-        
-        //create submenu Agenda
-        MenuItem menuAgenda1 = new MenuItem(iconAgendar, "Agendar");
-        MenuItem menuAgenda2 = new MenuItem(iconConsultar, "Consultar");
-        
-        //MenuItem menuDoctor = new MenuItem(iconDoctor, "Staff Manegemnt"); 
-        //MenuItem menuPacient = new MenuItem(iconPacient, "Staff Manegemnt");
-        //MenuItem menuAgendar = new MenuItem(iconAgendar, "Staff Manegemnt");
-        //MenuItem menuConsultar = new MenuItem(iconConsultar, "Staff Manegemnt"); 
-
-        MenuItem menuAdd = new MenuItem(iconAdd, "CADASTRAR", menuAdd1, menuAdd2);
-        MenuItem menuSearch = new MenuItem(iconSearch, "PESQUISAR"); 
-        MenuItem menuAgenda = new MenuItem(iconAgenda, "AGENDA", menuAgenda1, menuAgenda2); 
-        MenuItem menuHelp = new MenuItem(iconHelp, "AJUDA"); 
-        MenuItem menuAbout = new MenuItem(iconAbout, "SOBRE"); 
-        MenuItem menuExit = new MenuItem(iconExit, "SAIR"); 
-        addMenu(menuAdd, menuSearch, menuAgenda, menuHelp, menuAbout, menuExit);
-        
-    }
-    
-    private void addMenu(MenuItem... menu){
-        for(int i = 0; i < menu.length; i++){
-            menus.add(menu[i]);
-            ArrayList<MenuItem> subMenu = menu[i].getSubMenu();
-            for(MenuItem m:subMenu){
-                addMenu(m);
-            }
-            
-        } 
-        menus.revalidate();
     }
 
     /**
@@ -83,82 +40,117 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelHeader = new javax.swing.JPanel();
-        panelMenu = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        menus = new javax.swing.JPanel();
-        panelBody = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        btnCadastrarMedico = new javax.swing.JButton();
+        btnCadastrarPaciente = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
 
-        panelHeader.setBackground(new java.awt.Color(236, 214, 214));
+        jPanel1.setBackground(new java.awt.Color(117, 182, 182));
 
-        javax.swing.GroupLayout panelHeaderLayout = new javax.swing.GroupLayout(panelHeader);
-        panelHeader.setLayout(panelHeaderLayout);
-        panelHeaderLayout.setHorizontalGroup(
-            panelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        btnCadastrarMedico.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCadastrarMedico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/doctor.png"))); // NOI18N
+        btnCadastrarMedico.setText("MÉDICO");
+        btnCadastrarMedico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarMedicoActionPerformed(evt);
+            }
+        });
+
+        btnCadastrarPaciente.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCadastrarPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pacient.png"))); // NOI18N
+        btnCadastrarPaciente.setText("PACIENTE");
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/agendar.png"))); // NOI18N
+        jButton1.setText("AGENDAR");
+
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/consultar.png"))); // NOI18N
+        jButton2.setText("CONSULTAR");
+
+        jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/search.png"))); // NOI18N
+        jButton3.setText("PESQUISAR");
+
+        jButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/help.png"))); // NOI18N
+        jButton4.setText("AJUDA");
+
+        jButton5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/about.png"))); // NOI18N
+        jButton5.setText("SOBRE");
+
+        jButton6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/exit.png"))); // NOI18N
+        jButton6.setText("SAIR");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnCadastrarMedico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnCadastrarPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        panelHeaderLayout.setVerticalGroup(
-            panelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(btnCadastrarMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCadastrarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelMenu.setBackground(new java.awt.Color(236, 214, 214));
-
-        jScrollPane1.setBorder(null);
-
-        menus.setLayout(new javax.swing.BoxLayout(menus, javax.swing.BoxLayout.Y_AXIS));
-        jScrollPane1.setViewportView(menus);
-
-        javax.swing.GroupLayout panelMenuLayout = new javax.swing.GroupLayout(panelMenu);
-        panelMenu.setLayout(panelMenuLayout);
-        panelMenuLayout.setHorizontalGroup(
-            panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
-        );
-        panelMenuLayout.setVerticalGroup(
-            panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE)
-        );
-
-        panelBody.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout panelBodyLayout = new javax.swing.GroupLayout(panelBody);
-        panelBody.setLayout(panelBodyLayout);
-        panelBodyLayout.setHorizontalGroup(
-            panelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1031, Short.MAX_VALUE)
-        );
-        panelBodyLayout.setVerticalGroup(
-            panelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/background.jpg"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(panelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                .addComponent(panelBody, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(panelHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelBody, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 753, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(1316, 883));
-        setLocationRelativeTo(null);
+        pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCadastrarMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarMedicoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCadastrarMedicoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -196,10 +188,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JPanel menus;
-    private javax.swing.JPanel panelBody;
-    private javax.swing.JPanel panelHeader;
-    private javax.swing.JPanel panelMenu;
+    private javax.swing.JButton btnCadastrarMedico;
+    private javax.swing.JButton btnCadastrarPaciente;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

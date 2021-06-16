@@ -1,8 +1,5 @@
 package model.entity;
 
-import java.util.Date;
-
-
 abstract class Pessoa {
     
     private int id;

@@ -19,6 +19,10 @@ public class PacienteBusiness {
         return pacienteDAO.getMinhaListaPacientes();
     }
     
+    public List<Paciente> getMinhaListaByNome(String nome) {
+        return pacienteDAO.getMinhaListByNome(nome);
+    }
+
     public boolean insertPacienteIntoBD(Paciente paciente) {
         boolean isSuccess = pacienteDAO.insertPaciente(paciente);
         return isSuccess;
@@ -30,6 +34,11 @@ public class PacienteBusiness {
 
     public boolean deletePacienteFromBD(int id) {
         return pacienteDAO.deletePacienteById(id);
+    }
+    
+    // método de pesquisa para a TelaPesquisaView e para a TelaBuscarPacienteView
+    public List<Paciente> getMinhaLista(String inputPesquisa) {
+        return pacienteDAO.getMinhaListByNome(inputPesquisa);
     }
 
 }

@@ -97,6 +97,10 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
                         .addGap(24, 24, 24)
                         .addComponent(txtTituloPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCancelar)
+                .addGap(189, 189, 189))
             .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,10 +115,6 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
                     .addComponent(inputEndereco)
                     .addComponent(inputTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCancelar)
-                .addGap(189, 189, 189))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap(1158, Short.MAX_VALUE)
@@ -205,7 +205,10 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
         
         }catch (Mensagem erro) {
             JOptionPane.showMessageDialog(null,erro.getMessage());
-        }    
+        }catch (NumberFormatException erro2) {
+            JOptionPane.showMessageDialog(null, "Informe um número.");
+        }
+        
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     /**

@@ -28,5 +28,9 @@ public class MedicoBusiness {
     public boolean deleteMedicoFromBD(int id) {
         return medicoDAO.deleteMedicoById(id);
     }
+    
+    public List<Medico> getMinhaListaByNome(String nome) {
+        return medicoDAO.getMinhaListByNome(nome);
+    }
 
 }

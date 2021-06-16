@@ -19,7 +19,7 @@ public class PacienteController {
     }
 
     public boolean editar(String nome, Date dataNascimento, String endereco, String telefone) {
-        Paciente paciente = new Paciente();
+        Paciente paciente = new Paciente(dataNascimento, endereco, nome, telefone);
         return pacienteBusiness.updatePacienteInBD(paciente);
     }
 
@@ -44,5 +44,22 @@ public class PacienteController {
             matrizPacientes[i][4] = minhalista.get(i).getTelefone() + "";
         }
         return matrizPacientes;
-    }   
+    }
+    
+    // transformando os dados da base em uma matriz de texto para imprimir na tela
+    // método de pesquisa para a TelaPesquisaView e para a TelaBuscarPacienteView
+    public String[][] getMinhaMatrizTexto(String inputPesquisa) {
+        List<Paciente> resultList = pacienteBusiness.getMinhaLista(inputPesquisa);
+
+        int tamanho = resultList.size();
+        String[][] resulMatrizPacientes = new String[tamanho][5];
+        for (int i = 0; i < tamanho; i++) {
+            resulMatrizPacientes[i][0] = resultList.get(i).getId() + "";
+            resulMatrizPacientes[i][1] = resultList.get(i).getNome();
+            resulMatrizPacientes[i][2] = resultList.get(i).getDataNascimento()+ "";
+            resulMatrizPacientes[i][3] = resultList.get(i).getEndereco();
+            resulMatrizPacientes[i][4] = resultList.get(i).getTelefone()+ "";
+        }
+        return resulMatrizPacientes;
+    }
 }

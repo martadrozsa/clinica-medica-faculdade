@@ -2,51 +2,55 @@ package DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import model.entity.Agendamento;
+
 
 public class AgendamentoDAO {
-
-    private Connection connection;
+    
+    //declarando as variáveis. Não estão inicializadas. Até serem inicializadas o valor é null e não podems e utilizadas.
+    private Connection connect;
     private Statement statement;
-
+    
+    // construtor AgendamentoDAO
     public AgendamentoDAO() {
+        connectToDatabase("localhost", 3306, "clinica_medica", "root", "pass");
     }
-
-    public Connection connectToDatabase() {
-        Connection connection = null; //instância da conexão
+    
+    private void connectToDatabase(String ip, int port, String schema, String username, String password) {
         try {
-            // Carregamento do JDBC Driver
-            String driver = "com.mysql.cj.jdbc.Driver";
-            Class.forName(driver);
+            // This will load the MySQL driver, each DB has its own driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String connectionStr = "jdbc:mysql://" + ip + ":" + port + "/" + schema + "?user=" + username + "&password=" + password + "&serverTimezone=UTC";
+           
+            connect = DriverManager.getConnection(connectionStr);
 
-            // Configurar a conexão
-            String server = "localhost";
-            String database = "clinica_medica";
-            String url = "jdbc:mysql://" + server + ":3306/" + database + "?useTimezone=true&serverTimezone=UTC";
-            String user = "root";
-            String password = "pass";
-
-            // Conectando..
-            connection = DriverManager.getConnection(url, user, password);
-
-            // As instruções permitem emitir consultas SQL para o banco de dados
-            statement = connection.createStatement();
-
-            // Testando..
-            if (connection != null) {
-                System.out.println("Status: Conectado!");
-            } else {
-                System.out.println("Status: NÃO CONECTADO!");
-            }
-            return connection;
-
-        } catch (ClassNotFoundException e) { //Driver não encontrado
-            System.out.println("O driver nao foi encontrado.");
-            return null;
-        } catch (SQLException e) {
-            System.out.println("Nao foi possivel conectar...");
-            return null;
+            // Statements allow to issue SQL queries to the database - usado para fazer as querys
+            statement = connect.createStatement();
+            
+        } catch (Exception ex) {
+            System.out.println("Failed to connect to database: " + ex.toString());
         }
+    }
+    
+        public boolean insertAgendamento(Agendamento agendamento) {
+        try {
+            String insertStatement = "INSERT INTO agendamento() VALUES (?, ?, ?, ?)";
+            PreparedStatement preparedStatement = connect.prepareStatement(insertStatement);
+            
+//            preparedStatement.setString(1, );
+//            preparedStatement.setDate(2, );
+//            preparedStatement.setString(3, );
+//            preparedStatement.setString(4,);
+
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (Exception ex) {
+            System.out.println("Error while inserting data: " + ex.toString());
+            return false;
+        }
+        return true;
     }
 }
