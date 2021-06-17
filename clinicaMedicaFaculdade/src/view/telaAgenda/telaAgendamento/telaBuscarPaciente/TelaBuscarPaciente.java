@@ -6,8 +6,10 @@
 package view.telaAgenda.telaAgendamento.telaBuscarPaciente;
 
 import contoller.PacienteController;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import view.telaAgenda.telaAgendamento.TelaAgendamento;
 
 /**
  *
@@ -21,6 +23,8 @@ public class TelaBuscarPaciente extends javax.swing.JFrame {
     
     private PacienteController pacienteController;
     
+    private TelaAgendamento agendamentoView;
+            
     public TelaBuscarPaciente() {
         initComponents();
         this.pacienteController = new PacienteController();
@@ -102,9 +106,19 @@ public class TelaBuscarPaciente extends javax.swing.JFrame {
 
         btnFechar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnFechar.setText("Fechar");
+        btnFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharActionPerformed(evt);
+            }
+        });
 
         btnSelecionar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnSelecionar.setText("Selecionar");
+        btnSelecionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelecionarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -192,10 +206,10 @@ public class TelaBuscarPaciente extends javax.swing.JFrame {
            matrizVazia[i][4] = "";
         }
         carregaTabela(matrizVazia);
-        
     }
     
-    public void mostrar() {
+    public void mostrar(TelaAgendamento agendamentoView) {
+        this.agendamentoView = agendamentoView;
         limpaTabela();
         setVisible(true);
     }
@@ -220,8 +234,26 @@ public class TelaBuscarPaciente extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnBuscarPacienteActionPerformed
 
+    private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
+        if (this.tabelaPacientes.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Selecione um paciente");
+        } else {
+            String id = this.tabelaPacientes.getValueAt(this.tabelaPacientes.getSelectedRow(), 0).toString();
+            String nome = this.tabelaPacientes.getValueAt(this.tabelaPacientes.getSelectedRow(),1).toString();
+            String dataNascimento = this.tabelaPacientes.getValueAt(this.tabelaPacientes.getSelectedRow(), 2).toString();
+            
+            int idInt = Integer.parseInt(id);
+            agendamentoView.recebeDadosPaciente(idInt, nome, dataNascimento);
+            setVisible(false);
+        }
+    }//GEN-LAST:event_btnSelecionarActionPerformed
+
+    private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_btnFecharActionPerformed
+
     /**
-     * @param args the command line arguments
+     * @param args the command line argumentsD
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
