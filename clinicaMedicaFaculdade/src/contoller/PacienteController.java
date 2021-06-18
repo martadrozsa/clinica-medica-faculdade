@@ -8,6 +8,7 @@ import model.entity.Paciente;
 
 public class PacienteController {
     private final PacienteBusiness pacienteBusiness;
+    
 
     public PacienteController() {
         this.pacienteBusiness = new PacienteBusiness();
@@ -33,23 +34,24 @@ public class PacienteController {
     
     @SuppressWarnings("unchecked")
     public String[][] getMinhaMatrizTexto() {
-        List<Paciente> minhalista = pacienteBusiness.getMinhaLista();
-        int tamanho = minhalista.size();
+        List<Paciente> minhaLista = pacienteBusiness.getMinhaLista();
+        
+        int tamanho = minhaLista.size();
         String[][] matrizPacientes = new String[tamanho][5];
         for (int i = 0; i < tamanho; i++) {
-            matrizPacientes[i][0] = minhalista.get(i).getId() + "";
-            matrizPacientes[i][1] = minhalista.get(i).getNome();
-            matrizPacientes[i][2] = minhalista.get(i).getDataNascimento() + "";
-            matrizPacientes[i][3] = minhalista.get(i).getEndereco();
-            matrizPacientes[i][4] = minhalista.get(i).getTelefone() + "";
+            matrizPacientes[i][0] = minhaLista.get(i).getId() + "";
+            matrizPacientes[i][1] = minhaLista.get(i).getNome();
+            matrizPacientes[i][2] = minhaLista.get(i).getDataNascimento() + "";
+            matrizPacientes[i][3] = minhaLista.get(i).getEndereco();
+            matrizPacientes[i][4] = minhaLista.get(i).getTelefone() + "";
         }
         return matrizPacientes;
     }
     
     // transformando os dados da base em uma matriz de texto para imprimir na tela
     // método de pesquisa para a TelaPesquisaView e para a TelaBuscarPacienteView
-    public String[][] getMinhaMatrizTexto(String inputPesquisa) {
-        List<Paciente> resultList = pacienteBusiness.getMinhaLista(inputPesquisa);
+    public String[][] getMinhaMatrizTexto(String inputNomePesquisa) {
+        List<Paciente> resultList = pacienteBusiness.getMinhaListaByNome(inputNomePesquisa);
 
         int tamanho = resultList.size();
         String[][] resulMatrizPacientes = new String[tamanho][5];

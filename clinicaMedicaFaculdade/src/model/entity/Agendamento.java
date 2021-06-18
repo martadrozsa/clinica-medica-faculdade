@@ -6,33 +6,52 @@ import java.util.Date;
 
 public class Agendamento {
     
-    Date data;
-    Time horario;
+    int id;
+    Date dataAgendamento;
+    Time horarioAgendamento;
     int idMedico;
     int idPaciente;
 
     public Agendamento() {
     }
 
-    public Agendamento(Date data, Time horario) {
-        this.data = data;
-        this.horario = horario;
+    public Agendamento(int id, Date dataAgendamento, Time horarioAgendamento, int idMedico, int idPaciente) {
+        this.id = id;
+        this.dataAgendamento = dataAgendamento;
+        this.horarioAgendamento = horarioAgendamento;
+        this.idMedico = idMedico;
+        this.idPaciente = idPaciente;
+    }
+    
+    public Agendamento(Date dataAgendamento, Time horarioAgendamento, int idMedico, int idPaciente) {
+        this.dataAgendamento = dataAgendamento;
+        this.horarioAgendamento = horarioAgendamento;
+        this.idMedico = idMedico;
+        this.idPaciente = idPaciente;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Date getData() {
-        return data;
+        return dataAgendamento;
     }
 
-    public void setData(Date data) {
-        this.data = data;
+    public void setData(Date dataAgendamento) {
+        this.dataAgendamento = dataAgendamento;
     }
 
     public Time getHorario() {
-        return horario;
+        return horarioAgendamento;
     }
 
-    public void setHorario(Time horario) {
-        this.horario = horario;
+    public void setHorario(Time horarioAgendamento) {
+        this.horarioAgendamento = horarioAgendamento;
     }
 
     public int getIdMedico() {
@@ -50,5 +69,7 @@ public class Agendamento {
     public void setIdPaciente(int idPaciente) {
         this.idPaciente = idPaciente;
     }
+
+    
   
 }

@@ -32,5 +32,12 @@ public class MedicoBusiness {
     public List<Medico> getMinhaListaByNome(String nome) {
         return medicoDAO.getMinhaListByNome(nome);
     }
+    
+    // retorna todos os médicos
+    public List<Medico> getMedicos(){
+        return medicoDAO.getMinhaListaMedicos();
+    }
+    
+    
 
 }

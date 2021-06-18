@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import model.entity.Agendamento;
 
 
@@ -35,15 +36,21 @@ public class AgendamentoDAO {
         }
     }
     
-        public boolean insertAgendamento(Agendamento agendamento) {
+    public List<Agendamento> getListaAgendamentos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public boolean insertAgendamento(Agendamento agendamento) {
         try {
-            String insertStatement = "INSERT INTO agendamento() VALUES (?, ?, ?, ?)";
+            String insertStatement = "INSERT INTO paciente(horario, data, idMedico, idPaciente) VALUES (?, ?, ?, ?)";
             PreparedStatement preparedStatement = connect.prepareStatement(insertStatement);
-            
-//            preparedStatement.setString(1, );
-//            preparedStatement.setDate(2, );
-//            preparedStatement.setString(3, );
-//            preparedStatement.setString(4,);
+
+            java.sql.Date sqlDate = new java.sql.Date(agendamento.getData().getTime());
+
+            preparedStatement.setTime(1, agendamento.getHorario());
+            preparedStatement.setDate(2, sqlDate);
+            preparedStatement.setInt(3, agendamento.getIdMedico());
+            preparedStatement.setInt(4, agendamento.getIdPaciente());
 
             preparedStatement.executeUpdate();
             preparedStatement.close();

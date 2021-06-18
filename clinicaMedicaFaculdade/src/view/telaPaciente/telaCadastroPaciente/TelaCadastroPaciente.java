@@ -207,8 +207,7 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,erro.getMessage());
         }catch (NumberFormatException erro2) {
             JOptionPane.showMessageDialog(null, "Informe um número.");
-        }
-        
+        } 
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     /**
