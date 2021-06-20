@@ -6,9 +6,13 @@
 package view.telaAgenda.telaAgendamento;
 
 import contoller.AgendamentoController;
+import java.awt.Color;
+import java.awt.Component;
+import java.sql.Time;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import view.Mensagem;
 import view.telaAgenda.telaAgendamento.telaBuscarPaciente.TelaBuscarPaciente;
 
@@ -26,11 +30,25 @@ public class TelaAgendamento extends javax.swing.JFrame {
     private int idPaciente;
     private AgendamentoController agendamentoController;
     private Date dataAgendamento;
+    String[][] matrizAgendamento;
     
     public TelaAgendamento() {
         initComponents();
         buscarPaciente = new TelaBuscarPaciente();
         agendamentoController = new AgendamentoController();
+    }
+    
+    public boolean verificaAgendamento(int row) {
+        
+        if (matrizAgendamento == null || matrizAgendamento.length < row) {
+            return false;
+        }
+        
+        if (matrizAgendamento[row][4] == null || matrizAgendamento[row][4].equals("")) {
+            return false;
+        }
+        
+        return true;
     }
 
     /**
@@ -53,7 +71,20 @@ public class TelaAgendamento extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         calendarDataAgendamento = new com.toedter.calendar.JDateChooser();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaAgendamentos = new javax.swing.JTable();
+        tabelaAgendamentos = new javax.swing.JTable()
+        {
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column)
+            {
+                Component c = super.prepareRenderer(renderer, row, column);
+
+                //  Alternate row color
+
+                if (!isRowSelected(row))
+                c.setBackground(verificaAgendamento(row) ? Color.RED : getBackground());
+
+                return c;
+            }
+        };
         jPanel1 = new javax.swing.JPanel();
         tbnCancelar = new javax.swing.JButton();
         btnAgendar = new javax.swing.JButton();
@@ -257,8 +288,8 @@ public class TelaAgendamento extends javax.swing.JFrame {
                         .addGap(41, 41, 41)
                         .addComponent(calendarDataAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(47, 47, 47)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -272,32 +303,56 @@ public class TelaAgendamento extends javax.swing.JFrame {
     public void recebeDadosPaciente(int idInt, String nome, String dataNascimento) {
         this.inputNomePaciente.setText(nome);
         this.inputDataNascimento.setText(dataNascimento);
-        
         idPaciente = idInt;
         
     }   
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
         buscarPaciente.mostrar(this);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void calendarDataAgendamentoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_calendarDataAgendamentoPropertyChange
-
             Date dataAgendamento = null;
-
             if (this.calendarDataAgendamento.getDate() == null) {
                 return;
             }
             dataAgendamento = calendarDataAgendamento.getDate();
             String[][] agendamentos = agendamentoController.getAgendamentosByDate(dataAgendamento);
-            
             preencheTabela(agendamentos);
             
     }//GEN-LAST:event_calendarDataAgendamentoPropertyChange
 
     private void btnAgendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarActionPerformed
+        if(idPaciente <= 0){
+            JOptionPane.showMessageDialog(null, "Selecione um paciente!");
+            return;
+        }
         
+        if (this.tabelaAgendamentos.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Selecione um horário disponível!");
+            return;
+        } 
+        
+        int idRow = this.tabelaAgendamentos.getSelectedRow();
+        
+        if(verificaAgendamento(idRow)){
+            JOptionPane.showMessageDialog(null, "Data com agendamento marcado! Selecione outra data!");
+            return;
+        }
+        
+        String[] dadosSelecionados = matrizAgendamento[idRow];
+              
+        String idRowMedico = dadosSelecionados[5];
+        int idMedicoSelecionado = Integer.parseInt(idRowMedico);
+        
+        String horario = dadosSelecionados[0];
+        Time horarioSelecionado = Time.valueOf(horario);
+        
+        Date dataAgendaConsulta = this.calendarDataAgendamento.getDate();
+        
+        agendamentoController.cadastrarAgendamento(dataAgendaConsulta, horarioSelecionado, idMedicoSelecionado, idPaciente);
+        
+        JOptionPane.showMessageDialog(null, "Agendamento cadastrado com sucesso!");
     }//GEN-LAST:event_btnAgendarActionPerformed
 
     private void tbnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbnCancelarActionPerformed
@@ -305,7 +360,7 @@ public class TelaAgendamento extends javax.swing.JFrame {
     }//GEN-LAST:event_tbnCancelarActionPerformed
 
 
-        // método para preencher a tabela com os agendamentos
+    // método para preencher a tabela com os agendamentos
      //@SuppressWarnings("uncheced")
     public void preencheTabela(String[][] matrizAgendamento) {
         
@@ -320,11 +375,12 @@ public class TelaAgendamento extends javax.swing.JFrame {
             matrizAgendamento[i][3],
             matrizAgendamento[i][4],
             });
+            
         }
+        this.matrizAgendamento = matrizAgendamento;
     }
     
-    
-    
+
     /**
      * @param args the command line arguments
      */

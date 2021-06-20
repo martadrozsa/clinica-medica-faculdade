@@ -14,9 +14,9 @@ public class PacienteController {
         this.pacienteBusiness = new PacienteBusiness();
     }
 
-    public boolean cadastrar(String nome, Date dataNascimento, String endereco, String telefone) {
+    public boolean cadastrarPaciente(String nome, Date dataNascimento, String endereco, String telefone) {
         Paciente paciente = new Paciente(dataNascimento, endereco, nome, telefone);
-        return pacienteBusiness.insertPacienteIntoBD(paciente);
+        return pacienteBusiness.savePaciente(paciente);
     }
 
     public boolean editar(String nome, Date dataNascimento, String endereco, String telefone) {

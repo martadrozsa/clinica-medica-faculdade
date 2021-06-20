@@ -42,7 +42,7 @@ public class MedicoDAO {
     
     public List<Medico> getMinhaListaMedicos(){
         try {
-            String query = "SELECT * FROM medico";
+            String query = "SELECT * FROM medico ORDER BY periodo ASC, consultorio ASC";
 
             // Recupera dados da base
             ResultSet resultSet = statement.executeQuery(query);

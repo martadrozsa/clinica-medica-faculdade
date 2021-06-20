@@ -24,7 +24,8 @@ public class AgendamentoDAO {
         try {
             // This will load the MySQL driver, each DB has its own driver
             Class.forName("com.mysql.cj.jdbc.Driver");
-            String connectionStr = "jdbc:mysql://" + ip + ":" + port + "/" + schema + "?user=" + username + "&password=" + password + "&serverTimezone=UTC";
+            String connectionStr = "jdbc:mysql://" + ip + ":" + port + "/" + schema + "?user=" + username + "&password=" + password + "&serverTimezone=UTC&useTimezone=true";
+
            
             connect = DriverManager.getConnection(connectionStr);
 
@@ -42,7 +43,7 @@ public class AgendamentoDAO {
     
     public boolean insertAgendamento(Agendamento agendamento) {
         try {
-            String insertStatement = "INSERT INTO paciente(horario, data, idMedico, idPaciente) VALUES (?, ?, ?, ?)";
+            String insertStatement = "INSERT INTO agendamento (horario, data, id_medico, id_paciente) VALUES (?, ?, ?, ?)";
             PreparedStatement preparedStatement = connect.prepareStatement(insertStatement);
 
             java.sql.Date sqlDate = new java.sql.Date(agendamento.getData().getTime());

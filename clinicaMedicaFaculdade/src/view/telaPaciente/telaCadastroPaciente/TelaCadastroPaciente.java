@@ -192,7 +192,7 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
                       
 
             // envia os dados para o Controlador cadastrar
-            if (this.controlador.cadastrar(nome, dataNascimento, endereco, telefone)){
+            if (this.controlador.cadastrarPaciente(nome, dataNascimento, endereco, telefone)){
                 JOptionPane.showMessageDialog(rootPane, "Paciente cadastrado com sucesso!");
 
                 this.inputNome.setText("");

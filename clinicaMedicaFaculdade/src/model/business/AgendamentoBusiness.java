@@ -8,88 +8,132 @@ import java.util.List;
 import model.entity.Agendamento;
 import model.entity.Medico;
 import model.entity.Paciente;
+import model.entity.enums.Consultorio;
 import model.entity.enums.Periodo;
 import static model.entity.enums.Periodo.MATUTINO;
+import wrapper.AgendamentoWrapper;
 
 public class AgendamentoBusiness {
     
     private AgendamentoDAO agendamentoDAO;
     private MedicoBusiness medicoBusiness;
+    private PacienteBusiness pacienteBusiness;
+    private AgendamentoWrapper agendamentoWrapper;
 
     public AgendamentoBusiness() {
-        this.agendamentoDAO = new AgendamentoDAO();
-        this.medicoBusiness = new MedicoBusiness();
+        agendamentoDAO = new AgendamentoDAO();
+        medicoBusiness = new MedicoBusiness();
+        pacienteBusiness = new PacienteBusiness();
+        agendamentoWrapper = new AgendamentoWrapper();
     }
     
+    public boolean saveAgendamento(Agendamento agendamento) {
+        boolean isSuccess = agendamentoDAO.insertAgendamento(agendamento);
+        return isSuccess;
+    }
+ 
+    public List<AgendamentoWrapper> getListaAgendamento(Date dataAgendamento) {
 
-    
-    public List<Agendamento> getListaAgendamento(Date dataAgendamento) {
-
+        List<AgendamentoWrapper> todosAgendamentos = new ArrayList<>();
+        
         List<Medico> listaMedico = medicoBusiness.getMedicos();
         
-        List<Agendamento> todosAgendamentos = new ArrayList<>();
-        
+        // Para cada médico existente na base, cria os agendamentos dele e adiciona no balaio de "todos Agendamentos"
         for (int i = 0; i < listaMedico.size(); i++) {
             
             Medico medico = listaMedico.get(i);
-            List<Agendamento> novosAgendamentos = getAgendaMedico(medico, dataAgendamento);
+            List<AgendamentoWrapper> novosAgendamentos = getAgendaMedico(medico, dataAgendamento);
             todosAgendamentos.addAll(novosAgendamentos); 
         }
-        return todosAgendamentos;
+        
+        // Pegar lista de agendamentos da base que existem  para dataAgendamento.
+        // -> criar metodo no DAO para buscar agendamentos na data passada (recebe um date)
+        // SELECT * FROM clinica_medica.agendamento WHERE data="2021-06-08"
+        
+        
+        // agendamentosDoDia (Agendamento) <- slots  de agendamento ocupado
+        // todosAgendamentos (AgendamentoWrapper) <- todos os slots de agendamentos
+        
+        // Dados mocks (como se tivessem vindo da base)
+        List<Agendamento> agendamentosDoDia = new ArrayList<>();
+        agendamentosDoDia.add(new Agendamento(dataAgendamento, Time.valueOf("11:00:00"), 4, 2));
+        agendamentosDoDia.add(new Agendamento(dataAgendamento, Time.valueOf("10:00:00"), 2, 5));
+        agendamentosDoDia.add(new Agendamento(dataAgendamento, Time.valueOf("15:00:00"), 5, 8));
+        
+        for (int i = 0; i < todosAgendamentos.size(); i++) {
+            AgendamentoWrapper wrapper = todosAgendamentos.get(i);
+            
+            Agendamento agendamento = encontraAgendamentoParaWrapper(wrapper, agendamentosDoDia);
+            if (agendamento == null) {
+                continue;
+            }
+            
+            int idPaciente = agendamento.getIdPaciente();
+            wrapper.setNomePaciente("Paciente ID: " + idPaciente + "");
+            
+            // get paciente da base para obter o nome.
+//            Paciente paciente = pacienteBusiness.getPacienteById(idPaciente);
+//            
+//            String nomePaciente = paciente.getNome();
+//            wrapper.setNomePaciente(nomePaciente);
+        }
 
+        
+        return todosAgendamentos;
     }
     
-    public List<Agendamento> getAgendaMedico(Medico medico, Date dataAgendamento) {
+    // se encontrar, retorna agendamento; se não, retorna null
+    public Agendamento encontraAgendamentoParaWrapper(AgendamentoWrapper wrapper, List<Agendamento> agendamentosDoDia) {
         
-        List<Agendamento> agendamentos = new ArrayList<>();
+        // buscar um agendamento que tenha um horarioAgendamento e idMedico iguais ao do wrapper.
+        // se encontrar, retornar o agendamento. se nao encontrar, retorna null
         
-        Time sqlTime1  = Time.valueOf("07:00:00");
-        Time sqlTime2  = Time.valueOf("08:00:00");
-        Time sqlTime3  = Time.valueOf("09:00:00");
-        Time sqlTime4  = Time.valueOf("10:00:00");
-        Time sqlTime5  = Time.valueOf("11:00:00");
-        Time sqlTime6  = Time.valueOf("12:00:00");
-        Time sqlTime7  = Time.valueOf("13:00:00");
-        Time sqlTime8  = Time.valueOf("14:00:00");
-        Time sqlTime9  = Time.valueOf("15:00:00");
-        Time sqlTime10  = Time.valueOf("16:00:00");
-        Time sqlTime11  = Time.valueOf("17:00:00");
-        Time sqlTime12  = Time.valueOf("18:00:00");
+        for (int i = 0; i < agendamentosDoDia.size(); i++) {
+            Agendamento currAgendamento = agendamentosDoDia.get(i);
+            
+            if (wrapper.getHorarioAgendamento().equals(currAgendamento.getHorario()) &&
+                wrapper.getIdMedico() == currAgendamento.getIdMedico()
+            ) {
+                return currAgendamento;
+            }
+        }
         
-        int idMedico = medico.getId();
+        return null;
+    }
+    
+    public List<AgendamentoWrapper> getAgendaMedico(Medico medico, Date dataAgendamento) {
+        
+        List<AgendamentoWrapper> agendamentos = new ArrayList<>();
+       
+        String nome = medico.getNome();
+        String especialidade = medico.getEspecialidade();
+        Consultorio consultorio = medico.getConsultorio();
         Periodo periodoMedico = medico.getPeriodo();
-        
+        String nomePaciente = "";
+        int idMedico = medico.getId();
+           
         if(periodoMedico.equals(MATUTINO)){
-            Agendamento agendamento1 = new Agendamento(dataAgendamento, sqlTime1, idMedico, 0);
-            Agendamento agendamento2 = new Agendamento(dataAgendamento, sqlTime2, idMedico, 0);
-            Agendamento agendamento3 = new Agendamento(dataAgendamento, sqlTime3, idMedico, 0);
-            Agendamento agendamento4 = new Agendamento(dataAgendamento, sqlTime4, idMedico, 0);
-            Agendamento agendamento5 = new Agendamento(dataAgendamento, sqlTime5, idMedico, 0);
-            Agendamento agendamento6 = new Agendamento(dataAgendamento, sqlTime6, idMedico, 0);
-            agendamentos.add(agendamento1);
-            agendamentos.add(agendamento2);
-            agendamentos.add(agendamento3);
-            agendamentos.add(agendamento4);
-            agendamentos.add(agendamento5);
-            agendamentos.add(agendamento6);
+//            String currTime = "0" + i + ":00:00";
+//            valueOf(currTime)
+//            new wrapper passando os dados
+//            adicionar o wrapper no acumulador
+
+            for (int i = 7; i  <= 12; i++) {
+                String currTime = "0" + i + ":00:00";
+                Time time = Time.valueOf(currTime);
+                
+                AgendamentoWrapper agendamento = new AgendamentoWrapper(time, nome, especialidade, consultorio, nomePaciente, idMedico);
+                agendamentos.add(agendamento);
+            }
+
         } else {
-            Agendamento agendamento7 = new Agendamento(dataAgendamento, sqlTime7, idMedico, 0);
-            Agendamento agendamento8 = new Agendamento(dataAgendamento, sqlTime8, idMedico, 0);
-            Agendamento agendamento9 = new Agendamento(dataAgendamento, sqlTime9, idMedico, 0);
-            Agendamento agendamento10 = new Agendamento(dataAgendamento, sqlTime10, idMedico, 0);
-            Agendamento agendamento11 = new Agendamento(dataAgendamento, sqlTime11, idMedico, 0);
-            Agendamento agendamento12 = new Agendamento(dataAgendamento, sqlTime12, idMedico, 0);
-            agendamentos.add(agendamento7);
-            agendamentos.add(agendamento8);
-            agendamentos.add(agendamento9);
-            agendamentos.add(agendamento10);
-            agendamentos.add(agendamento11);
-            agendamentos.add(agendamento12);
+            for (int i = 13; i <= 18; i++) {
+                String currTime = "0" + i + ":00:00";
+                Time time = Time.valueOf(currTime);
+                AgendamentoWrapper agendamento = new AgendamentoWrapper(time, nome, especialidade, consultorio, nomePaciente, idMedico);
+                agendamentos.add(agendamento);
+            }
         }
         return agendamentos;
-        
     }
-   
-
-
 }

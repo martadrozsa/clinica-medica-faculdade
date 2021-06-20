@@ -19,7 +19,7 @@ public class PacienteBusiness {
         return pacienteDAO.getMinhaListaPacientes();
     }
 
-    public boolean insertPacienteIntoBD(Paciente paciente) {
+    public boolean savePaciente(Paciente paciente) {
         boolean isSuccess = pacienteDAO.insertPaciente(paciente);
         return isSuccess;
     }
