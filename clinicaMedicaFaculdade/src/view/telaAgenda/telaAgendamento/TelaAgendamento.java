@@ -32,6 +32,7 @@ public class TelaAgendamento extends javax.swing.JFrame {
     private Date dataAgendamento;
     String[][] matrizAgendamento;
     
+    
     public TelaAgendamento() {
         initComponents();
         buscarPaciente = new TelaBuscarPaciente();
@@ -47,7 +48,6 @@ public class TelaAgendamento extends javax.swing.JFrame {
         if (matrizAgendamento[row][4] == null || matrizAgendamento[row][4].equals("")) {
             return false;
         }
-        
         return true;
     }
 
@@ -303,8 +303,7 @@ public class TelaAgendamento extends javax.swing.JFrame {
     public void recebeDadosPaciente(int idInt, String nome, String dataNascimento) {
         this.inputNomePaciente.setText(nome);
         this.inputDataNascimento.setText(dataNascimento);
-        idPaciente = idInt;
-        
+        idPaciente = idInt;  
     }   
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -369,11 +368,11 @@ public class TelaAgendamento extends javax.swing.JFrame {
         
         for (int i = 0; i < matrizAgendamento.length; i++) {
             modelo.addRow(new Object[]{
-            matrizAgendamento[i][0],
-            matrizAgendamento[i][1],
-            matrizAgendamento[i][2],
-            matrizAgendamento[i][3],
-            matrizAgendamento[i][4],
+                    matrizAgendamento[i][0],
+                    matrizAgendamento[i][1],
+                    matrizAgendamento[i][2],
+                    matrizAgendamento[i][3],
+                    matrizAgendamento[i][4],
             });
             
         }

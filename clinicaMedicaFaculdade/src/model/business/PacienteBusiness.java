@@ -36,5 +36,11 @@ public class PacienteBusiness {
     public List<Paciente> getMinhaListaByNome(String inputNomePesquisa) {
         return pacienteDAO.getMinhaListByNome(inputNomePesquisa);
     }
+    
+    public Paciente getMinhaListaById(int id){
+        return pacienteDAO.getMinhaListaById(id);
+    }
+    
+    
 
 }

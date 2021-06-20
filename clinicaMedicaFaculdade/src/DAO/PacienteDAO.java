@@ -76,8 +76,9 @@ public class PacienteDAO {
     }
     
     public boolean insertPaciente(Paciente paciente) {
+        String insertStatement = "INSERT INTO paciente(nome, data_nascimento, endereco, telefone) VALUES (?, ?, ?, ?)";
+        
         try {
-            String insertStatement = "INSERT INTO paciente(nome, data_nascimento, endereco, telefone) VALUES (?, ?, ?, ?)";
             PreparedStatement preparedStatement = connect.prepareStatement(insertStatement);
             
             java.sql.Date sqlDate = new java.sql.Date(paciente.getDataNascimento().getTime());
@@ -98,6 +99,7 @@ public class PacienteDAO {
     
     public boolean updatePaciente(Paciente paciente) {
         String updateStatement = "UPDATE paciente SET nome=?, data_nascimento=?, endereco=?, telefone=? WHERE id=?";
+        
         try {
             PreparedStatement preparedStatement = connect.prepareStatement(updateStatement);
             
@@ -120,8 +122,9 @@ public class PacienteDAO {
     }
       
     public boolean deletePacienteById(int id) {
+        String deleteStatement = "DELETE FROM paciente WHERE id=?";
+        
         try {
-            String deleteStatement = "DELETE FROM paciente WHERE id=?";
             PreparedStatement preparedStatement = connect.prepareStatement(deleteStatement);
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
@@ -154,6 +157,28 @@ public class PacienteDAO {
         } catch (Exception ex) {
             System.out.println("Error while querying data: " + ex.toString());
             return new ArrayList<>();
+        }
+    }
+    
+    public Paciente getMinhaListaById(int id)  {
+        String queryStatement = "SELECT * FROM paciente WHERE id=?";
+        
+        try {
+           PreparedStatement preparedStatement = connect.prepareCall(queryStatement);
+           preparedStatement.setInt(1, id);
+           
+           ResultSet resultSet = preparedStatement.executeQuery();
+           List<Paciente> pacientes = parseResultSetToPaciente(resultSet);
+           preparedStatement.close();
+           
+           if(pacientes.size() > 0){
+               return pacientes.get(0);
+           }
+           return null;
+           
+        } catch (Exception ex) {
+            System.out.println("Error while querying data: " + ex.toString());
+            return null;
         }
     }
  

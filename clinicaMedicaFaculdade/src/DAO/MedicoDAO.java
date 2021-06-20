@@ -49,7 +49,7 @@ public class MedicoDAO {
 
             List<Medico> medicos = parseResultSetToMedico(resultSet);
 
-            // Todos os pacientes na lista "pacientes"
+            // Todos os medicos na lista "medicos"
             return medicos;
             
         } catch (Exception ex) {

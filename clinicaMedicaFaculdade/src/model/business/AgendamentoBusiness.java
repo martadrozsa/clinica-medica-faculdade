@@ -38,7 +38,7 @@ public class AgendamentoBusiness {
         
         List<Medico> listaMedico = medicoBusiness.getMedicos();
         
-        // Para cada médico existente na base, cria os agendamentos dele e adiciona no balaio de "todos Agendamentos"
+        // Para cada médico existente na base, cria os slots disponíveis de agendamentos do médico e adiciona na lista de "todos Agendamentos"
         for (int i = 0; i < listaMedico.size(); i++) {
             
             Medico medico = listaMedico.get(i);
@@ -50,16 +50,13 @@ public class AgendamentoBusiness {
         // -> criar metodo no DAO para buscar agendamentos na data passada (recebe um date)
         // SELECT * FROM clinica_medica.agendamento WHERE data="2021-06-08"
         
-        
         // agendamentosDoDia (Agendamento) <- slots  de agendamento ocupado
         // todosAgendamentos (AgendamentoWrapper) <- todos os slots de agendamentos
         
         // Dados mocks (como se tivessem vindo da base)
-        List<Agendamento> agendamentosDoDia = new ArrayList<>();
-        agendamentosDoDia.add(new Agendamento(dataAgendamento, Time.valueOf("11:00:00"), 4, 2));
-        agendamentosDoDia.add(new Agendamento(dataAgendamento, Time.valueOf("10:00:00"), 2, 5));
-        agendamentosDoDia.add(new Agendamento(dataAgendamento, Time.valueOf("15:00:00"), 5, 8));
         
+        List<Agendamento> agendamentosDoDia = agendamentoDAO.getAgendamentosDoDia(dataAgendamento);
+            
         for (int i = 0; i < todosAgendamentos.size(); i++) {
             AgendamentoWrapper wrapper = todosAgendamentos.get(i);
             
@@ -69,16 +66,10 @@ public class AgendamentoBusiness {
             }
             
             int idPaciente = agendamento.getIdPaciente();
-            wrapper.setNomePaciente("Paciente ID: " + idPaciente + "");
-            
-            // get paciente da base para obter o nome.
-//            Paciente paciente = pacienteBusiness.getPacienteById(idPaciente);
-//            
-//            String nomePaciente = paciente.getNome();
-//            wrapper.setNomePaciente(nomePaciente);
+            Paciente paciente = pacienteBusiness.getMinhaListaById(idPaciente);
+            String nomePaciente = paciente.getNome();
+            wrapper.setNomePaciente(nomePaciente);           
         }
-
-        
         return todosAgendamentos;
     }
     
