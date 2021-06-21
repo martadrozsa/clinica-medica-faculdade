@@ -5,6 +5,12 @@
  */
 package view.telaAgenda.telaConsultaAgendamento;
 
+import contoller.AgendamentoController;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import view.telaAgenda.telaAgendamento.TelaAgendamento;
+
 /**
  *
  * @author Marta
@@ -14,8 +20,17 @@ public class TelaConsulta extends javax.swing.JFrame {
     /**
      * Creates new form TelaConsulta
      */
+    
+    private AgendamentoController agendamentoController;
+    private Date dataAgendamento;
+    private TelaAgendamento agendamentoView;
+    
     public TelaConsulta() {
         initComponents();
+        agendamentoController = new AgendamentoController();
+        String[][] matrizAgendamento;
+        agendamentoView = new TelaAgendamento();
+               
     }
 
     /**
@@ -31,10 +46,10 @@ public class TelaConsulta extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         inputPesquisaAgenda = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        calendarDataAgendamento = new com.toedter.calendar.JDateChooser();
         btnLimpar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelaAgendamentos = new javax.swing.JTable();
         btnSair = new javax.swing.JButton();
         btnVisualizar = new javax.swing.JButton();
         txtTituloMedico2 = new javax.swing.JLabel();
@@ -42,18 +57,34 @@ public class TelaConsulta extends javax.swing.JFrame {
         txtTituloMedico1.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
         txtTituloMedico1.setText("Agendamento");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/topo.png"))); // NOI18N
         jLabel2.setToolTipText("");
 
         btnPesquisar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
+
+        calendarDataAgendamento.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                calendarDataAgendamentoPropertyChange(evt);
+            }
+        });
 
         btnLimpar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaAgendamentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -79,14 +110,24 @@ public class TelaConsulta extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
+        tabelaAgendamentos.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tabelaAgendamentos);
 
         btnSair.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
 
         btnVisualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnVisualizar.setText("Visualizar");
+        btnVisualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVisualizarActionPerformed(evt);
+            }
+        });
 
         txtTituloMedico2.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
         txtTituloMedico2.setText("Agenda");
@@ -108,8 +149,8 @@ public class TelaConsulta extends javax.swing.JFrame {
                         .addGap(40, 40, 40)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(39, 39, 39)
+                                .addComponent(calendarDataAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(38, 38, 38)
                                 .addComponent(btnLimpar))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(inputPesquisaAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 929, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -134,7 +175,7 @@ public class TelaConsulta extends javax.swing.JFrame {
                     .addComponent(btnPesquisar))
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(calendarDataAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLimpar))
                 .addGap(70, 70, 70)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -146,7 +187,81 @@ public class TelaConsulta extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+    
+       
+    public void preencheTabela(String[][] matrizAgendamento) {
+        
+       DefaultTableModel modelo = (DefaultTableModel) this.tabelaAgendamentos.getModel();
+       modelo.setNumRows(0);
+
+       for (int i = 0; i < matrizAgendamento.length; i++) {
+           modelo.addRow(new Object[]{
+           matrizAgendamento[i][0],
+           matrizAgendamento[i][1],
+           matrizAgendamento[i][2],
+           matrizAgendamento[i][3],
+           matrizAgendamento[i][4],
+           matrizAgendamento[i][5]
+           });
+       }
+   }
+    
+    private void atualizaTabela() {
+        dataAgendamento = calendarDataAgendamento.getDate(); 
+        
+        String inputPesquisa = this.inputPesquisaAgenda.getText();
+     
+        String[][] linhasMatriz = agendamentoController.getAgendamentosByDateConsulta(inputPesquisa, dataAgendamento);
+        if (linhasMatriz.length > 0) {
+            preencheTabela(linhasMatriz);
+        } 
+        else {
+            limpaTabela();
+        }
+    }
+    
+    private void limpaTabela() {
+        // inicializa a matriz  com strings vazias.
+        String[][] matrizVazia = new String[10][6];
+        
+        // fazer "for" que passa por todas as linhas e seta uma String vazia na  coluna.
+        for (int i = 0; i< matrizVazia.length; i++) {
+           matrizVazia[i][0] = "";
+           matrizVazia[i][1] = "";
+           matrizVazia[i][2] = "";
+           matrizVazia[i][3] = "";
+           matrizVazia[i][4] = "";
+           matrizVazia[i][5] = "";
+        }
+        preencheTabela(matrizVazia);
+    }
+    
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        atualizaTabela();       
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+    
+    private void calendarDataAgendamentoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_calendarDataAgendamentoPropertyChange
+        if (calendarDataAgendamento.getDate() == null) {
+            return;
+        }
+
+        atualizaTabela();
+    }//GEN-LAST:event_calendarDataAgendamentoPropertyChange
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarActionPerformed
+        agendamentoView.mostrarTela(true);
+    }//GEN-LAST:event_btnVisualizarActionPerformed
+
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        calendarDataAgendamento.setDate(null);
+        atualizaTabela();
+    }//GEN-LAST:event_btnLimparActionPerformed
 
     /**
      * @param args the command line arguments
@@ -188,11 +303,11 @@ public class TelaConsulta extends javax.swing.JFrame {
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnVisualizar;
+    private com.toedter.calendar.JDateChooser calendarDataAgendamento;
     private javax.swing.JTextField inputPesquisaAgenda;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tabelaAgendamentos;
     private javax.swing.JLabel txtTituloMedico1;
     private javax.swing.JLabel txtTituloMedico2;
     // End of variables declaration//GEN-END:variables

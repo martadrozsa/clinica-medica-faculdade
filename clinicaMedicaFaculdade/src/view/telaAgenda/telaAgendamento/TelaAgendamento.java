@@ -36,15 +36,27 @@ public class TelaAgendamento extends javax.swing.JFrame {
     public TelaAgendamento() {
         initComponents();
         buscarPaciente = new TelaBuscarPaciente();
-        agendamentoController = new AgendamentoController();
+        agendamentoController = new AgendamentoController(); 
     }
     
+    public void mostrarTela(boolean isModoReagendamento) {
+        if(isModoReagendamento == false){
+            panelAgendamento.setVisible(true);
+            panelReagendamento.setVisible(false);
+        //modo edição
+        } else {
+            panelReagendamento.setVisible(true);
+            panelAgendamento.setVisible(false);
+        }
+        setVisible(true);
+    }
+
+
     public boolean verificaAgendamento(int row) {
-        
         if (matrizAgendamento == null || matrizAgendamento.length < row) {
             return false;
         }
-        
+
         if (matrizAgendamento[row][4] == null || matrizAgendamento[row][4].equals("")) {
             return false;
         }
@@ -85,13 +97,14 @@ public class TelaAgendamento extends javax.swing.JFrame {
                 return c;
             }
         };
-        jPanel1 = new javax.swing.JPanel();
-        tbnCancelar = new javax.swing.JButton();
+        panelAgendamento = new javax.swing.JPanel();
+        btnCancelar = new javax.swing.JButton();
         btnAgendar = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jButton5 = new javax.swing.JButton();
+        panelReagendamento = new javax.swing.JPanel();
+        btnExcluir = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnReagendar = new javax.swing.JButton();
+        btnCancelarReagendamento = new javax.swing.JButton();
 
         txtTituloMedico.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
         txtTituloMedico.setText("Cadastro Médico");
@@ -165,11 +178,11 @@ public class TelaAgendamento extends javax.swing.JFrame {
         tabelaAgendamentos.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tabelaAgendamentos);
 
-        tbnCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        tbnCancelar.setText("Cancelar");
-        tbnCancelar.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tbnCancelarActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -181,54 +194,66 @@ public class TelaAgendamento extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(tbnCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 385, Short.MAX_VALUE)
+        javax.swing.GroupLayout panelAgendamentoLayout = new javax.swing.GroupLayout(panelAgendamento);
+        panelAgendamento.setLayout(panelAgendamentoLayout);
+        panelAgendamentoLayout.setHorizontalGroup(
+            panelAgendamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAgendamentoLayout.createSequentialGroup()
+                .addContainerGap(36, Short.MAX_VALUE)
+                .addComponent(btnCancelar)
+                .addGap(103, 103, 103)
                 .addComponent(btnAgendar))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        panelAgendamentoLayout.setVerticalGroup(
+            panelAgendamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAgendamentoLayout.createSequentialGroup()
                 .addContainerGap(25, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tbnCancelar)
+                .addGroup(panelAgendamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelar)
                     .addComponent(btnAgendar))
                 .addGap(23, 23, 23))
         );
 
-        jButton5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton5.setText("Excluir");
+        btnExcluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnExcluir.setText("Excluir");
 
         jButton6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton6.setText("Editar");
 
-        jButton4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton4.setText("Agendar");
+        btnReagendar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnReagendar.setText("Reagendar");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+        btnCancelarReagendamento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnCancelarReagendamento.setText("Cancelar");
+        btnCancelarReagendamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarReagendamentoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelReagendamentoLayout = new javax.swing.GroupLayout(panelReagendamento);
+        panelReagendamento.setLayout(panelReagendamentoLayout);
+        panelReagendamentoLayout.setHorizontalGroup(
+            panelReagendamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelReagendamentoLayout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addComponent(btnCancelarReagendamento)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                 .addComponent(jButton6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
-                .addComponent(jButton5)
+                .addGap(73, 73, 73)
+                .addComponent(btnExcluir)
                 .addGap(63, 63, 63)
-                .addComponent(jButton4))
+                .addComponent(btnReagendar))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        panelReagendamentoLayout.setVerticalGroup(
+            panelReagendamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelReagendamentoLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5)
+                .addGroup(panelReagendamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnExcluir)
                     .addComponent(jButton6)
-                    .addComponent(jButton4))
+                    .addComponent(btnReagendar)
+                    .addComponent(btnCancelarReagendamento))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
@@ -243,26 +268,27 @@ public class TelaAgendamento extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel4))
-                        .addGap(43, 43, 43)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(inputNomePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(20, 20, 20)
-                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(calendarDataAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(inputDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(79, 79, 79)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(panelReagendamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(205, 205, 205)
+                        .addComponent(panelAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel4))
+                            .addGap(43, 43, 43)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(inputNomePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(20, 20, 20)
+                                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(calendarDataAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(inputDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1246, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -289,11 +315,11 @@ public class TelaAgendamento extends javax.swing.JFrame {
                         .addComponent(calendarDataAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(47, 47, 47)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(54, 54, 54))
+                    .addComponent(panelReagendamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26))
         );
 
         pack();
@@ -309,16 +335,19 @@ public class TelaAgendamento extends javax.swing.JFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         buscarPaciente.mostrar(this);
     }//GEN-LAST:event_btnBuscarActionPerformed
-
+    
+    private void atualizaTabela() {
+        dataAgendamento = calendarDataAgendamento.getDate();
+        String[][] agendamentos = agendamentoController.getAgendamentosByDate(dataAgendamento);
+        preencheTabela(agendamentos);   
+    }
+     
     private void calendarDataAgendamentoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_calendarDataAgendamentoPropertyChange
             Date dataAgendamento = null;
             if (this.calendarDataAgendamento.getDate() == null) {
                 return;
             }
-            dataAgendamento = calendarDataAgendamento.getDate();
-            String[][] agendamentos = agendamentoController.getAgendamentosByDate(dataAgendamento);
-            preencheTabela(agendamentos);
-            
+            atualizaTabela();       
     }//GEN-LAST:event_calendarDataAgendamentoPropertyChange
 
     private void btnAgendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarActionPerformed
@@ -352,11 +381,16 @@ public class TelaAgendamento extends javax.swing.JFrame {
         agendamentoController.cadastrarAgendamento(dataAgendaConsulta, horarioSelecionado, idMedicoSelecionado, idPaciente);
         
         JOptionPane.showMessageDialog(null, "Agendamento cadastrado com sucesso!");
+        atualizaTabela();    
     }//GEN-LAST:event_btnAgendarActionPerformed
-
-    private void tbnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbnCancelarActionPerformed
+   
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         setVisible(false);
-    }//GEN-LAST:event_tbnCancelarActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnCancelarReagendamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarReagendamentoActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_btnCancelarReagendamentoActionPerformed
 
 
     // método para preencher a tabela com os agendamentos
@@ -418,21 +452,22 @@ public class TelaAgendamento extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgendar;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnCancelarReagendamento;
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnReagendar;
     private com.toedter.calendar.JDateChooser calendarDataAgendamento;
     private javax.swing.JFormattedTextField inputDataNascimento;
     private javax.swing.JTextField inputNomePaciente;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel panelAgendamento;
+    private javax.swing.JPanel panelReagendamento;
     private javax.swing.JTable tabelaAgendamentos;
-    private javax.swing.JButton tbnCancelar;
     private javax.swing.JLabel txtTituloMedico;
     private javax.swing.JLabel txtTituloMedico1;
     // End of variables declaration//GEN-END:variables

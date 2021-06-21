@@ -1,6 +1,7 @@
 package wrapper;
 
 import java.sql.Time;
+import java.util.Date;
 import model.entity.enums.Consultorio;
 
 public class AgendamentoWrapper {
@@ -11,6 +12,8 @@ public class AgendamentoWrapper {
     private Consultorio consultorio;
     private String nomePaciente;
     private int idMedico;
+    private Date dataNascimento;
+    private Date dataAgendamento;
 
     public AgendamentoWrapper() {
     }
@@ -23,9 +26,17 @@ public class AgendamentoWrapper {
         this.nomePaciente = nomePaciente;
         this.idMedico = idMedico;
     }
-    
 
-    public Time getHorarioAgendamento() {
+    public AgendamentoWrapper(String nomePaciente, Date dataNascimento, Time horarioAgendamento, Date dataAgendamento, String nomeMedico, Consultorio consultorio) {
+        this.nomePaciente = nomePaciente;
+        this.dataNascimento = dataNascimento;
+        this.horarioAgendamento = horarioAgendamento;
+        this.dataAgendamento = dataAgendamento;
+        this.nomeMedico = nomeMedico;
+        this.consultorio = consultorio;
+    }
+    
+      public Time getHorarioAgendamento() {
         return horarioAgendamento;
     }
 
@@ -73,6 +84,20 @@ public class AgendamentoWrapper {
         this.idMedico = idMedico;
     }
 
-    
-   
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public Date getDataAgendamento() {
+        return dataAgendamento;
+    }
+
+    public void setDataAgendamento(Date dataAgendamento) {
+        this.dataAgendamento = dataAgendamento;
+    }
+ 
 }

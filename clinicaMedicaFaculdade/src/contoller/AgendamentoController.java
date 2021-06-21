@@ -51,5 +51,33 @@ public class AgendamentoController {
         return matrizAgendamentos;
     }
     
+    
+        public String[][] getAgendamentosByDateConsulta(String nome, Date dataAgendamento){
+        
+        List<AgendamentoWrapper> listaAgendamentosWrappers = agendamentoBusinnes.getListaAgendamentoWrapper(nome, dataAgendamento);
+        String[][] matrizAgendamentosWrappers = new String[listaAgendamentosWrappers.size()][6];
+        
+        for(int i = 0; i < listaAgendamentosWrappers.size(); i++) {
+            
+            AgendamentoWrapper agendamentoWrapper = listaAgendamentosWrappers.get(i);
+            
+            String consultorio = "";
+            if (agendamentoWrapper.getConsultorio().equals(Consultorio.CONSULTORIO_1)) {
+                consultorio = "Consultório 1";
+            }
+            else {
+                consultorio = "Consultório 2";
+            }            
+            
+            matrizAgendamentosWrappers[i][0] = agendamentoWrapper.getNomePaciente() + "";
+            matrizAgendamentosWrappers[i][1] = agendamentoWrapper.getDataNascimento() + "";
+            matrizAgendamentosWrappers[i][2] = agendamentoWrapper.getHorarioAgendamento()+ "";
+            matrizAgendamentosWrappers[i][3] = agendamentoWrapper.getDataAgendamento() + "";
+            matrizAgendamentosWrappers[i][4] = agendamentoWrapper.getNomeMedico()+ "";
+            matrizAgendamentosWrappers[i][5] = consultorio;
+        }
+        return matrizAgendamentosWrappers;
+    }
+    
 
 }

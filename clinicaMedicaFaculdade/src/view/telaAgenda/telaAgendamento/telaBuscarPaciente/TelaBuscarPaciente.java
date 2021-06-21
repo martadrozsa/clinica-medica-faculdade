@@ -22,7 +22,6 @@ public class TelaBuscarPaciente extends javax.swing.JFrame {
      */
     
     private PacienteController pacienteController;
-    
     private TelaAgendamento agendamentoView;
             
     public TelaBuscarPaciente() {
@@ -166,7 +165,7 @@ public class TelaBuscarPaciente extends javax.swing.JFrame {
   
 
    //@SuppressWarnings("uncheced")
-   public void carregaTabela(String[][] linhasMatriz) {
+   public void preencheTabela(String[][] linhasMatriz) {
 
        DefaultTableModel modelo = (DefaultTableModel) this.tabelaPacientes.getModel();
        modelo.setNumRows(0);
@@ -188,7 +187,7 @@ public class TelaBuscarPaciente extends javax.swing.JFrame {
                  return false;
             }
             return true;
-     }
+    }
     
     private void limpaTabela() {
         // inicializa a matriz  com strings vazias.
@@ -202,7 +201,7 @@ public class TelaBuscarPaciente extends javax.swing.JFrame {
            matrizVazia[i][3] = "";
            matrizVazia[i][4] = "";
         }
-        carregaTabela(matrizVazia);
+        preencheTabela(matrizVazia);
     }
     
     public void mostrar(TelaAgendamento agendamentoView) {
@@ -223,7 +222,7 @@ public class TelaBuscarPaciente extends javax.swing.JFrame {
 
         String[][] linhasMatriz = pacienteController.getMinhaMatrizTexto(input);
         if (linhasMatriz.length > 0) {
-            carregaTabela(linhasMatriz);
+            preencheTabela(linhasMatriz);
         } else {
           limpaTabela();  
         }

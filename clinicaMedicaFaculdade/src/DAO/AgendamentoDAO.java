@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import model.entity.Agendamento;
+import model.entity.enums.Consultorio;
+import wrapper.AgendamentoWrapper;
 
 
 public class AgendamentoDAO {
@@ -44,6 +46,7 @@ public class AgendamentoDAO {
     public List<Agendamento> getListaAgendamentos() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
     
     public boolean insertAgendamento(Agendamento agendamento) {
         String insertStatement = "INSERT INTO agendamento (horario, data, id_medico, id_paciente) VALUES (?, ?, ?, ?)";
@@ -104,7 +107,7 @@ public class AgendamentoDAO {
             
             List<Agendamento> agendamentos = parseResultSetToAgendamento(resultSet);
             preparedStatement.close();
-            // Todos os pacientes na lista "pacientes"
+            // Todos os agendamentos na lista "agendamentos"
             return agendamentos;
 
         } catch (Exception ex) {
@@ -112,5 +115,107 @@ public class AgendamentoDAO {
             return new ArrayList<>();
         }
     }
+    
+    // transforma as rows do database -> objetos em lista local
+    // transforma os dados vindos das tabelas Agendamento, Médico e paciente na base em dados (objetos) em uma lista
+    public List<AgendamentoWrapper> parseResultSetToAgendamentoWrapper(ResultSet resultSet) throws SQLException {
+        List<AgendamentoWrapper> agendamentosWrappers = new ArrayList<>();
+        
+        while (resultSet.next()) {
+            String nomePaciente = resultSet.getString("nome_paciente");
+            Date dataNascimento = resultSet.getDate("data_nascimento");
+            Time horarioAgendamento = resultSet.getTime("horario");
+            Date dataAgendamento = resultSet.getDate("data");
+            String nomeMedico = resultSet.getString("nome_medico");
+            String nomeConsultorio = resultSet.getString("consultorio");
+            
+            Consultorio consultorio = Consultorio.valueOf(nomeConsultorio);
+
+            AgendamentoWrapper agendamentoWrapper = new AgendamentoWrapper(nomePaciente, dataNascimento, horarioAgendamento, dataAgendamento, nomeMedico, consultorio);
+            agendamentosWrappers.add(agendamentoWrapper);
+        }
+        return agendamentosWrappers;
+    }
+
+    public List<AgendamentoWrapper> getAgendamentosWrapperDoDia(Date dataAgendamento) {
+
+        String queryStatement = "SELECT pe.nome as nome_paciente, pe.data_nascimento, horario, data, me.nome as nome_medico, me.consultorio " +
+                                "FROM agendamento as age " +
+                                "JOIN medico as me ON age.id_medico=me.id " +
+                                "JOIN paciente as pe ON age.id_paciente=pe.id " +
+                                "WHERE data=?";
+
+        try {
+            PreparedStatement preparedStatement = connect.prepareStatement(queryStatement);
+
+            java.sql.Date sqlDate = new java.sql.Date(dataAgendamento.getTime());
+
+            preparedStatement.setDate(1, sqlDate);
+
+            // Recupera dados da base
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            List<AgendamentoWrapper> agendamentosWrappers = parseResultSetToAgendamentoWrapper(resultSet);
+            preparedStatement.close();
+            return agendamentosWrappers;
+
+        } catch (Exception ex) {
+            System.out.println("Error while querying data: " + ex.toString());
+            return new ArrayList<>();
+        }
+    }
+    
+    public List<AgendamentoWrapper> getAgendamentosWrapperDoDiaByNome(String nome) {
+        String termoBusca = "%" + nome + "%";
+        String queryStatement = "SELECT pe.nome as nome_paciente, pe.data_nascimento, horario, data, me.nome as nome_medico, me.consultorio " +
+                                "FROM agendamento as age " +
+                                "JOIN medico as me ON age.id_medico=me.id " +
+                                "JOIN paciente as pe ON age.id_paciente=pe.id " +
+                                "WHERE pe.nome like ?";
+
+        try {
+            PreparedStatement preparedStatement = connect.prepareStatement(queryStatement);
+            preparedStatement.setString(1, termoBusca);
+
+            // Recupera dados da base
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<AgendamentoWrapper> agendamentosWrappers = parseResultSetToAgendamentoWrapper(resultSet);
+            preparedStatement.close();
+            return agendamentosWrappers;
+
+        } catch (Exception ex) {
+            System.out.println("Error while querying data: " + ex.toString());
+            return new ArrayList<>();
+        }
+    }
+    
+    public List<AgendamentoWrapper> getAgendamentosWrapperDoDiaByNomeEByData(String nome, Date dataAgendamento) {
+        String termoBusca = "%" + nome + "%";
+        String queryStatement = "SELECT pe.nome as nome_paciente, pe.data_nascimento, horario, data, me.nome as nome_medico, me.consultorio " +
+                                "FROM agendamento as age " +
+                                "JOIN medico as me ON age.id_medico=me.id " +
+                                "JOIN paciente as pe ON age.id_paciente=pe.id " +
+                                "WHERE pe.nome like ? AND data=?";
+
+        try {
+            PreparedStatement preparedStatement = connect.prepareStatement(queryStatement);
+            preparedStatement.setString(1, termoBusca);
+            
+            java.sql.Date sqlDate = new java.sql.Date(dataAgendamento.getTime());
+            preparedStatement.setDate(2, sqlDate);
+
+            // Recupera dados da base
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<AgendamentoWrapper> agendamentosWrappers = parseResultSetToAgendamentoWrapper(resultSet);
+            preparedStatement.close();
+            return agendamentosWrappers;
+
+        } catch (Exception ex) {
+            System.out.println("Error while querying data: " + ex.toString());
+            return new ArrayList<>();
+        }
+    }
+ 
+
 
 }

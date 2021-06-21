@@ -27,13 +27,15 @@ public class AgendamentoBusiness {
         agendamentoWrapper = new AgendamentoWrapper();
     }
     
+    
     public boolean saveAgendamento(Agendamento agendamento) {
         boolean isSuccess = agendamentoDAO.insertAgendamento(agendamento);
         return isSuccess;
     }
  
+    
     public List<AgendamentoWrapper> getListaAgendamento(Date dataAgendamento) {
-
+        // todosAgendamentos (AgendamentoWrapper) <- todos os slots de agendamentos
         List<AgendamentoWrapper> todosAgendamentos = new ArrayList<>();
         
         List<Medico> listaMedico = medicoBusiness.getMedicos();
@@ -45,16 +47,8 @@ public class AgendamentoBusiness {
             List<AgendamentoWrapper> novosAgendamentos = getAgendaMedico(medico, dataAgendamento);
             todosAgendamentos.addAll(novosAgendamentos); 
         }
-        
-        // Pegar lista de agendamentos da base que existem  para dataAgendamento.
-        // -> criar metodo no DAO para buscar agendamentos na data passada (recebe um date)
-        // SELECT * FROM clinica_medica.agendamento WHERE data="2021-06-08"
-        
+            
         // agendamentosDoDia (Agendamento) <- slots  de agendamento ocupado
-        // todosAgendamentos (AgendamentoWrapper) <- todos os slots de agendamentos
-        
-        // Dados mocks (como se tivessem vindo da base)
-        
         List<Agendamento> agendamentosDoDia = agendamentoDAO.getAgendamentosDoDia(dataAgendamento);
             
         for (int i = 0; i < todosAgendamentos.size(); i++) {
@@ -73,12 +67,12 @@ public class AgendamentoBusiness {
         return todosAgendamentos;
     }
     
+    
     // se encontrar, retorna agendamento; se não, retorna null
     public Agendamento encontraAgendamentoParaWrapper(AgendamentoWrapper wrapper, List<Agendamento> agendamentosDoDia) {
         
         // buscar um agendamento que tenha um horarioAgendamento e idMedico iguais ao do wrapper.
         // se encontrar, retornar o agendamento. se nao encontrar, retorna null
-        
         for (int i = 0; i < agendamentosDoDia.size(); i++) {
             Agendamento currAgendamento = agendamentosDoDia.get(i);
             
@@ -88,9 +82,9 @@ public class AgendamentoBusiness {
                 return currAgendamento;
             }
         }
-        
         return null;
     }
+    
     
     public List<AgendamentoWrapper> getAgendaMedico(Medico medico, Date dataAgendamento) {
         
@@ -104,11 +98,6 @@ public class AgendamentoBusiness {
         int idMedico = medico.getId();
            
         if(periodoMedico.equals(MATUTINO)){
-//            String currTime = "0" + i + ":00:00";
-//            valueOf(currTime)
-//            new wrapper passando os dados
-//            adicionar o wrapper no acumulador
-
             for (int i = 7; i  <= 12; i++) {
                 String currTime = "0" + i + ":00:00";
                 Time time = Time.valueOf(currTime);
@@ -127,4 +116,27 @@ public class AgendamentoBusiness {
         }
         return agendamentos;
     }
+    
+   
+    //fazer o metodo
+    // o metodo recebe Date e Nome 
+    // verifica se tem nome e date, se houver nome e date, chama o metodo no DAO que nome e date
+    // se houver apenas o nome, chama o metodo do DAO que tem nome
+    // se houuver apenas date, chama o metodo do DAO que tem date
+    
+    public List<AgendamentoWrapper> getListaAgendamentoWrapper(String nome, Date dataAgendamento) {
+
+        if(dataAgendamento != null && nome != null && !nome.equals("")) {
+            return agendamentoDAO.getAgendamentosWrapperDoDiaByNomeEByData(nome, dataAgendamento);
+        } else if (dataAgendamento != null) {
+            return agendamentoDAO.getAgendamentosWrapperDoDia(dataAgendamento);
+        } else if (nome != null && !nome.equals("")){
+            return agendamentoDAO.getAgendamentosWrapperDoDiaByNome(nome);
+        } else {
+            return new ArrayList<>();
+        }
+    }
+    
+
+   
 }
