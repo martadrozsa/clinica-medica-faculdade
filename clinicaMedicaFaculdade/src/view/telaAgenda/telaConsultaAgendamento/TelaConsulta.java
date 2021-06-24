@@ -6,30 +6,29 @@
 package view.telaAgenda.telaConsultaAgendamento;
 
 import contoller.AgendamentoController;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import view.telaAgenda.telaAgendamento.TelaAgendamento;
 
-/**
- *
- * @author Marta
- */
+
 public class TelaConsulta extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaConsulta
-     */
-    
+
     private AgendamentoController agendamentoController;
     private Date dataAgendamento;
     private TelaAgendamento agendamentoView;
+    private String[][] linhasMatriz;
+    
     
     public TelaConsulta() {
         initComponents();
         agendamentoController = new AgendamentoController();
-        String[][] matrizAgendamento;
+        String[][] matrizAgendamentosWrappers;
         agendamentoView = new TelaAgendamento();
+        
                
     }
 
@@ -49,7 +48,7 @@ public class TelaConsulta extends javax.swing.JFrame {
         calendarDataAgendamento = new com.toedter.calendar.JDateChooser();
         btnLimpar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaAgendamentos = new javax.swing.JTable();
+        tabelaAgendamentosConsulta = new javax.swing.JTable();
         btnSair = new javax.swing.JButton();
         btnVisualizar = new javax.swing.JButton();
         txtTituloMedico2 = new javax.swing.JLabel();
@@ -84,7 +83,7 @@ public class TelaConsulta extends javax.swing.JFrame {
             }
         });
 
-        tabelaAgendamentos.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaAgendamentosConsulta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -110,8 +109,8 @@ public class TelaConsulta extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tabelaAgendamentos.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tabelaAgendamentos);
+        tabelaAgendamentosConsulta.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tabelaAgendamentosConsulta);
 
         btnSair.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnSair.setText("Sair");
@@ -191,22 +190,22 @@ public class TelaConsulta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
        
-    public void preencheTabela(String[][] matrizAgendamento) {
+    public void preencheTabela(String[][] matrizAgendamentosWrappers) {
         
-       DefaultTableModel modelo = (DefaultTableModel) this.tabelaAgendamentos.getModel();
+       DefaultTableModel modelo = (DefaultTableModel) this.tabelaAgendamentosConsulta.getModel();
        modelo.setNumRows(0);
 
-       for (int i = 0; i < matrizAgendamento.length; i++) {
+       for (int i = 0; i < matrizAgendamentosWrappers.length; i++) {
            modelo.addRow(new Object[]{
-           matrizAgendamento[i][0],
-           matrizAgendamento[i][1],
-           matrizAgendamento[i][2],
-           matrizAgendamento[i][3],
-           matrizAgendamento[i][4],
-           matrizAgendamento[i][5]
+           matrizAgendamentosWrappers[i][0],
+           matrizAgendamentosWrappers[i][1],
+           matrizAgendamentosWrappers[i][2],
+           matrizAgendamentosWrappers[i][3],
+           matrizAgendamentosWrappers[i][4],
+           matrizAgendamentosWrappers[i][5]
            });
        }
-   }
+    }
     
     private void atualizaTabela() {
         dataAgendamento = calendarDataAgendamento.getDate(); 
@@ -216,6 +215,7 @@ public class TelaConsulta extends javax.swing.JFrame {
         String[][] linhasMatriz = agendamentoController.getAgendamentosByDateConsulta(inputPesquisa, dataAgendamento);
         if (linhasMatriz.length > 0) {
             preencheTabela(linhasMatriz);
+            this.linhasMatriz = linhasMatriz;
         } 
         else {
             limpaTabela();
@@ -224,7 +224,7 @@ public class TelaConsulta extends javax.swing.JFrame {
     
     private void limpaTabela() {
         // inicializa a matriz  com strings vazias.
-        String[][] matrizVazia = new String[10][6];
+        String[][] matrizVazia = new String[10][7];
         
         // fazer "for" que passa por todas as linhas e seta uma String vazia na  coluna.
         for (int i = 0; i< matrizVazia.length; i++) {
@@ -234,6 +234,7 @@ public class TelaConsulta extends javax.swing.JFrame {
            matrizVazia[i][3] = "";
            matrizVazia[i][4] = "";
            matrizVazia[i][5] = "";
+           matrizVazia[i][6] = "";
         }
         preencheTabela(matrizVazia);
     }
@@ -246,15 +247,41 @@ public class TelaConsulta extends javax.swing.JFrame {
         if (calendarDataAgendamento.getDate() == null) {
             return;
         }
-
         atualizaTabela();
     }//GEN-LAST:event_calendarDataAgendamentoPropertyChange
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         setVisible(false);
     }//GEN-LAST:event_btnSairActionPerformed
-
     private void btnVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarActionPerformed
+       
+        if (this.tabelaAgendamentosConsulta.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Selecione um paciente");
+            return;
+        }
+        
+        int rowIdx = this.tabelaAgendamentosConsulta.getSelectedRow();
+        String nome = linhasMatriz[rowIdx][0];
+        String dataNascimento = linhasMatriz[rowIdx][1];
+        String horario = linhasMatriz[rowIdx][2];
+        String dataAgendamento = linhasMatriz[rowIdx][3];
+        String medico = linhasMatriz[rowIdx][4];
+        String consultorio = linhasMatriz[rowIdx][5];
+        String idAgendamento = linhasMatriz[rowIdx][6]; 
+        String id = linhasMatriz[rowIdx][7];
+        
+        int idAgendamentoConsulta = Integer.parseInt(idAgendamento);
+        int idInt = Integer.parseInt(id);
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+         
+        Date dataConsulta = null;
+        try {
+            dataConsulta = formatter.parse(dataAgendamento);
+            agendamentoView.recebeDadosPaciente(nome, dataNascimento, dataConsulta, medico, consultorio,idAgendamentoConsulta, idInt);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         agendamentoView.mostrarTela(true);
     }//GEN-LAST:event_btnVisualizarActionPerformed
 
@@ -307,7 +334,7 @@ public class TelaConsulta extends javax.swing.JFrame {
     private javax.swing.JTextField inputPesquisaAgenda;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tabelaAgendamentos;
+    private javax.swing.JTable tabelaAgendamentosConsulta;
     private javax.swing.JLabel txtTituloMedico1;
     private javax.swing.JLabel txtTituloMedico2;
     // End of variables declaration//GEN-END:variables

@@ -24,6 +24,13 @@ public class AgendamentoController {
     }
     
     
+    
+       public boolean apagarAgendamento(int id) {
+        return agendamentoBusinnes.deleteAgendamentoFromBD(id);
+    }
+    
+    
+    
     public String[][] getAgendamentosByDate(Date dataAgendamento){
         
         List<AgendamentoWrapper> listaAgendamentosWrappers = agendamentoBusinnes.getListaAgendamento(dataAgendamento);
@@ -46,7 +53,10 @@ public class AgendamentoController {
             matrizAgendamentos[i][2] = agendamento.getEspecialidade() + "";
             matrizAgendamentos[i][3] = consultorio;
             matrizAgendamentos[i][4] = agendamento.getNomePaciente() + "";
+            
             matrizAgendamentos[i][5] = agendamento.getIdMedico() + "";
+            
+            
         }
         return matrizAgendamentos;
     }
@@ -55,7 +65,7 @@ public class AgendamentoController {
         public String[][] getAgendamentosByDateConsulta(String nome, Date dataAgendamento){
         
         List<AgendamentoWrapper> listaAgendamentosWrappers = agendamentoBusinnes.getListaAgendamentoWrapper(nome, dataAgendamento);
-        String[][] matrizAgendamentosWrappers = new String[listaAgendamentosWrappers.size()][6];
+        String[][] matrizAgendamentosWrappers = new String[listaAgendamentosWrappers.size()][8];
         
         for(int i = 0; i < listaAgendamentosWrappers.size(); i++) {
             
@@ -75,6 +85,8 @@ public class AgendamentoController {
             matrizAgendamentosWrappers[i][3] = agendamentoWrapper.getDataAgendamento() + "";
             matrizAgendamentosWrappers[i][4] = agendamentoWrapper.getNomeMedico()+ "";
             matrizAgendamentosWrappers[i][5] = consultorio;
+            matrizAgendamentosWrappers[i][6] = agendamentoWrapper.getIdAgendamento() + "";
+            matrizAgendamentosWrappers[i][7] = agendamentoWrapper.getIdPaciente() + "";
         }
         return matrizAgendamentosWrappers;
     }

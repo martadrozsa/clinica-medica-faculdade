@@ -21,11 +21,13 @@ public class AgendamentoDAO {
     private Connection connect;
     private Statement statement;
     
+    
     // construtor AgendamentoDAO
     public AgendamentoDAO() {
         connectToDatabase("localhost", 3306, "clinica_medica", "root", "pass");
     }
     
+    // conexão com a base de dados
     private void connectToDatabase(String ip, int port, String schema, String username, String password) {
         try {
             // This will load the MySQL driver, each DB has its own driver
@@ -44,9 +46,22 @@ public class AgendamentoDAO {
     }
     
     public List<Agendamento> getListaAgendamentos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            String query = "SELECT * FROM aluno";
+
+            // Recupera dados da base.
+            ResultSet resultSet = statement.executeQuery(query);
+
+            List<Agendamento> agendamentos = parseResultSetToAgendamento(resultSet);
+
+            // Todos os agendamentos na lista "agendamentos"
+            return agendamentos;
+
+        } catch (Exception ex) {
+            System.out.println("Error while querying data: " + ex.toString());
+            return new ArrayList<>();
+        }
     }
-    
     
     public boolean insertAgendamento(Agendamento agendamento) {
         String insertStatement = "INSERT INTO agendamento (horario, data, id_medico, id_paciente) VALUES (?, ?, ?, ?)";
@@ -69,6 +84,26 @@ public class AgendamentoDAO {
         }
         return true;
     }
+    
+    
+    
+    
+    public boolean deleteAgendamentoById(int id) {
+        try {
+            String deleteStatement = "DELETE FROM agendamento WHERE id=?";
+            PreparedStatement preparedStatement = connect.prepareStatement(deleteStatement);
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+
+        } catch (Exception ex) {
+            System.out.println("Error while deleting data: " + ex.toString());
+            return false;
+        }
+
+        return true;
+    }
+    
+    
     
     
     // transforma as rows do database -> objetos em lista local

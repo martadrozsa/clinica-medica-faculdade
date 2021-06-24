@@ -32,7 +32,19 @@ public class AgendamentoBusiness {
         boolean isSuccess = agendamentoDAO.insertAgendamento(agendamento);
         return isSuccess;
     }
- 
+   
+    
+    
+    public List<Agendamento> getListaAgendamentos() {
+        return agendamentoDAO.getListaAgendamentos();
+    }
+
+    public boolean deleteAgendamentoFromBD(int id) {
+        return agendamentoDAO.deleteAgendamentoById(id);
+    }
+    
+    
+    
     
     public List<AgendamentoWrapper> getListaAgendamento(Date dataAgendamento) {
         // todosAgendamentos (AgendamentoWrapper) <- todos os slots de agendamentos

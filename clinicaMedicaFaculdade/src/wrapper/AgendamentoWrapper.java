@@ -6,14 +6,17 @@ import model.entity.enums.Consultorio;
 
 public class AgendamentoWrapper {
     
+    private int idAgendamento;
     private Time horarioAgendamento;
     private String nomeMedico;
     private String especialidade;
     private Consultorio consultorio;
     private String nomePaciente;
+    private int idPaciente;
     private int idMedico;
     private Date dataNascimento;
     private Date dataAgendamento;
+
 
     public AgendamentoWrapper() {
     }
@@ -26,7 +29,7 @@ public class AgendamentoWrapper {
         this.nomePaciente = nomePaciente;
         this.idMedico = idMedico;
     }
-
+    
     public AgendamentoWrapper(String nomePaciente, Date dataNascimento, Time horarioAgendamento, Date dataAgendamento, String nomeMedico, Consultorio consultorio) {
         this.nomePaciente = nomePaciente;
         this.dataNascimento = dataNascimento;
@@ -35,8 +38,31 @@ public class AgendamentoWrapper {
         this.nomeMedico = nomeMedico;
         this.consultorio = consultorio;
     }
+
+    public AgendamentoWrapper(int idAgendamento, Time horarioAgendamento, String nomeMedico, String especialidade, Consultorio consultorio, String nomePaciente, int idPaciente, int idMedico, Date dataNascimento, Date dataAgendamento) {
+        this.idAgendamento = idAgendamento;
+        this.horarioAgendamento = horarioAgendamento;
+        this.nomeMedico = nomeMedico;
+        this.especialidade = especialidade;
+        this.consultorio = consultorio;
+        this.nomePaciente = nomePaciente;
+        this.idPaciente = idPaciente;
+        this.idMedico = idMedico;
+        this.dataNascimento = dataNascimento;
+        this.dataAgendamento = dataAgendamento;
+    }
+
     
-      public Time getHorarioAgendamento() {
+
+    public int getIdAgendamento() {
+        return idAgendamento;
+    }
+
+    public void setIdAgendamento(int idAgendamento) {
+        this.idAgendamento = idAgendamento;
+    }
+    
+    public Time getHorarioAgendamento() {
         return horarioAgendamento;
     }
 
@@ -76,6 +102,14 @@ public class AgendamentoWrapper {
         this.nomePaciente = nomePaciente;
     }
 
+    public int getIdPaciente() {
+        return idPaciente;
+    }
+
+    public void setIdPaciente(int idPaciente) {
+        this.idPaciente = idPaciente;
+    }
+    
     public int getIdMedico() {
         return idMedico;
     }
