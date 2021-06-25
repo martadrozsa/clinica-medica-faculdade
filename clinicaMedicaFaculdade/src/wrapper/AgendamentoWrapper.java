@@ -29,30 +29,18 @@ public class AgendamentoWrapper {
         this.nomePaciente = nomePaciente;
         this.idMedico = idMedico;
     }
-    
-    public AgendamentoWrapper(String nomePaciente, Date dataNascimento, Time horarioAgendamento, Date dataAgendamento, String nomeMedico, Consultorio consultorio) {
+
+    public AgendamentoWrapper(String nomePaciente, Date dataNascimento, Time horarioAgendamento, Date dataAgendamento, String nomeMedico, Consultorio consultorio, int idAgendamento, int idPaciente) {
         this.nomePaciente = nomePaciente;
         this.dataNascimento = dataNascimento;
         this.horarioAgendamento = horarioAgendamento;
         this.dataAgendamento = dataAgendamento;
         this.nomeMedico = nomeMedico;
         this.consultorio = consultorio;
-    }
-
-    public AgendamentoWrapper(int idAgendamento, Time horarioAgendamento, String nomeMedico, String especialidade, Consultorio consultorio, String nomePaciente, int idPaciente, int idMedico, Date dataNascimento, Date dataAgendamento) {
         this.idAgendamento = idAgendamento;
-        this.horarioAgendamento = horarioAgendamento;
-        this.nomeMedico = nomeMedico;
-        this.especialidade = especialidade;
-        this.consultorio = consultorio;
-        this.nomePaciente = nomePaciente;
         this.idPaciente = idPaciente;
-        this.idMedico = idMedico;
-        this.dataNascimento = dataNascimento;
-        this.dataAgendamento = dataAgendamento;
     }
-
-    
+  
 
     public int getIdAgendamento() {
         return idAgendamento;

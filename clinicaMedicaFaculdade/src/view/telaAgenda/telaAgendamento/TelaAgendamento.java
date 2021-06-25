@@ -33,7 +33,6 @@ public class TelaAgendamento extends javax.swing.JFrame {
         initComponents();
         buscarPaciente = new TelaBuscarPaciente();
         agendamentoController = new AgendamentoController(); 
-        
         corAgendamentoOcupado = new Color(250, 124, 124);
         corAgendamentoLivre = new Color(124, 250, 124);
     }
@@ -43,16 +42,29 @@ public class TelaAgendamento extends javax.swing.JFrame {
             panelAgendamento.setVisible(true);
             panelReagendamento.setVisible(false);
             btnBuscar.setVisible(true);
+            txtHorario.setVisible(false);
+            inputHorario.setVisible(false);
+            txtMedico.setVisible(false);
+            inputMedico.setVisible(false);
+            txtTitulo.setText("AGENDAR CONSULTA");
+            
         //modo edição
         } else {
             panelReagendamento.setVisible(true);
             panelAgendamento.setVisible(false);
             btnBuscar.setVisible(false);
+            txtHorario.setVisible(true);
+            inputHorario.setVisible(true);
+            txtMedico.setVisible(true);
+            inputMedico.setVisible(true);
+            txtTitulo.setText("EDITARR AGENDAMENTO");
+            
         }
         setVisible(true);
     }
 
 
+    // verifica se o paciente tem agendamento no mesmo dia e mesmo horário
     public boolean agendamentoLivreParaPaciente(String horarioAgendamento, String nomePaciente){
         
         for(int i = 0; i < matrizAgendamento.length; i++) {
@@ -67,8 +79,7 @@ public class TelaAgendamento extends javax.swing.JFrame {
         return true;
     }
     
-    
-    
+    // verifica se tem agendamento marcado na linha selecionada
     public boolean verificaAgendamento(int row) {
         if (matrizAgendamento == null || matrizAgendamento.length < row) {
             return false;
@@ -91,14 +102,16 @@ public class TelaAgendamento extends javax.swing.JFrame {
 
         txtTituloMedico = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtTituloMedico1 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        inputDataNascimento = new javax.swing.JFormattedTextField();
-        inputNomePaciente = new javax.swing.JTextField();
-        btnBuscar = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        calendarDataAgendamento = new com.toedter.calendar.JDateChooser();
+        panelAgendamento = new javax.swing.JPanel();
+        btnCancelar = new javax.swing.JButton();
+        btnAgendar = new javax.swing.JButton();
+        btnFechar = new javax.swing.JButton();
+        panelReagendamento = new javax.swing.JPanel();
+        btnCancelarReagendamento = new javax.swing.JButton();
+        btnReagendar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
+        btnFecharReagendamento = new javax.swing.JButton();
+        panelDadosReagendamento = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaAgendamentos = new javax.swing.JTable()
         {
@@ -115,13 +128,19 @@ public class TelaAgendamento extends javax.swing.JFrame {
                 return c;
             }
         };
-        panelAgendamento = new javax.swing.JPanel();
-        btnCancelar = new javax.swing.JButton();
-        btnAgendar = new javax.swing.JButton();
-        panelReagendamento = new javax.swing.JPanel();
-        btnExcluir = new javax.swing.JButton();
-        btnCancelarReagendamento = new javax.swing.JButton();
-        btnReagendar = new javax.swing.JButton();
+        panelDadosDaConsulta = new javax.swing.JPanel();
+        inputNomePaciente = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
+        txtPaciente = new javax.swing.JLabel();
+        inputDataNascimento = new javax.swing.JFormattedTextField();
+        txtDataNascimento = new javax.swing.JLabel();
+        txtHorario = new javax.swing.JLabel();
+        txtMedico = new javax.swing.JLabel();
+        inputHorario = new javax.swing.JTextField();
+        inputMedico = new javax.swing.JTextField();
+        txtData = new javax.swing.JLabel();
+        calendarDataAgendamento = new com.toedter.calendar.JDateChooser();
+        txtTitulo = new javax.swing.JLabel();
 
         txtTituloMedico.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
         txtTituloMedico.setText("Cadastro Médico");
@@ -133,38 +152,111 @@ public class TelaAgendamento extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/topo.png"))); // NOI18N
         jLabel2.setToolTipText("");
 
-        txtTituloMedico1.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
-        txtTituloMedico1.setText("AGENDAMENTO");
-
-        jLabel1.setFont(new java.awt.Font("Verdana", 1, 16)); // NOI18N
-        jLabel1.setText("Paciente");
-
-        jLabel3.setFont(new java.awt.Font("Verdana", 1, 16)); // NOI18N
-        jLabel3.setText("Data de Nascimento");
-
-        inputDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
-        inputDataNascimento.setEnabled(false);
-        inputDataNascimento.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-
-        inputNomePaciente.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        inputNomePaciente.setEnabled(false);
-
-        btnBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/lupa.png"))); // NOI18N
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Verdana", 1, 16)); // NOI18N
-        jLabel4.setText("Data");
-
-        calendarDataAgendamento.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                calendarDataAgendamentoPropertyChange(evt);
+        btnAgendar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnAgendar.setText("Agendar");
+        btnAgendar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgendarActionPerformed(evt);
             }
         });
+
+        btnFechar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnFechar.setText("Fechar");
+        btnFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelAgendamentoLayout = new javax.swing.GroupLayout(panelAgendamento);
+        panelAgendamento.setLayout(panelAgendamentoLayout);
+        panelAgendamentoLayout.setHorizontalGroup(
+            panelAgendamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAgendamentoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnFechar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
+                .addComponent(btnCancelar)
+                .addGap(95, 95, 95)
+                .addComponent(btnAgendar))
+        );
+        panelAgendamentoLayout.setVerticalGroup(
+            panelAgendamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAgendamentoLayout.createSequentialGroup()
+                .addContainerGap(25, Short.MAX_VALUE)
+                .addGroup(panelAgendamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelar)
+                    .addComponent(btnAgendar)
+                    .addComponent(btnFechar))
+                .addGap(23, 23, 23))
+        );
+
+        btnCancelarReagendamento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnCancelarReagendamento.setText("Cancelar");
+        btnCancelarReagendamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarReagendamentoActionPerformed(evt);
+            }
+        });
+
+        btnReagendar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnReagendar.setText("Reagendar");
+        btnReagendar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReagendarActionPerformed(evt);
+            }
+        });
+
+        btnExcluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
+        btnFecharReagendamento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnFecharReagendamento.setText("Fechar");
+        btnFecharReagendamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharReagendamentoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelReagendamentoLayout = new javax.swing.GroupLayout(panelReagendamento);
+        panelReagendamento.setLayout(panelReagendamentoLayout);
+        panelReagendamentoLayout.setHorizontalGroup(
+            panelReagendamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelReagendamentoLayout.createSequentialGroup()
+                .addComponent(btnFecharReagendamento)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addComponent(btnCancelarReagendamento)
+                .addGap(66, 66, 66)
+                .addComponent(btnExcluir)
+                .addGap(47, 47, 47)
+                .addComponent(btnReagendar))
+        );
+        panelReagendamentoLayout.setVerticalGroup(
+            panelReagendamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelReagendamentoLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(panelReagendamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelarReagendamento)
+                    .addComponent(btnReagendar)
+                    .addComponent(btnExcluir)
+                    .addComponent(btnFecharReagendamento))
+                .addContainerGap(31, Short.MAX_VALUE))
+        );
+
+        panelDadosReagendamento.setBorder(javax.swing.BorderFactory.createTitledBorder("AGENDA"));
 
         tabelaAgendamentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -195,176 +287,209 @@ public class TelaAgendamento extends javax.swing.JFrame {
         tabelaAgendamentos.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tabelaAgendamentos);
 
-        btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
-
-        btnAgendar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnAgendar.setText("Agendar");
-        btnAgendar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgendarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelAgendamentoLayout = new javax.swing.GroupLayout(panelAgendamento);
-        panelAgendamento.setLayout(panelAgendamentoLayout);
-        panelAgendamentoLayout.setHorizontalGroup(
-            panelAgendamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelAgendamentoLayout.createSequentialGroup()
-                .addComponent(btnCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
-                .addComponent(btnAgendar))
-        );
-        panelAgendamentoLayout.setVerticalGroup(
-            panelAgendamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelAgendamentoLayout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
-                .addGroup(panelAgendamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancelar)
-                    .addComponent(btnAgendar))
-                .addGap(23, 23, 23))
-        );
-
-        btnExcluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnExcluir.setText("Excluir");
-        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirActionPerformed(evt);
-            }
-        });
-
-        btnCancelarReagendamento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnCancelarReagendamento.setText("Cancelar");
-        btnCancelarReagendamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarReagendamentoActionPerformed(evt);
-            }
-        });
-
-        btnReagendar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnReagendar.setText("Reagendar");
-
-        javax.swing.GroupLayout panelReagendamentoLayout = new javax.swing.GroupLayout(panelReagendamento);
-        panelReagendamento.setLayout(panelReagendamentoLayout);
-        panelReagendamentoLayout.setHorizontalGroup(
-            panelReagendamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelReagendamentoLayout.createSequentialGroup()
+        javax.swing.GroupLayout panelDadosReagendamentoLayout = new javax.swing.GroupLayout(panelDadosReagendamento);
+        panelDadosReagendamento.setLayout(panelDadosReagendamentoLayout);
+        panelDadosReagendamentoLayout.setHorizontalGroup(
+            panelDadosReagendamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDadosReagendamentoLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCancelarReagendamento)
-                .addGap(64, 64, 64)
-                .addComponent(btnExcluir)
-                .addGap(49, 49, 49)
-                .addComponent(btnReagendar))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51))
         );
-        panelReagendamentoLayout.setVerticalGroup(
-            panelReagendamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelReagendamentoLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(panelReagendamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnExcluir)
-                    .addComponent(btnCancelarReagendamento)
-                    .addComponent(btnReagendar))
-                .addContainerGap(24, Short.MAX_VALUE))
+        panelDadosReagendamentoLayout.setVerticalGroup(
+            panelDadosReagendamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDadosReagendamentoLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                .addContainerGap())
         );
+
+        panelDadosDaConsulta.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        inputNomePaciente.setEditable(false);
+        inputNomePaciente.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+
+        btnBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/lupa.png"))); // NOI18N
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        txtPaciente.setFont(new java.awt.Font("Verdana", 1, 16)); // NOI18N
+        txtPaciente.setText("Paciente");
+
+        inputDataNascimento.setEditable(false);
+        inputDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        inputDataNascimento.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+
+        txtDataNascimento.setFont(new java.awt.Font("Verdana", 1, 16)); // NOI18N
+        txtDataNascimento.setText("Data de Nascimento");
+
+        txtHorario.setFont(new java.awt.Font("Verdana", 1, 16)); // NOI18N
+        txtHorario.setText("Horário");
+
+        txtMedico.setFont(new java.awt.Font("Verdana", 1, 16)); // NOI18N
+        txtMedico.setText("Médico");
+
+        inputHorario.setEditable(false);
+        inputHorario.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+
+        inputMedico.setEditable(false);
+        inputMedico.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+
+        javax.swing.GroupLayout panelDadosDaConsultaLayout = new javax.swing.GroupLayout(panelDadosDaConsulta);
+        panelDadosDaConsulta.setLayout(panelDadosDaConsultaLayout);
+        panelDadosDaConsultaLayout.setHorizontalGroup(
+            panelDadosDaConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDadosDaConsultaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelDadosDaConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtPaciente)
+                    .addComponent(txtDataNascimento)
+                    .addComponent(txtMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelDadosDaConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelDadosDaConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelDadosDaConsultaLayout.createSequentialGroup()
+                            .addComponent(inputDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(503, 503, 503))
+                        .addGroup(panelDadosDaConsultaLayout.createSequentialGroup()
+                            .addComponent(inputMedico)
+                            .addGap(117, 117, 117)
+                            .addComponent(txtHorario)
+                            .addGap(18, 18, 18)
+                            .addComponent(inputHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(81, 81, 81)))
+                    .addGroup(panelDadosDaConsultaLayout.createSequentialGroup()
+                        .addComponent(inputNomePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 787, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(184, 184, 184))))
+        );
+        panelDadosDaConsultaLayout.setVerticalGroup(
+            panelDadosDaConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDadosDaConsultaLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(panelDadosDaConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDadosDaConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtPaciente)
+                        .addComponent(inputNomePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(panelDadosDaConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDataNascimento)
+                    .addComponent(inputDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 19, Short.MAX_VALUE)
+                .addGroup(panelDadosDaConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtMedico)
+                    .addComponent(inputMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtHorario)
+                    .addComponent(inputHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+
+        txtData.setFont(new java.awt.Font("Verdana", 1, 16)); // NOI18N
+        txtData.setText("Data da Consulta");
+
+        calendarDataAgendamento.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                calendarDataAgendamentoPropertyChange(evt);
+            }
+        });
+
+        txtTitulo.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
+        txtTitulo.setText("AGENDAMENTO");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtTituloMedico1, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelDadosDaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 1215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
+                                .addComponent(calendarDataAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(48, 48, 48))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(panelReagendamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(panelAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel4))
-                            .addGap(43, 43, 43)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(inputNomePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(20, 20, 20)
-                                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(calendarDataAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(inputDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1246, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(panelReagendamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(128, 128, 128)
+                                .addComponent(panelAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(panelDadosReagendamento, javax.swing.GroupLayout.PREFERRED_SIZE, 1215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(20, 20, 20)
+                    .addComponent(txtTitulo)
+                    .addContainerGap(900, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtTituloMedico1)
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(inputNomePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(44, 44, 44)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(inputDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(123, 123, 123)
+                .addComponent(panelDadosDaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4)
-                    .addComponent(calendarDataAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(52, 52, 52)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
-                .addGap(62, 62, 62)
+                    .addComponent(calendarDataAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addComponent(panelDadosReagendamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelReagendamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34))
+                    .addComponent(panelReagendamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(139, 139, 139)
+                    .addComponent(txtTitulo)
+                    .addContainerGap(691, Short.MAX_VALUE)))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
+    //recebe dados do paciente da TelaBuscaPaciente no modo novo agendamento
     public void recebeDadosPaciente(int idInt, String nome, String dataNascimento) {
         this.inputNomePaciente.setText(nome);
         this.inputDataNascimento.setText(dataNascimento);
         idPaciente = idInt;  
     }   
     
-    public void recebeDadosPaciente(String nome, String dataNascimento, Date dataAgendamento, String medico, String consultorio,int idAgendamentoConsulta, int idInt) {
+    //recebe dados do paciente da TelaConsulta no modo edição agendamento
+    public void recebeDadosPaciente(String nome, String dataNascimento, String horario, Date dataAgendamento, String medico, String consultorio,int idAgendamentoConsulta, int idInt) {
         idAgendamento = idAgendamentoConsulta;
-        idPaciente = idInt;
-        this.inputNomePaciente.setText(nome);
-        this.inputDataNascimento.setText(dataNascimento);
+        recebeDadosPaciente(idInt, nome, dataNascimento);
+        this.inputHorario.setText(horario);
+        this.inputMedico.setText(medico);
+        
         this.calendarDataAgendamento.setDate(dataAgendamento);
     } 
     
-    
+    // buscar nome paciente 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         buscarPaciente.mostrar(this);
     }//GEN-LAST:event_btnBuscarActionPerformed
     
+    // atualiza a tabela 
     private void atualizaTabela() {
         dataAgendamento = calendarDataAgendamento.getDate();
         String[][] agendamentos = agendamentoController.getAgendamentosByDate(dataAgendamento);
         preencheTabela(agendamentos);   
     }
-     
+    
+    // pega data seleciona e atualiza a tabela
     private void calendarDataAgendamentoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_calendarDataAgendamentoPropertyChange
             Date dataAgendamento = null;
             if (this.calendarDataAgendamento.getDate() == null) {
@@ -373,6 +498,7 @@ public class TelaAgendamento extends javax.swing.JFrame {
             atualizaTabela();       
     }//GEN-LAST:event_calendarDataAgendamentoPropertyChange
 
+    // criar agendamento de consulta (modo novo agendamento) 
     private void btnAgendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarActionPerformed
         if(idPaciente <= 0){
             JOptionPane.showMessageDialog(null, "Selecione um paciente!");
@@ -406,33 +532,17 @@ public class TelaAgendamento extends javax.swing.JFrame {
         if(agendamentoLivre != true) {
             JOptionPane.showMessageDialog(null, "Paciente com agendamento marcado no mesmo horário!");
             return;
-
         } 
-        agendamentoController.cadastrarAgendamento(dataAgendaConsulta, horarioSelecionado, idMedicoSelecionado, idPaciente);
         
+        agendamentoController.cadastrarAgendamento(dataAgendaConsulta, horarioSelecionado, idMedicoSelecionado, idPaciente);
 
         JOptionPane.showMessageDialog(null, "Agendamento cadastrado com sucesso!");
-        atualizaTabela(); 
-       
+        atualizaTabela();       
     }//GEN-LAST:event_btnAgendarActionPerformed
-   
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        setVisible(false);
-    }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void btnCancelarReagendamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarReagendamentoActionPerformed
-        setVisible(false);
-    }//GEN-LAST:event_btnCancelarReagendamentoActionPerformed
-
-    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-
-    }//GEN-LAST:event_btnExcluirActionPerformed
-
-
-    // método para preencher a tabela com os agendamentos
-     //@SuppressWarnings("uncheced")
+    
+        // método para preencher a tabela com os agendamentos
+    @SuppressWarnings("uncheced")
     public void preencheTabela(String[][] matrizAgendamento) {
-        
         DefaultTableModel modelo = (DefaultTableModel) this.tabelaAgendamentos.getModel();
         modelo.setNumRows(0);
         
@@ -444,10 +554,101 @@ public class TelaAgendamento extends javax.swing.JFrame {
                     matrizAgendamento[i][3],
                     matrizAgendamento[i][4],
             });
-            
         }
         this.matrizAgendamento = matrizAgendamento;
     }
+
+    // btn cancelar modo agendamento
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_btnCancelarActionPerformed
+    
+    // btn cancelar modo edição do agendamento
+    private void btnCancelarReagendamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarReagendamentoActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_btnCancelarReagendamentoActionPerformed
+    
+    // btn excluir modo edição do agendamento
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        int resposta_usuario = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja APAGAR este Agendamento?");
+        if (resposta_usuario == 0) { 
+            if (agendamentoController.apagarAgendamento(idAgendamento)) {
+                JOptionPane.showMessageDialog(rootPane, "Agendamento apagado com sucesso");
+                atualizaTabela();
+            }
+            return;
+        }      
+    }//GEN-LAST:event_btnExcluirActionPerformed
+    
+    // btn reagendar modo edição do agendamento 
+    private void btnReagendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReagendarActionPerformed
+        int idRow = this.tabelaAgendamentos.getSelectedRow();
+
+        String[] dadosSelecionados = matrizAgendamento[idRow];
+
+        String idRowMedico = dadosSelecionados[5];
+        int idMedicoSelecionado = Integer.parseInt(idRowMedico);
+
+        String horario = dadosSelecionados[0];
+        Time horarioSelecionado = Time.valueOf(horario);
+
+        Date dataAgendaConsulta = this.calendarDataAgendamento.getDate();
+        String nomePacinete = inputNomePaciente.getText();
+
+        boolean agendamentoLivre = agendamentoLivreParaPaciente(horario, nomePacinete);
+        
+        if (agendamentoLivre != true) {
+            JOptionPane.showMessageDialog(null, "Paciente com agendamento marcado no mesmo horário! \n Selecione um novo horário!");
+            return;
+        } else if (agendamentoLivre == true) {
+
+            int resposta_usuario = JOptionPane.showConfirmDialog(null, "Deseja alterar o horário deste paciente?");
+            if (resposta_usuario == 0) {
+                reagendar();
+                atualizaTabela();
+//                setVisible(false);
+            } else {
+                return;
+            }
+        }else {
+            swap();
+        }   
+    }//GEN-LAST:event_btnReagendarActionPerformed
+    
+    // método para reagendar uma consulta para o mesmo paciente
+    public void reagendar() {
+        this.btnAgendarActionPerformed(null);
+        agendamentoController.apagarAgendamento(idAgendamento);
+        atualizaTabela();
+    }
+    
+    // método para fazer remanejamento de consulta entre dois pacientes
+    public void swap() {
+        int idRow = this.tabelaAgendamentos.getSelectedRow();
+
+        String[] dadosSelecionados = matrizAgendamento[idRow];
+        
+        String horario = dadosSelecionados[0];
+        String medico = dadosSelecionados[1];
+        String especialidade = dadosSelecionados[2];
+        String consultorio = dadosSelecionados[3];
+        String paciente = dadosSelecionados[4];
+        
+        agendamentoController.apagarAgendamento(idAgendamento);
+        atualizaTabela();
+        this.btnAgendarActionPerformed(null);
+    
+    }
+    
+    // btn fechar modo novo agendamento
+    private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_btnFecharActionPerformed
+    
+    // btn fechar modo edição agendamento
+    private void btnFecharReagendamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharReagendamentoActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_btnFecharReagendamentoActionPerformed
     
 
     /**
@@ -491,19 +692,27 @@ public class TelaAgendamento extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnCancelarReagendamento;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnFechar;
+    private javax.swing.JButton btnFecharReagendamento;
     private javax.swing.JButton btnReagendar;
     private com.toedter.calendar.JDateChooser calendarDataAgendamento;
     private javax.swing.JFormattedTextField inputDataNascimento;
+    private javax.swing.JTextField inputHorario;
+    private javax.swing.JTextField inputMedico;
     private javax.swing.JTextField inputNomePaciente;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelAgendamento;
+    private javax.swing.JPanel panelDadosDaConsulta;
+    private javax.swing.JPanel panelDadosReagendamento;
     private javax.swing.JPanel panelReagendamento;
     private javax.swing.JTable tabelaAgendamentos;
+    private javax.swing.JLabel txtData;
+    private javax.swing.JLabel txtDataNascimento;
+    private javax.swing.JLabel txtHorario;
+    private javax.swing.JLabel txtMedico;
+    private javax.swing.JLabel txtPaciente;
+    private javax.swing.JLabel txtTitulo;
     private javax.swing.JLabel txtTituloMedico;
-    private javax.swing.JLabel txtTituloMedico1;
     // End of variables declaration//GEN-END:variables
 }

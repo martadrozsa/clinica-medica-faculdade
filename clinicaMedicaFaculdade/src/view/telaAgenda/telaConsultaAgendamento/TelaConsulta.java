@@ -6,6 +6,7 @@
 package view.telaAgenda.telaConsultaAgendamento;
 
 import contoller.AgendamentoController;
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -261,6 +262,7 @@ public class TelaConsulta extends javax.swing.JFrame {
         }
         
         int rowIdx = this.tabelaAgendamentosConsulta.getSelectedRow();
+        
         String nome = linhasMatriz[rowIdx][0];
         String dataNascimento = linhasMatriz[rowIdx][1];
         String horario = linhasMatriz[rowIdx][2];
@@ -268,17 +270,18 @@ public class TelaConsulta extends javax.swing.JFrame {
         String medico = linhasMatriz[rowIdx][4];
         String consultorio = linhasMatriz[rowIdx][5];
         String idAgendamento = linhasMatriz[rowIdx][6]; 
-        String id = linhasMatriz[rowIdx][7];
+        String idPaciente = linhasMatriz[rowIdx][7];
         
         int idAgendamentoConsulta = Integer.parseInt(idAgendamento);
-        int idInt = Integer.parseInt(id);
+        int idInt = Integer.parseInt(idPaciente);
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//        Time horarioAgendamento = Time.valueOf(horario);
          
         Date dataConsulta = null;
         try {
             dataConsulta = formatter.parse(dataAgendamento);
-            agendamentoView.recebeDadosPaciente(nome, dataNascimento, dataConsulta, medico, consultorio,idAgendamentoConsulta, idInt);
+            agendamentoView.recebeDadosPaciente(nome, dataNascimento, horario, dataConsulta, medico, consultorio, idAgendamentoConsulta, idInt);
         } catch (ParseException e) {
             e.printStackTrace();
         }

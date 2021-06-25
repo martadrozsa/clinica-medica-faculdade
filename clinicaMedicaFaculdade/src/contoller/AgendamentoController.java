@@ -23,14 +23,10 @@ public class AgendamentoController {
         return agendamentoBusinnes.saveAgendamento(agendamento);
     }
     
-    
-    
-       public boolean apagarAgendamento(int id) {
+    public boolean apagarAgendamento(int id) {
         return agendamentoBusinnes.deleteAgendamentoFromBD(id);
     }
-    
-    
-    
+   
     public String[][] getAgendamentosByDate(Date dataAgendamento){
         
         List<AgendamentoWrapper> listaAgendamentosWrappers = agendamentoBusinnes.getListaAgendamento(dataAgendamento);

@@ -44,25 +44,7 @@ public class AgendamentoDAO {
             System.out.println("Failed to connect to database: " + ex.toString());
         }
     }
-    
-    public List<Agendamento> getListaAgendamentos() {
-        try {
-            String query = "SELECT * FROM aluno";
-
-            // Recupera dados da base.
-            ResultSet resultSet = statement.executeQuery(query);
-
-            List<Agendamento> agendamentos = parseResultSetToAgendamento(resultSet);
-
-            // Todos os agendamentos na lista "agendamentos"
-            return agendamentos;
-
-        } catch (Exception ex) {
-            System.out.println("Error while querying data: " + ex.toString());
-            return new ArrayList<>();
-        }
-    }
-    
+     
     public boolean insertAgendamento(Agendamento agendamento) {
         String insertStatement = "INSERT INTO agendamento (horario, data, id_medico, id_paciente) VALUES (?, ?, ?, ?)";
         
@@ -86,8 +68,6 @@ public class AgendamentoDAO {
     }
     
     
-    
-    
     public boolean deleteAgendamentoById(int id) {
         try {
             String deleteStatement = "DELETE FROM agendamento WHERE id=?";
@@ -99,7 +79,6 @@ public class AgendamentoDAO {
             System.out.println("Error while deleting data: " + ex.toString());
             return false;
         }
-
         return true;
     }
     
@@ -163,10 +142,12 @@ public class AgendamentoDAO {
             Date dataAgendamento = resultSet.getDate("data");
             String nomeMedico = resultSet.getString("nome_medico");
             String nomeConsultorio = resultSet.getString("consultorio");
+            int idAgendamento = resultSet.getInt("id_agendamento");
+            int idPaciente = resultSet.getInt("id_paciente");
             
             Consultorio consultorio = Consultorio.valueOf(nomeConsultorio);
 
-            AgendamentoWrapper agendamentoWrapper = new AgendamentoWrapper(nomePaciente, dataNascimento, horarioAgendamento, dataAgendamento, nomeMedico, consultorio);
+            AgendamentoWrapper agendamentoWrapper = new AgendamentoWrapper(nomePaciente, dataNascimento, horarioAgendamento, dataAgendamento, nomeMedico, consultorio, idAgendamento, idPaciente);
             agendamentosWrappers.add(agendamentoWrapper);
         }
         return agendamentosWrappers;
@@ -174,7 +155,7 @@ public class AgendamentoDAO {
 
     public List<AgendamentoWrapper> getAgendamentosWrapperDoDia(Date dataAgendamento) {
 
-        String queryStatement = "SELECT pe.nome as nome_paciente, pe.data_nascimento, horario, data, me.nome as nome_medico, me.consultorio " +
+        String queryStatement = "SELECT age.id as id_agendamento, pe.nome as nome_paciente, pe.data_nascimento, horario, data, me.nome as nome_medico, me.consultorio, pe.id as id_paciente " +
                                 "FROM agendamento as age " +
                                 "JOIN medico as me ON age.id_medico=me.id " +
                                 "JOIN paciente as pe ON age.id_paciente=pe.id " +
@@ -202,7 +183,7 @@ public class AgendamentoDAO {
     
     public List<AgendamentoWrapper> getAgendamentosWrapperDoDiaByNome(String nome) {
         String termoBusca = "%" + nome + "%";
-        String queryStatement = "SELECT pe.nome as nome_paciente, pe.data_nascimento, horario, data, me.nome as nome_medico, me.consultorio " +
+        String queryStatement = "SELECT age.id as id_agendamento, pe.nome as nome_paciente, pe.data_nascimento, horario, data, me.nome as nome_medico, me.consultorio, pe.id as id_paciente " +
                                 "FROM agendamento as age " +
                                 "JOIN medico as me ON age.id_medico=me.id " +
                                 "JOIN paciente as pe ON age.id_paciente=pe.id " +
@@ -226,7 +207,7 @@ public class AgendamentoDAO {
     
     public List<AgendamentoWrapper> getAgendamentosWrapperDoDiaByNomeEByData(String nome, Date dataAgendamento) {
         String termoBusca = "%" + nome + "%";
-        String queryStatement = "SELECT pe.nome as nome_paciente, pe.data_nascimento, horario, data, me.nome as nome_medico, me.consultorio " +
+        String queryStatement = "SELECT age.id as id_agendamento, pe.nome as nome_paciente, pe.data_nascimento, horario, data, me.nome as nome_medico, me.consultorio, pe.id as id_paciente " +
                                 "FROM agendamento as age " +
                                 "JOIN medico as me ON age.id_medico=me.id " +
                                 "JOIN paciente as pe ON age.id_paciente=pe.id " +

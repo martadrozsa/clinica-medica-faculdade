@@ -34,10 +34,6 @@ public class AgendamentoBusiness {
     }
    
     
-    
-    public List<Agendamento> getListaAgendamentos() {
-        return agendamentoDAO.getListaAgendamentos();
-    }
 
     public boolean deleteAgendamentoFromBD(int id) {
         return agendamentoDAO.deleteAgendamentoById(id);
