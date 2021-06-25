@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package view.telaAgenda.telaAgendamento;
 
+import javax.swing.ImageIcon;
 import contoller.AgendamentoController;
 import java.awt.Color;
 import java.awt.Component;
@@ -101,7 +98,6 @@ public class TelaAgendamento extends javax.swing.JFrame {
     private void initComponents() {
 
         txtTituloMedico = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         panelAgendamento = new javax.swing.JPanel();
         btnCancelar = new javax.swing.JButton();
         btnAgendar = new javax.swing.JButton();
@@ -140,6 +136,7 @@ public class TelaAgendamento extends javax.swing.JFrame {
         inputMedico = new javax.swing.JTextField();
         txtData = new javax.swing.JLabel();
         calendarDataAgendamento = new com.toedter.calendar.JDateChooser();
+        painelImagemFundo1 = new view.PainelImagemFundo();
         txtTitulo = new javax.swing.JLabel();
 
         txtTituloMedico.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
@@ -148,9 +145,6 @@ public class TelaAgendamento extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Agendamento");
         setResizable(false);
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/topo.png"))); // NOI18N
-        jLabel2.setToolTipText("");
 
         btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCancelar.setText("Cancelar");
@@ -399,16 +393,35 @@ public class TelaAgendamento extends javax.swing.JFrame {
             }
         });
 
+        painelImagemFundo1.setImg(new ImageIcon("src/imagemFundo/imagem_fundo2.png"));
+
         txtTitulo.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
+        txtTitulo.setForeground(new java.awt.Color(102, 102, 102));
         txtTitulo.setText("AGENDAMENTO");
+
+        javax.swing.GroupLayout painelImagemFundo1Layout = new javax.swing.GroupLayout(painelImagemFundo1);
+        painelImagemFundo1.setLayout(painelImagemFundo1Layout);
+        painelImagemFundo1Layout.setHorizontalGroup(
+            painelImagemFundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelImagemFundo1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtTitulo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        painelImagemFundo1Layout.setVerticalGroup(
+            painelImagemFundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelImagemFundo1Layout.createSequentialGroup()
+                .addContainerGap(155, Short.MAX_VALUE)
+                .addComponent(txtTitulo)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(37, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -426,17 +439,13 @@ public class TelaAgendamento extends javax.swing.JFrame {
                                 .addComponent(panelAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(panelDadosReagendamento, javax.swing.GroupLayout.PREFERRED_SIZE, 1215, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(20, 20, 20)
-                    .addComponent(txtTitulo)
-                    .addContainerGap(900, Short.MAX_VALUE)))
+            .addComponent(painelImagemFundo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(123, 123, 123)
+                .addComponent(painelImagemFundo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(panelDadosDaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -449,11 +458,6 @@ public class TelaAgendamento extends javax.swing.JFrame {
                     .addComponent(panelReagendamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(139, 139, 139)
-                    .addComponent(txtTitulo)
-                    .addContainerGap(691, Short.MAX_VALUE)))
         );
 
         pack();
@@ -700,8 +704,8 @@ public class TelaAgendamento extends javax.swing.JFrame {
     private javax.swing.JTextField inputHorario;
     private javax.swing.JTextField inputMedico;
     private javax.swing.JTextField inputNomePaciente;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private view.PainelImagemFundo painelImagemFundo1;
     private javax.swing.JPanel panelAgendamento;
     private javax.swing.JPanel panelDadosDaConsulta;
     private javax.swing.JPanel panelDadosReagendamento;
