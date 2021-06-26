@@ -91,13 +91,13 @@ public class AgendamentoDAO {
         List<Agendamento> agendamentos = new ArrayList<>();
         
         while (resultSet.next()) {
-            int id = resultSet.getInt("id");
             Date dataAgendamento = resultSet.getDate("data");
             Time horarioAgendamento = resultSet.getTime("horario");
             int idMedico = resultSet.getInt("id_medico");
             int idPaciente = resultSet.getInt("id_paciente");
+            int idAgendamento = resultSet.getInt("id");
 
-            Agendamento agendamento = new Agendamento(dataAgendamento,horarioAgendamento, idMedico, idPaciente);
+            Agendamento agendamento = new Agendamento(idAgendamento, dataAgendamento,horarioAgendamento, idMedico, idPaciente);
             agendamentos.add(agendamento);
         }
         return agendamentos;
@@ -144,10 +144,11 @@ public class AgendamentoDAO {
             String nomeConsultorio = resultSet.getString("consultorio");
             int idAgendamento = resultSet.getInt("id_agendamento");
             int idPaciente = resultSet.getInt("id_paciente");
+            int idMedico = resultSet.getInt("id_medico");
             
             Consultorio consultorio = Consultorio.valueOf(nomeConsultorio);
 
-            AgendamentoWrapper agendamentoWrapper = new AgendamentoWrapper(nomePaciente, dataNascimento, horarioAgendamento, dataAgendamento, nomeMedico, consultorio, idAgendamento, idPaciente);
+            AgendamentoWrapper agendamentoWrapper = new AgendamentoWrapper(nomePaciente, dataNascimento, horarioAgendamento, dataAgendamento, idMedico, nomeMedico, consultorio, idAgendamento, idPaciente);
             agendamentosWrappers.add(agendamentoWrapper);
         }
         return agendamentosWrappers;
@@ -155,7 +156,7 @@ public class AgendamentoDAO {
 
     public List<AgendamentoWrapper> getAgendamentosWrapperDoDia(Date dataAgendamento) {
 
-        String queryStatement = "SELECT age.id as id_agendamento, pe.nome as nome_paciente, pe.data_nascimento, horario, data, me.nome as nome_medico, me.consultorio, pe.id as id_paciente " +
+        String queryStatement = "SELECT age.id as id_agendamento, pe.nome as nome_paciente, pe.data_nascimento, horario, data,me.id as id_medico, me.nome as nome_medico, me.consultorio, pe.id as id_paciente " +
                                 "FROM agendamento as age " +
                                 "JOIN medico as me ON age.id_medico=me.id " +
                                 "JOIN paciente as pe ON age.id_paciente=pe.id " +
@@ -183,7 +184,7 @@ public class AgendamentoDAO {
     
     public List<AgendamentoWrapper> getAgendamentosWrapperDoDiaByNome(String nome) {
         String termoBusca = "%" + nome + "%";
-        String queryStatement = "SELECT age.id as id_agendamento, pe.nome as nome_paciente, pe.data_nascimento, horario, data, me.nome as nome_medico, me.consultorio, pe.id as id_paciente " +
+        String queryStatement = "SELECT age.id as id_agendamento, pe.nome as nome_paciente, pe.data_nascimento, horario, data,me.id as id_medico, me.nome as nome_medico, me.consultorio, pe.id as id_paciente " +
                                 "FROM agendamento as age " +
                                 "JOIN medico as me ON age.id_medico=me.id " +
                                 "JOIN paciente as pe ON age.id_paciente=pe.id " +
@@ -207,7 +208,7 @@ public class AgendamentoDAO {
     
     public List<AgendamentoWrapper> getAgendamentosWrapperDoDiaByNomeEByData(String nome, Date dataAgendamento) {
         String termoBusca = "%" + nome + "%";
-        String queryStatement = "SELECT age.id as id_agendamento, pe.nome as nome_paciente, pe.data_nascimento, horario, data, me.nome as nome_medico, me.consultorio, pe.id as id_paciente " +
+        String queryStatement = "SELECT age.id as id_agendamento, pe.nome as nome_paciente, pe.data_nascimento, horario, data, me.id as id_medico, me.nome as nome_medico, me.consultorio, pe.id as id_paciente " +
                                 "FROM agendamento as age " +
                                 "JOIN medico as me ON age.id_medico=me.id " +
                                 "JOIN paciente as pe ON age.id_paciente=pe.id " +

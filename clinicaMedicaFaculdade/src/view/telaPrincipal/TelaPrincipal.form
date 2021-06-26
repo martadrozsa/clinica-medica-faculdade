@@ -37,35 +37,38 @@
     <Container class="view.PainelImagemFundo" name="painelImagemFundo1">
       <Properties>
         <Property name="img" type="javax.swing.ImageIcon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new ImageIcon(&quot;src/imagemFundo/imagem_fundo.png&quot;)" type="code"/>
+          <Connection code="new ImageIcon(&quot;src/imagemFundo/imagem_fundo.jpg&quot;)" type="code"/>
         </Property>
       </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                       <Component id="btnCadastrarMedico" max="32767" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="btnPesquisar" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btnAgendar" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btnConsultar" alignment="0" pref="250" max="32767" attributes="0"/>
-                          <Component id="btnAjuda" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btnSobre" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btnSair" alignment="0" max="32767" attributes="0"/>
-                      </Group>
-                      <Component id="btnCadastrarPaciente" alignment="1" pref="250" max="32767" attributes="0"/>
+                      <Component id="btnPesquisar" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnAgendar" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnConsultar" alignment="0" pref="250" max="32767" attributes="0"/>
+                      <Component id="btnAjuda" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnSobre" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnSair" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnCadastrarPaciente" alignment="1" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="1090" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="jLabel1" min="-2" pref="380" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="970" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="197" max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <Component id="jLabel1" min="-2" pref="227" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
                   <Component id="btnCadastrarMedico" min="-2" pref="75" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnCadastrarPaciente" min="-2" pref="75" max="-2" attributes="0"/>
@@ -81,7 +84,7 @@
                   <Component id="btnSobre" min="-2" pref="75" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnSair" min="-2" pref="75" max="-2" attributes="0"/>
-                  <EmptySpace pref="27" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -225,6 +228,13 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSairActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imagens/logo.png"/>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

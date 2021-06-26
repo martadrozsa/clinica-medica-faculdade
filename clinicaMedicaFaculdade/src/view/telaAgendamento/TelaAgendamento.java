@@ -1,5 +1,5 @@
 
-package view.telaAgenda.telaAgendamento;
+package view.telaAgendamento;
 
 import javax.swing.ImageIcon;
 import contoller.AgendamentoController;
@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import view.Mensagem;
-import view.telaAgenda.telaAgendamento.telaBuscarPaciente.TelaBuscarPaciente;
+import view.telaBuscarPaciente.TelaBuscarPaciente;
 
 
 public class TelaAgendamento extends javax.swing.JFrame {
@@ -24,6 +24,8 @@ public class TelaAgendamento extends javax.swing.JFrame {
     private final Color corAgendamentoOcupado;
     private final Color corAgendamentoLivre;
     private int idAgendamento;
+    private Time horaAgendamento;
+    private int idMedico;
     
     
     public TelaAgendamento() {
@@ -54,13 +56,19 @@ public class TelaAgendamento extends javax.swing.JFrame {
             inputHorario.setVisible(true);
             txtMedico.setVisible(true);
             inputMedico.setVisible(true);
-            txtTitulo.setText("EDITARR AGENDAMENTO");
+            txtTitulo.setText("EDITAR AGENDAMENTO");
             
         }
         setVisible(true);
     }
 
-
+    public void limpaTelaAgendamento(){
+        inputNomePaciente.setText("");
+        inputDataNascimento.setText("");
+        calendarDataAgendamento.setDate(null);
+    }
+    
+    
     // verifica se o paciente tem agendamento no mesmo dia e mesmo horário
     public boolean agendamentoLivreParaPaciente(String horarioAgendamento, String nomePaciente){
         
@@ -98,15 +106,9 @@ public class TelaAgendamento extends javax.swing.JFrame {
     private void initComponents() {
 
         txtTituloMedico = new javax.swing.JLabel();
-        panelAgendamento = new javax.swing.JPanel();
-        btnCancelar = new javax.swing.JButton();
-        btnAgendar = new javax.swing.JButton();
-        btnFechar = new javax.swing.JButton();
-        panelReagendamento = new javax.swing.JPanel();
-        btnCancelarReagendamento = new javax.swing.JButton();
-        btnReagendar = new javax.swing.JButton();
-        btnExcluir = new javax.swing.JButton();
-        btnFecharReagendamento = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        txtData = new javax.swing.JLabel();
+        calendarDataAgendamento = new com.toedter.calendar.JDateChooser();
         panelDadosReagendamento = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaAgendamentos = new javax.swing.JTable()
@@ -124,6 +126,15 @@ public class TelaAgendamento extends javax.swing.JFrame {
                 return c;
             }
         };
+        panelAgendamento = new javax.swing.JPanel();
+        btnCancelar = new javax.swing.JButton();
+        btnAgendar = new javax.swing.JButton();
+        btnFechar = new javax.swing.JButton();
+        panelReagendamento = new javax.swing.JPanel();
+        btnCancelarReagendamento = new javax.swing.JButton();
+        btnReagendar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
+        btnFecharReagendamento = new javax.swing.JButton();
         panelDadosDaConsulta = new javax.swing.JPanel();
         inputNomePaciente = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
@@ -134,10 +145,9 @@ public class TelaAgendamento extends javax.swing.JFrame {
         txtMedico = new javax.swing.JLabel();
         inputHorario = new javax.swing.JTextField();
         inputMedico = new javax.swing.JTextField();
-        txtData = new javax.swing.JLabel();
-        calendarDataAgendamento = new com.toedter.calendar.JDateChooser();
-        painelImagemFundo1 = new view.PainelImagemFundo();
+        painelImagemFundo2 = new view.PainelImagemFundo();
         txtTitulo = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         txtTituloMedico.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
         txtTituloMedico.setText("Cadastro Médico");
@@ -145,6 +155,68 @@ public class TelaAgendamento extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Agendamento");
         setResizable(false);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtData.setFont(new java.awt.Font("Verdana", 1, 16)); // NOI18N
+        txtData.setText("Data da Consulta");
+
+        calendarDataAgendamento.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                calendarDataAgendamentoPropertyChange(evt);
+            }
+        });
+
+        panelDadosReagendamento.setBackground(new java.awt.Color(255, 255, 255));
+        panelDadosReagendamento.setBorder(javax.swing.BorderFactory.createTitledBorder("AGENDA"));
+
+        tabelaAgendamentos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Horário", "Médico", "Especialidade", "Consultório", "Nome"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelaAgendamentos.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tabelaAgendamentos);
+
+        javax.swing.GroupLayout panelDadosReagendamentoLayout = new javax.swing.GroupLayout(panelDadosReagendamento);
+        panelDadosReagendamento.setLayout(panelDadosReagendamentoLayout);
+        panelDadosReagendamentoLayout.setHorizontalGroup(
+            panelDadosReagendamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDadosReagendamentoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51))
+        );
+        panelDadosReagendamentoLayout.setVerticalGroup(
+            panelDadosReagendamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDadosReagendamentoLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        panelAgendamento.setBackground(new java.awt.Color(255, 255, 255));
 
         btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCancelar.setText("Cancelar");
@@ -185,13 +257,15 @@ public class TelaAgendamento extends javax.swing.JFrame {
         panelAgendamentoLayout.setVerticalGroup(
             panelAgendamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAgendamentoLayout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelAgendamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnAgendar)
                     .addComponent(btnFechar))
-                .addGap(23, 23, 23))
+                .addGap(1, 1, 1))
         );
+
+        panelReagendamento.setBackground(new java.awt.Color(255, 255, 255));
 
         btnCancelarReagendamento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCancelarReagendamento.setText("Cancelar");
@@ -241,66 +315,19 @@ public class TelaAgendamento extends javax.swing.JFrame {
         panelReagendamentoLayout.setVerticalGroup(
             panelReagendamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelReagendamentoLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelReagendamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelarReagendamento)
                     .addComponent(btnReagendar)
                     .addComponent(btnExcluir)
-                    .addComponent(btnFecharReagendamento))
-                .addContainerGap(31, Short.MAX_VALUE))
+                    .addComponent(btnFecharReagendamento)))
         );
 
-        panelDadosReagendamento.setBorder(javax.swing.BorderFactory.createTitledBorder("AGENDA"));
-
-        tabelaAgendamentos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Horário", "Médico", "Especialidade", "Consultório", "Nome"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tabelaAgendamentos.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tabelaAgendamentos);
-
-        javax.swing.GroupLayout panelDadosReagendamentoLayout = new javax.swing.GroupLayout(panelDadosReagendamento);
-        panelDadosReagendamento.setLayout(panelDadosReagendamentoLayout);
-        panelDadosReagendamentoLayout.setHorizontalGroup(
-            panelDadosReagendamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDadosReagendamentoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51))
-        );
-        panelDadosReagendamentoLayout.setVerticalGroup(
-            panelDadosReagendamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelDadosReagendamentoLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        panelDadosDaConsulta.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panelDadosDaConsulta.setBackground(new java.awt.Color(255, 255, 255));
+        panelDadosDaConsulta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
         inputNomePaciente.setEditable(false);
+        inputNomePaciente.setBackground(new java.awt.Color(255, 255, 255));
         inputNomePaciente.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
 
         btnBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -315,6 +342,7 @@ public class TelaAgendamento extends javax.swing.JFrame {
         txtPaciente.setText("Paciente");
 
         inputDataNascimento.setEditable(false);
+        inputDataNascimento.setBackground(new java.awt.Color(255, 255, 255));
         inputDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
         inputDataNascimento.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
 
@@ -328,9 +356,11 @@ public class TelaAgendamento extends javax.swing.JFrame {
         txtMedico.setText("Médico");
 
         inputHorario.setEditable(false);
+        inputHorario.setBackground(new java.awt.Color(255, 255, 255));
         inputHorario.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
 
         inputMedico.setEditable(false);
+        inputMedico.setBackground(new java.awt.Color(255, 255, 255));
         inputMedico.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout panelDadosDaConsultaLayout = new javax.swing.GroupLayout(panelDadosDaConsulta);
@@ -343,24 +373,23 @@ public class TelaAgendamento extends javax.swing.JFrame {
                     .addComponent(txtPaciente)
                     .addComponent(txtDataNascimento)
                     .addComponent(txtMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(panelDadosDaConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelDadosDaConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelDadosDaConsultaLayout.createSequentialGroup()
-                            .addComponent(inputDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(503, 503, 503))
-                        .addGroup(panelDadosDaConsultaLayout.createSequentialGroup()
-                            .addComponent(inputMedico)
-                            .addGap(117, 117, 117)
-                            .addComponent(txtHorario)
-                            .addGap(18, 18, 18)
-                            .addComponent(inputHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(81, 81, 81)))
                     .addGroup(panelDadosDaConsultaLayout.createSequentialGroup()
-                        .addComponent(inputNomePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 787, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(184, 184, 184))))
+                        .addComponent(inputMedico)
+                        .addGap(362, 362, 362)
+                        .addComponent(txtHorario)
+                        .addGap(18, 18, 18)
+                        .addComponent(inputHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(81, 81, 81))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDadosDaConsultaLayout.createSequentialGroup()
+                        .addGroup(panelDadosDaConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(inputDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelDadosDaConsultaLayout.createSequentialGroup()
+                                .addComponent(inputNomePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 787, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(172, 172, 172))))
         );
         panelDadosDaConsultaLayout.setVerticalGroup(
             panelDadosDaConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -384,80 +413,87 @@ public class TelaAgendamento extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        txtData.setFont(new java.awt.Font("Verdana", 1, 16)); // NOI18N
-        txtData.setText("Data da Consulta");
-
-        calendarDataAgendamento.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                calendarDataAgendamentoPropertyChange(evt);
-            }
-        });
-
-        painelImagemFundo1.setImg(new ImageIcon("src/imagemFundo/imagem_fundo2.png"));
+        painelImagemFundo2.setImg(new ImageIcon("src/imagemFundo/imagem_fundo2.png"));
 
         txtTitulo.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
         txtTitulo.setForeground(new java.awt.Color(102, 102, 102));
         txtTitulo.setText("AGENDAMENTO");
 
-        javax.swing.GroupLayout painelImagemFundo1Layout = new javax.swing.GroupLayout(painelImagemFundo1);
-        painelImagemFundo1.setLayout(painelImagemFundo1Layout);
-        painelImagemFundo1Layout.setHorizontalGroup(
-            painelImagemFundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelImagemFundo1Layout.createSequentialGroup()
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/logo2.png"))); // NOI18N
+
+        javax.swing.GroupLayout painelImagemFundo2Layout = new javax.swing.GroupLayout(painelImagemFundo2);
+        painelImagemFundo2.setLayout(painelImagemFundo2Layout);
+        painelImagemFundo2Layout.setHorizontalGroup(
+            painelImagemFundo2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelImagemFundo2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtTitulo)
+                .addGroup(painelImagemFundo2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtTitulo)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        painelImagemFundo1Layout.setVerticalGroup(
-            painelImagemFundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelImagemFundo1Layout.createSequentialGroup()
-                .addContainerGap(155, Short.MAX_VALUE)
-                .addComponent(txtTitulo)
-                .addContainerGap())
+        painelImagemFundo2Layout.setVerticalGroup(
+            painelImagemFundo2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelImagemFundo2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(txtTitulo))
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(41, 41, 41)
+                                .addComponent(calendarDataAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(panelDadosReagendamento, javax.swing.GroupLayout.PREFERRED_SIZE, 1237, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(panelDadosDaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(724, 724, 724)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(panelReagendamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(panelAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(32, Short.MAX_VALUE))
+            .addComponent(painelImagemFundo2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(painelImagemFundo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addComponent(panelDadosDaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(calendarDataAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
+                .addComponent(panelDadosReagendamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(panelAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(panelReagendamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(panelDadosDaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 1215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(31, 31, 31)
-                                .addComponent(calendarDataAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(48, 48, 48))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(panelReagendamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(128, 128, 128)
-                                .addComponent(panelAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(panelDadosReagendamento, javax.swing.GroupLayout.PREFERRED_SIZE, 1215, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
-            .addComponent(painelImagemFundo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(painelImagemFundo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(panelDadosDaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(calendarDataAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                .addComponent(panelDadosReagendamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelReagendamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -465,19 +501,21 @@ public class TelaAgendamento extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     //recebe dados do paciente da TelaBuscaPaciente no modo novo agendamento
-    public void recebeDadosPaciente(int idInt, String nome, String dataNascimento) {
+    public void recebeDadosPaciente(int idPaciente, String nome, String dataNascimento) {
         this.inputNomePaciente.setText(nome);
         this.inputDataNascimento.setText(dataNascimento);
-        idPaciente = idInt;  
+        this.idPaciente = idPaciente;  
     }   
     
     //recebe dados do paciente da TelaConsulta no modo edição agendamento
-    public void recebeDadosPaciente(String nome, String dataNascimento, String horario, Date dataAgendamento, String medico, String consultorio,int idAgendamentoConsulta, int idInt) {
+    public void recebeDadosPaciente(String nome, String dataNascimento, String horario, Date dataAgendamento, int idMedicoConsulta, String medico, String consultorio,int idAgendamentoConsulta, int idPaciente) {
         idAgendamento = idAgendamentoConsulta;
-        recebeDadosPaciente(idInt, nome, dataNascimento);
-        this.inputHorario.setText(horario);
-        this.inputMedico.setText(medico);
+        horaAgendamento = Time.valueOf(horario);
+        recebeDadosPaciente(idPaciente, nome, dataNascimento);
+        idMedico = idMedicoConsulta;
         
+        this.inputHorario.setText(horario);
+        this.inputMedico.setText(medico);        
         this.calendarDataAgendamento.setDate(dataAgendamento);
     } 
     
@@ -491,6 +529,21 @@ public class TelaAgendamento extends javax.swing.JFrame {
         dataAgendamento = calendarDataAgendamento.getDate();
         String[][] agendamentos = agendamentoController.getAgendamentosByDate(dataAgendamento);
         preencheTabela(agendamentos);   
+    }
+    
+    private void limpaTabela() {
+        // inicializa a matriz  com strings vazias.
+        String[][] matrizVazia = new String[5][5];
+
+        // fazer "for" que passa por todas as linhas e seta uma String vazia na  coluna.
+        for (int i = 0; i < matrizVazia.length; i++) {
+            matrizVazia[i][0] = "";
+            matrizVazia[i][1] = "";
+            matrizVazia[i][2] = "";
+            matrizVazia[i][3] = "";
+            matrizVazia[i][4] = "";
+        }
+        preencheTabela(matrizVazia);
     }
     
     // pega data seleciona e atualiza a tabela
@@ -541,7 +594,9 @@ public class TelaAgendamento extends javax.swing.JFrame {
         agendamentoController.cadastrarAgendamento(dataAgendaConsulta, horarioSelecionado, idMedicoSelecionado, idPaciente);
 
         JOptionPane.showMessageDialog(null, "Agendamento cadastrado com sucesso!");
-        atualizaTabela();       
+        atualizaTabela(); 
+        limpaTelaAgendamento();
+        limpaTabela();
     }//GEN-LAST:event_btnAgendarActionPerformed
     
         // método para preencher a tabela com os agendamentos
@@ -587,6 +642,11 @@ public class TelaAgendamento extends javax.swing.JFrame {
     // btn reagendar modo edição do agendamento 
     private void btnReagendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReagendarActionPerformed
         int idRow = this.tabelaAgendamentos.getSelectedRow();
+        if (idRow < 0) {
+            JOptionPane.showMessageDialog(null, "Selecione um horário para reagendamento");
+            return;
+        }
+        
 
         String[] dadosSelecionados = matrizAgendamento[idRow];
 
@@ -601,21 +661,27 @@ public class TelaAgendamento extends javax.swing.JFrame {
 
         boolean agendamentoLivre = agendamentoLivreParaPaciente(horario, nomePacinete);
         
+        //verifica se o paciente que quer fazer o reagendamento já possui agendamento no mesmo dia e horário (no outro consultório)
         if (agendamentoLivre != true) {
-            JOptionPane.showMessageDialog(null, "Paciente com agendamento marcado no mesmo horário! \n Selecione um novo horário!");
+            JOptionPane.showMessageDialog(null, "Este paciente possui agendamento marcado no mesmo horário! \n Selecione um novo horário!");
             return;
-        } else if (agendamentoLivre == true) {
-
+        } 
+        
+        // ve se linha destn tem paciente
+        if (dadosSelecionados[4] == null) { 
             int resposta_usuario = JOptionPane.showConfirmDialog(null, "Deseja alterar o horário deste paciente?");
             if (resposta_usuario == 0) {
                 reagendar();
                 atualizaTabela();
 //                setVisible(false);
-            } else {
-                return;
             }
-        }else {
+        }        
+        else {
+            int resposta_usuario = JOptionPane.showConfirmDialog(null, "Horário selecionado possui agendamento. Deseja alterar este agendamento?");
+            if (resposta_usuario == 0) {
             swap();
+            atualizaTabela();
+            }
         }   
     }//GEN-LAST:event_btnReagendarActionPerformed
     
@@ -629,19 +695,33 @@ public class TelaAgendamento extends javax.swing.JFrame {
     // método para fazer remanejamento de consulta entre dois pacientes
     public void swap() {
         int idRow = this.tabelaAgendamentos.getSelectedRow();
-
         String[] dadosSelecionados = matrizAgendamento[idRow];
         
+        //salva os dados do slot selecionado em variáveis no próprio método (dados do paciente destino)   
         String horario = dadosSelecionados[0];
-        String medico = dadosSelecionados[1];
-        String especialidade = dadosSelecionados[2];
-        String consultorio = dadosSelecionados[3];
-        String paciente = dadosSelecionados[4];
+        Time horaDestn = Time.valueOf(horario);
+               
+        int idMedicoDestn = Integer.parseInt(dadosSelecionados[5]);
+        int idAgendamentoDestn = Integer.parseInt(dadosSelecionados[6]);
+        Date dataDestn = calendarDataAgendamento.getDate();
         
+        int idPacienteDestn = Integer.parseInt(dadosSelecionados[7]);
+        int idPacienteOrigem = idPaciente;
+
+        
+        //delete o agendamento que está nesse slot de destino (pelo id agendamento)
+        agendamentoController.apagarAgendamento(idAgendamentoDestn);
+
+        //tem que criar um agendamento nesse slot com os dados do agendamento de origem
+        agendamentoController.cadastrarAgendamento(dataDestn, horaDestn, idMedicoDestn, idPacienteOrigem);
+        
+        // o agendamento de origem está duplicado, no slot original e de destino. Então você deleta o agendamento de origem no slot de origem
         agendamentoController.apagarAgendamento(idAgendamento);
+                  
+        // o slot de origem está liberado. Então finalmente você cria um novo agendamento usando os dados salvos no primeiro passo
+        agendamentoController.cadastrarAgendamento(dataAgendamento, horaAgendamento, idMedico, idPacienteDestn);
+        
         atualizaTabela();
-        this.btnAgendarActionPerformed(null);
-    
     }
     
     // btn fechar modo novo agendamento
@@ -704,8 +784,10 @@ public class TelaAgendamento extends javax.swing.JFrame {
     private javax.swing.JTextField inputHorario;
     private javax.swing.JTextField inputMedico;
     private javax.swing.JTextField inputNomePaciente;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private view.PainelImagemFundo painelImagemFundo1;
+    private view.PainelImagemFundo painelImagemFundo2;
     private javax.swing.JPanel panelAgendamento;
     private javax.swing.JPanel panelDadosDaConsulta;
     private javax.swing.JPanel panelDadosReagendamento;

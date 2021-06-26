@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package view.telaAgenda.telaConsultaAgendamento;
+package view.telaConsultaAgendamento;
 
 import contoller.AgendamentoController;
 import java.sql.Time;
@@ -12,11 +7,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import view.telaAgenda.telaAgendamento.TelaAgendamento;
+import view.telaAgendamento.TelaAgendamento;
 
 
 public class TelaConsulta extends javax.swing.JFrame {
-
 
     private AgendamentoController agendamentoController;
     private Date dataAgendamento;
@@ -27,11 +21,9 @@ public class TelaConsulta extends javax.swing.JFrame {
     public TelaConsulta() {
         initComponents();
         agendamentoController = new AgendamentoController();
-        String[][] matrizAgendamentosWrappers;
-        agendamentoView = new TelaAgendamento();
-        
-               
+        agendamentoView = new TelaAgendamento();               
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -62,7 +54,7 @@ public class TelaConsulta extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/topo.png"))); // NOI18N
         jLabel2.setToolTipText("");
 
-        btnPesquisar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnPesquisar.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         btnPesquisar.setText("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,7 +68,7 @@ public class TelaConsulta extends javax.swing.JFrame {
             }
         });
 
-        btnLimpar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnLimpar.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         btnLimpar.setText("Limpar");
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,7 +105,7 @@ public class TelaConsulta extends javax.swing.JFrame {
         tabelaAgendamentosConsulta.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tabelaAgendamentosConsulta);
 
-        btnSair.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnSair.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         btnSair.setText("Sair");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,7 +113,7 @@ public class TelaConsulta extends javax.swing.JFrame {
             }
         });
 
-        btnVisualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnVisualizar.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         btnVisualizar.setText("Visualizar");
         btnVisualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -171,25 +163,32 @@ public class TelaConsulta extends javax.swing.JFrame {
                 .addComponent(txtTituloMedico2)
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inputPesquisaAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPesquisar))
+                    .addComponent(inputPesquisaAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(calendarDataAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLimpar))
+                    .addComponent(calendarDataAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(70, 70, 70)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(78, 78, 78)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSair)
-                    .addComponent(btnVisualizar))
-                .addGap(0, 78, Short.MAX_VALUE))
+                    .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 72, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
+    public void mostrarTela() {
+        limpaTabela();
+        inputPesquisaAgenda.setText("");
+        calendarDataAgendamento.setDate(null);
+        setVisible(true);
+        
+    }
        
     public void preencheTabela(String[][] matrizAgendamentosWrappers) {
         
@@ -208,7 +207,7 @@ public class TelaConsulta extends javax.swing.JFrame {
        }
     }
     
-    private void atualizaTabela() {
+    private void atualizaTabelaAgendaDaData() {
         dataAgendamento = calendarDataAgendamento.getDate(); 
         
         String inputPesquisa = this.inputPesquisaAgenda.getText();
@@ -241,14 +240,14 @@ public class TelaConsulta extends javax.swing.JFrame {
     }
     
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        atualizaTabela();       
+        atualizaTabelaAgendaDaData();       
     }//GEN-LAST:event_btnPesquisarActionPerformed
     
     private void calendarDataAgendamentoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_calendarDataAgendamentoPropertyChange
         if (calendarDataAgendamento.getDate() == null) {
             return;
         }
-        atualizaTabela();
+        atualizaTabelaAgendaDaData();
     }//GEN-LAST:event_calendarDataAgendamentoPropertyChange
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
@@ -271,17 +270,19 @@ public class TelaConsulta extends javax.swing.JFrame {
         String consultorio = linhasMatriz[rowIdx][5];
         String idAgendamento = linhasMatriz[rowIdx][6]; 
         String idPaciente = linhasMatriz[rowIdx][7];
+        String idMedico = linhasMatriz[rowIdx][8];
         
         int idAgendamentoConsulta = Integer.parseInt(idAgendamento);
-        int idInt = Integer.parseInt(idPaciente);
+        int idPacienteConsulta = Integer.parseInt(idPaciente);
+        int idMedicoConsulta = Integer.parseInt(idMedico);
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//        Time horarioAgendamento = Time.valueOf(horario);
+        // Time horarioAgendamento = Time.valueOf(horario);
          
         Date dataConsulta = null;
         try {
             dataConsulta = formatter.parse(dataAgendamento);
-            agendamentoView.recebeDadosPaciente(nome, dataNascimento, horario, dataConsulta, medico, consultorio, idAgendamentoConsulta, idInt);
+            agendamentoView.recebeDadosPaciente(nome, dataNascimento, horario, dataConsulta, idMedicoConsulta, medico, consultorio, idAgendamentoConsulta, idPacienteConsulta);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -290,7 +291,7 @@ public class TelaConsulta extends javax.swing.JFrame {
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         calendarDataAgendamento.setDate(null);
-        atualizaTabela();
+        atualizaTabelaAgendaDaData();
     }//GEN-LAST:event_btnLimparActionPerformed
 
     /**

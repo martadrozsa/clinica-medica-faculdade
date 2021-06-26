@@ -160,7 +160,7 @@ public class PacienteDAO {
         }
     }
     
-    public Paciente getMinhaListaById(int id)  {
+    public Paciente getPacienteById(int id)  {
         String queryStatement = "SELECT * FROM paciente WHERE id=?";
         
         try {

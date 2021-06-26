@@ -30,7 +30,7 @@ public class AgendamentoController {
     public String[][] getAgendamentosByDate(Date dataAgendamento){
         
         List<AgendamentoWrapper> listaAgendamentosWrappers = agendamentoBusinnes.getListaAgendamento(dataAgendamento);
-        String[][] matrizAgendamentos = new String[listaAgendamentosWrappers.size()][6];
+        String[][] matrizAgendamentos = new String[listaAgendamentosWrappers.size()][8];
         
         for(int i = 0; i < listaAgendamentosWrappers.size(); i++) {
             
@@ -51,6 +51,8 @@ public class AgendamentoController {
             matrizAgendamentos[i][4] = agendamento.getNomePaciente() + "";
             
             matrizAgendamentos[i][5] = agendamento.getIdMedico() + "";
+            matrizAgendamentos[i][6] = agendamento.getIdAgendamento() + "";
+            matrizAgendamentos[i][7] = agendamento.getIdPaciente() + "";
             
             
         }
@@ -58,10 +60,10 @@ public class AgendamentoController {
     }
     
     
-        public String[][] getAgendamentosByDateConsulta(String nome, Date dataAgendamento){
+    public String[][] getAgendamentosByDateConsulta(String nome, Date dataAgendamento){
         
         List<AgendamentoWrapper> listaAgendamentosWrappers = agendamentoBusinnes.getListaAgendamentoWrapper(nome, dataAgendamento);
-        String[][] matrizAgendamentosWrappers = new String[listaAgendamentosWrappers.size()][8];
+        String[][] matrizAgendamentosWrappers = new String[listaAgendamentosWrappers.size()][9];
         
         for(int i = 0; i < listaAgendamentosWrappers.size(); i++) {
             
@@ -83,6 +85,7 @@ public class AgendamentoController {
             matrizAgendamentosWrappers[i][5] = consultorio;
             matrizAgendamentosWrappers[i][6] = agendamentoWrapper.getIdAgendamento() + "";
             matrizAgendamentosWrappers[i][7] = agendamentoWrapper.getIdPaciente() + "";
+            matrizAgendamentosWrappers[i][8] = agendamentoWrapper.getIdMedico() + "";
         }
         return matrizAgendamentosWrappers;
     }

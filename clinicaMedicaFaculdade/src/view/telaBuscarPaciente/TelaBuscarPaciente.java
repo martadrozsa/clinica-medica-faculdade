@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.telaAgenda.telaAgendamento.telaBuscarPaciente;
+package view.telaBuscarPaciente;
 
 import contoller.PacienteController;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import view.telaAgenda.telaAgendamento.TelaAgendamento;
+import view.telaAgendamento.TelaAgendamento;
 
 /**
  *

@@ -68,9 +68,14 @@ public class AgendamentoBusiness {
             }
             
             int idPaciente = agendamento.getIdPaciente();
-            Paciente paciente = pacienteBusiness.getMinhaListaById(idPaciente);
+            Paciente paciente = pacienteBusiness.getPacienteById(idPaciente);
             String nomePaciente = paciente.getNome();
-            wrapper.setNomePaciente(nomePaciente);           
+            wrapper.setNomePaciente(nomePaciente);
+            
+            wrapper.setIdPaciente(idPaciente);
+            
+            int idAgendamento = agendamento.getId();
+            wrapper.setIdAgendamento(idAgendamento);
         }
         return todosAgendamentos;
     }
@@ -126,9 +131,7 @@ public class AgendamentoBusiness {
     }
     
    
-    //fazer o metodo
-    // o metodo recebe Date e Nome 
-    // verifica se tem nome e date, se houver nome e date, chama o metodo no DAO que nome e date
+    // verifica se tem nome e date, se houver nome e date, chama o metodo no DAO que tem nome e date
     // se houver apenas o nome, chama o metodo do DAO que tem nome
     // se houuver apenas date, chama o metodo do DAO que tem date
     

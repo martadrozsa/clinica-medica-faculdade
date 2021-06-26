@@ -37,8 +37,8 @@ public class PacienteBusiness {
         return pacienteDAO.getMinhaListByNome(inputNomePesquisa);
     }
     
-    public Paciente getMinhaListaById(int id){
-        return pacienteDAO.getMinhaListaById(id);
+    public Paciente getPacienteById(int id){
+        return pacienteDAO.getPacienteById(id);
     }
     
     

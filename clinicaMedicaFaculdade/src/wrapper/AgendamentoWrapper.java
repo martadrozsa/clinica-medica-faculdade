@@ -30,11 +30,12 @@ public class AgendamentoWrapper {
         this.idMedico = idMedico;
     }
 
-    public AgendamentoWrapper(String nomePaciente, Date dataNascimento, Time horarioAgendamento, Date dataAgendamento, String nomeMedico, Consultorio consultorio, int idAgendamento, int idPaciente) {
+    public AgendamentoWrapper(String nomePaciente, Date dataNascimento, Time horarioAgendamento, Date dataAgendamento, int idMedico, String nomeMedico, Consultorio consultorio, int idAgendamento, int idPaciente) {
         this.nomePaciente = nomePaciente;
         this.dataNascimento = dataNascimento;
         this.horarioAgendamento = horarioAgendamento;
         this.dataAgendamento = dataAgendamento;
+        this.idMedico = idMedico;
         this.nomeMedico = nomeMedico;
         this.consultorio = consultorio;
         this.idAgendamento = idAgendamento;
