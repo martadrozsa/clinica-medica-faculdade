@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
-  <NonVisualComponents>
-    <Component class="org.jdatepicker.impl.DateComponentFormatter" name="dateComponentFormatter1">
-    </Component>
-    <Component class="org.jdatepicker.JDateComponentFactory" name="jDateComponentFactory1">
-    </Component>
-    <Component class="org.jdatepicker.util.JDatePickerUtil" name="jDatePickerUtil1">
-    </Component>
-    <Component class="org.jdatepicker.impl.UtilCalendarModel" name="utilCalendarModel1">
-    </Component>
-    <Component class="org.jdatepicker.impl.UtilDateModel" name="utilDateModel1">
-    </Component>
-  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="resizable" type="boolean" value="false"/>

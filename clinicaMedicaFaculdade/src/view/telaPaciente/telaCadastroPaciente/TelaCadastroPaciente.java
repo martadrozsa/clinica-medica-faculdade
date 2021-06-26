@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import view.Mensagem;
 
 /**
- *
+ *a
  * @author Marta
  */
 public class TelaCadastroPaciente extends javax.swing.JFrame {
@@ -37,11 +37,6 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        dateComponentFormatter1 = new org.jdatepicker.impl.DateComponentFormatter();
-        jDateComponentFactory1 = new org.jdatepicker.JDateComponentFactory();
-        jDatePickerUtil1 = new org.jdatepicker.util.JDatePickerUtil();
-        utilCalendarModel1 = new org.jdatepicker.impl.UtilCalendarModel();
-        utilDateModel1 = new org.jdatepicker.impl.UtilDateModel();
         jPanel1 = new javax.swing.JPanel();
         btnCadastrar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
@@ -306,12 +301,9 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCancelar;
     private com.toedter.calendar.JDateChooser calendarDataNascimento;
-    private org.jdatepicker.impl.DateComponentFormatter dateComponentFormatter1;
     private javax.swing.JTextField inputEndereco;
     private javax.swing.JTextField inputNome;
     private javax.swing.JTextField inputTelefone;
-    private org.jdatepicker.JDateComponentFactory jDateComponentFactory1;
-    private org.jdatepicker.util.JDatePickerUtil jDatePickerUtil1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -321,7 +313,5 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
     private javax.swing.JLabel txtNome;
     private javax.swing.JLabel txtTelefone;
     private javax.swing.JLabel txtTituloPaciente;
-    private org.jdatepicker.impl.UtilCalendarModel utilCalendarModel1;
-    private org.jdatepicker.impl.UtilDateModel utilDateModel1;
     // End of variables declaration//GEN-END:variables
 }
