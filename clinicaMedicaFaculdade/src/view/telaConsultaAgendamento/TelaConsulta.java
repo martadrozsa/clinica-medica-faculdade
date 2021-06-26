@@ -2,7 +2,6 @@ package view.telaConsultaAgendamento;
 
 import javax.swing.ImageIcon;
 import contoller.AgendamentoController;
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,10 +11,10 @@ import view.telaAgendamento.TelaAgendamento;
 
 
 public class TelaConsulta extends javax.swing.JFrame {
+    private final AgendamentoController agendamentoController;
+    private final TelaAgendamento agendamentoView;
 
-    private AgendamentoController agendamentoController;
     private Date dataAgendamento;
-    private TelaAgendamento agendamentoView;
     private String[][] linhasMatriz;
     
     
@@ -24,7 +23,6 @@ public class TelaConsulta extends javax.swing.JFrame {
         agendamentoController = new AgendamentoController();
         agendamentoView = new TelaAgendamento();               
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -279,7 +277,7 @@ public class TelaConsulta extends javax.swing.JFrame {
         String[][] matrizVazia = new String[10][7];
         
         // fazer "for" que passa por todas as linhas e seta uma String vazia na  coluna.
-        for (int i = 0; i< matrizVazia.length; i++) {
+        for (int i = 0; i < matrizVazia.length; i++) {
            matrizVazia[i][0] = "";
            matrizVazia[i][1] = "";
            matrizVazia[i][2] = "";
@@ -330,15 +328,15 @@ public class TelaConsulta extends javax.swing.JFrame {
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         // Time horarioAgendamento = Time.valueOf(horario);
-         
-        Date dataConsulta = null;
+
         try {
-            dataConsulta = formatter.parse(dataAgendamento);
+            Date dataConsulta = formatter.parse(dataAgendamento);
             agendamentoView.recebeDadosPaciente(nome, dataNascimento, horario, dataConsulta, idMedicoConsulta, medico, consultorio, idAgendamentoConsulta, idPacienteConsulta);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        agendamentoView.mostrarTela(true);
+
+        agendamentoView.mostraTelaModoReagendamento();
     }//GEN-LAST:event_btnVisualizarActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed

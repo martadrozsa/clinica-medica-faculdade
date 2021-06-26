@@ -206,7 +206,7 @@
                     </Property>
                   </Properties>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable()&#xa;{&#xa;    public Component prepareRenderer(TableCellRenderer renderer, int row, int column)&#xa;    {&#xa;        Component c = super.prepareRenderer(renderer, row, column);&#xa;&#xa;        //  Alternate row color&#xa;&#xa;        //getBackground()&#xa;        if (!isRowSelected(row))&#xa;        c.setBackground(verificaAgendamento(row) ? corAgendamentoOcupado : corAgendamentoLivre);&#xa;&#xa;        return c;&#xa;    }&#xa;}"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable()&#xa;{&#xa;    public Component prepareRenderer(TableCellRenderer renderer, int row, int column)&#xa;    {&#xa;        Component c = super.prepareRenderer(renderer, row, column);&#xa;&#xa;        //  Alternate row color&#xa;&#xa;        //getBackground()&#xa;        if (!isRowSelected(row))&#xa;        c.setBackground(isAgendamentoOcupado(row) ? corAgendamentoOcupado : corAgendamentoLivre);&#xa;&#xa;        return c;&#xa;    }&#xa;}"/>
                   </AuxValues>
                 </Component>
               </SubComponents>

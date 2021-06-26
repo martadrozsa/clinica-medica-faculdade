@@ -1,5 +1,6 @@
 package contoller;
 
+import static contoller.AgendamentoController.DadosMatrizAgendamento.*;
 import java.sql.Time;
 import java.util.Date;
 import java.util.List;
@@ -9,13 +10,10 @@ import model.entity.enums.Consultorio;
 import wrapper.AgendamentoWrapper;
 
 public class AgendamentoController {
-    
-    private AgendamentoBusiness agendamentoBusinnes;
-    private AgendamentoWrapper agendamentoWrapper;
+    private final AgendamentoBusiness agendamentoBusinnes;
 
     public AgendamentoController() {
-        this.agendamentoBusinnes = new AgendamentoBusiness();
-        this.agendamentoWrapper = new AgendamentoWrapper();
+        agendamentoBusinnes = new AgendamentoBusiness();
     }
     
     public boolean cadastrarAgendamento(Date dataAgendamento, Time horarioAgendamento, int idMedico, int idPaciente){
@@ -27,6 +25,7 @@ public class AgendamentoController {
         return agendamentoBusinnes.deleteAgendamentoFromBD(id);
     }
    
+    // usado pela tela de agendamento
     public String[][] getAgendamentosByDate(Date dataAgendamento){
         
         List<AgendamentoWrapper> listaAgendamentosWrappers = agendamentoBusinnes.getListaAgendamento(dataAgendamento);
@@ -34,32 +33,31 @@ public class AgendamentoController {
         
         for(int i = 0; i < listaAgendamentosWrappers.size(); i++) {
             
-            AgendamentoWrapper agendamento = listaAgendamentosWrappers.get(i);
+            AgendamentoWrapper agendamentoWrapper = listaAgendamentosWrappers.get(i);
             
             String consultorio = "";
-            if (agendamento.getConsultorio().equals(Consultorio.CONSULTORIO_1)) {
+            if (agendamentoWrapper.getConsultorio().equals(Consultorio.CONSULTORIO_1)) {
                 consultorio = "Consultório 1";
             }
             else {
                 consultorio = "Consultório 2";
             }            
             
-            matrizAgendamentos[i][0] = agendamento.getHorarioAgendamento()+ "";
-            matrizAgendamentos[i][1] = agendamento.getNomeMedico()+ "";
-            matrizAgendamentos[i][2] = agendamento.getEspecialidade() + "";
-            matrizAgendamentos[i][3] = consultorio;
-            matrizAgendamentos[i][4] = agendamento.getNomePaciente() + "";
+            matrizAgendamentos[i][HORARIO.getIndex()] = agendamentoWrapper.getHorarioAgendamento()+ "";
+            matrizAgendamentos[i][NOME_MEDICO.getIndex()] = agendamentoWrapper.getNomeMedico()+ "";
+            matrizAgendamentos[i][ESPECIALIDADE.getIndex()] = agendamentoWrapper.getEspecialidade() + "";
+            matrizAgendamentos[i][CONSULTORIO.getIndex()] = consultorio;
+            matrizAgendamentos[i][NOME_PACIENTE.getIndex()] = agendamentoWrapper.getNomePaciente() + "";
             
-            matrizAgendamentos[i][5] = agendamento.getIdMedico() + "";
-            matrizAgendamentos[i][6] = agendamento.getIdAgendamento() + "";
-            matrizAgendamentos[i][7] = agendamento.getIdPaciente() + "";
-            
-            
+            matrizAgendamentos[i][ID_MEDICO.getIndex()] = agendamentoWrapper.getIdMedico() + "";
+            matrizAgendamentos[i][ID_AGENDAMENTO.getIndex()] = agendamentoWrapper.getIdAgendamento() + "";
+            matrizAgendamentos[i][ID_PACIENTE.getIndex()] = agendamentoWrapper.getIdPaciente() + "";
         }
+
         return matrizAgendamentos;
     }
     
-    
+    // usado pela tela de consulta agendamento
     public String[][] getAgendamentosByDateConsulta(String nome, Date dataAgendamento){
         
         List<AgendamentoWrapper> listaAgendamentosWrappers = agendamentoBusinnes.getListaAgendamentoWrapper(nome, dataAgendamento);
@@ -89,6 +87,26 @@ public class AgendamentoController {
         }
         return matrizAgendamentosWrappers;
     }
-    
 
+    public enum DadosMatrizAgendamento {
+        HORARIO(0),
+        NOME_MEDICO(1),
+        ESPECIALIDADE(2),
+        CONSULTORIO(3),
+        NOME_PACIENTE(4),
+        ID_MEDICO(5),
+        ID_AGENDAMENTO(6),
+        ID_PACIENTE(7)
+        ;
+        
+        private final int index;
+        
+        DadosMatrizAgendamento(int index) {
+            this.index = index;
+        }
+        
+        public int getIndex() {
+            return index;
+        }
+    }
 }

@@ -1,8 +1,8 @@
-
 package view.telaAgendamento;
 
 import javax.swing.ImageIcon;
 import contoller.AgendamentoController;
+import static contoller.AgendamentoController.DadosMatrizAgendamento.*;
 import java.awt.Color;
 import java.awt.Component;
 import java.sql.Time;
@@ -10,19 +10,20 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-import view.Mensagem;
 import view.telaBuscarPaciente.TelaBuscarPaciente;
 
 
 public class TelaAgendamento extends javax.swing.JFrame {
     
-    private TelaBuscarPaciente buscarPaciente;
-    private int idPaciente;
-    private AgendamentoController agendamentoController;
-    private Date dataAgendamento;
-    String[][] matrizAgendamento;
+    private final TelaBuscarPaciente telaBuscarPaciente;
+    private final AgendamentoController agendamentoController;
     private final Color corAgendamentoOcupado;
     private final Color corAgendamentoLivre;
+    
+    private String[][] matrizAgendamento;
+
+    private int idPaciente;
+    private Date dataAgendamento;
     private int idAgendamento;
     private Time horaAgendamento;
     private int idMedico;
@@ -30,54 +31,53 @@ public class TelaAgendamento extends javax.swing.JFrame {
     
     public TelaAgendamento() {
         initComponents();
-        buscarPaciente = new TelaBuscarPaciente();
-        agendamentoController = new AgendamentoController(); 
+        telaBuscarPaciente = new TelaBuscarPaciente();
+        agendamentoController = new AgendamentoController();
+
         corAgendamentoOcupado = new Color(250, 124, 124);
         corAgendamentoLivre = new Color(124, 250, 124);
     }
     
-    public void mostrarTela(boolean isModoReagendamento) {
-        if(isModoReagendamento == false){
-            panelAgendamento.setVisible(true);
-            panelReagendamento.setVisible(false);
-            btnBuscar.setVisible(true);
-            txtHorario.setVisible(false);
-            inputHorario.setVisible(false);
-            txtMedico.setVisible(false);
-            inputMedico.setVisible(false);
-            txtTitulo.setText("AGENDAR CONSULTA");
-            
-        //modo edição
-        } else {
-            panelReagendamento.setVisible(true);
-            panelAgendamento.setVisible(false);
-            btnBuscar.setVisible(false);
-            txtHorario.setVisible(true);
-            inputHorario.setVisible(true);
-            txtMedico.setVisible(true);
-            inputMedico.setVisible(true);
-            txtTitulo.setText("EDITAR AGENDAMENTO");
-            
-        }
+    public void mostraTelaModoReagendamento() {
+        txtTitulo.setText("EDITAR AGENDAMENTO");
+        panelReagendamento.setVisible(true);
+        panelAgendamento.setVisible(false);
+        btnBuscar.setVisible(false);
+        txtHorario.setVisible(true);
+        inputHorario.setVisible(true);
+        txtMedico.setVisible(true);
+        inputMedico.setVisible(true);
+        
+        setVisible(true);
+    }
+    
+    public void mostraTelaModoAgendamento() {
+        txtTitulo.setText("AGENDAR CONSULTA");
+        panelAgendamento.setVisible(true);
+        panelReagendamento.setVisible(false);
+        btnBuscar.setVisible(true);
+        txtHorario.setVisible(false);
+        inputHorario.setVisible(false);
+        txtMedico.setVisible(false);
+        inputMedico.setVisible(false);
+
         setVisible(true);
     }
 
-    public void limpaTelaAgendamento(){
+    private void limpaTelaAgendamento(){
         inputNomePaciente.setText("");
         inputDataNascimento.setText("");
         calendarDataAgendamento.setDate(null);
     }
     
-    
     // verifica se o paciente tem agendamento no mesmo dia e mesmo horário
-    public boolean agendamentoLivreParaPaciente(String horarioAgendamento, String nomePaciente){
-        
-        for(int i = 0; i < matrizAgendamento.length; i++) {
+    private boolean isAgendamentoLivreParaPaciente(String horarioAgendamento, String nomePaciente){
+        for (int i = 0; i < matrizAgendamento.length; i++) {
             String[] row = matrizAgendamento[i];
-            String horarioString = row[0];
-            String nomeString = row[4];
-            
-            if(horarioAgendamento.equals(horarioString) && nomePaciente.equals(nomeString)) {
+            String horario = row[HORARIO.getIndex()];
+            String nome = row[NOME_PACIENTE.getIndex()];
+
+            if (horarioAgendamento.equals(horario) && nomePaciente.equals(nome)) {
                 return false;               
             }
         }
@@ -85,14 +85,16 @@ public class TelaAgendamento extends javax.swing.JFrame {
     }
     
     // verifica se tem agendamento marcado na linha selecionada
-    public boolean verificaAgendamento(int row) {
+    private boolean isAgendamentoOcupado(int row) {
         if (matrizAgendamento == null || matrizAgendamento.length < row) {
             return false;
         }
-
-        if (matrizAgendamento[row][4] == null || matrizAgendamento[row][4].equals("")) {
+        
+        String nome = matrizAgendamento[row][NOME_PACIENTE.getIndex()];
+        if (nome == null || nome.equals("")) {
             return false;
         }
+
         return true;
     }
 
@@ -121,7 +123,7 @@ public class TelaAgendamento extends javax.swing.JFrame {
 
                 //getBackground()
                 if (!isRowSelected(row))
-                c.setBackground(verificaAgendamento(row) ? corAgendamentoOcupado : corAgendamentoLivre);
+                c.setBackground(isAgendamentoOcupado(row) ? corAgendamentoOcupado : corAgendamentoLivre);
 
                 return c;
             }
@@ -502,26 +504,37 @@ public class TelaAgendamento extends javax.swing.JFrame {
     
     //recebe dados do paciente da TelaBuscaPaciente no modo novo agendamento
     public void recebeDadosPaciente(int idPaciente, String nome, String dataNascimento) {
-        this.inputNomePaciente.setText(nome);
-        this.inputDataNascimento.setText(dataNascimento);
         this.idPaciente = idPaciente;  
-    }   
+        inputNomePaciente.setText(nome);
+        inputDataNascimento.setText(dataNascimento);
+    }
     
     //recebe dados do paciente da TelaConsulta no modo edição agendamento
-    public void recebeDadosPaciente(String nome, String dataNascimento, String horario, Date dataAgendamento, int idMedicoConsulta, String medico, String consultorio,int idAgendamentoConsulta, int idPaciente) {
-        idAgendamento = idAgendamentoConsulta;
-        horaAgendamento = Time.valueOf(horario);
+    public void recebeDadosPaciente(
+            String nome,
+            String dataNascimento,
+            String horario,
+            Date dataAgendamento,
+            int idMedico,
+            String medico,
+            String consultorio,
+            int idAgendamento,
+            int idPaciente
+    ) {
         recebeDadosPaciente(idPaciente, nome, dataNascimento);
-        idMedico = idMedicoConsulta;
         
-        this.inputHorario.setText(horario);
-        this.inputMedico.setText(medico);        
-        this.calendarDataAgendamento.setDate(dataAgendamento);
+        this.idAgendamento = idAgendamento;
+        horaAgendamento = Time.valueOf(horario);
+        this.idMedico = idMedico;
+        
+        inputHorario.setText(horario);
+        inputMedico.setText(medico);        
+        calendarDataAgendamento.setDate(dataAgendamento);
     } 
     
     // buscar nome paciente 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        buscarPaciente.mostrar(this);
+        telaBuscarPaciente.mostrar(this);
     }//GEN-LAST:event_btnBuscarActionPerformed
     
     // atualiza a tabela 
@@ -533,7 +546,9 @@ public class TelaAgendamento extends javax.swing.JFrame {
     
     private void limpaTabela() {
         // inicializa a matriz  com strings vazias.
-        String[][] matrizVazia = new String[10][5];
+        int rows = 10;
+        int cols = 5;
+        String[][] matrizVazia = new String[rows][cols];
 
         // fazer "for" que passa por todas as linhas e seta uma String vazia na  coluna.
         for (int i = 0; i < matrizVazia.length; i++) {
@@ -545,48 +560,64 @@ public class TelaAgendamento extends javax.swing.JFrame {
         }
         preencheTabela(matrizVazia);
     }
+        
+    // método para preencher a tabela com os agendamentos
+    private void preencheTabela(String[][] matrizAgendamento) {
+        DefaultTableModel modelo = (DefaultTableModel) this.tabelaAgendamentos.getModel();
+        modelo.setNumRows(0);
+        
+        for (int i = 0; i < matrizAgendamento.length; i++) {
+            modelo.addRow(new Object[]{
+                    matrizAgendamento[i][HORARIO.getIndex()],
+                    matrizAgendamento[i][NOME_MEDICO.getIndex()],
+                    matrizAgendamento[i][ESPECIALIDADE.getIndex()],
+                    matrizAgendamento[i][CONSULTORIO.getIndex()],
+                    matrizAgendamento[i][NOME_PACIENTE.getIndex()],
+            });
+        }
+
+        this.matrizAgendamento = matrizAgendamento;
+    }
     
     // pega data seleciona e atualiza a tabela
     private void calendarDataAgendamentoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_calendarDataAgendamentoPropertyChange
-            Date dataAgendamento = null;
-            if (this.calendarDataAgendamento.getDate() == null) {
-                return;
-            }
-            atualizaTabela();       
+        if (calendarDataAgendamento.getDate() == null) {
+            return;
+        }
+        atualizaTabela();       
     }//GEN-LAST:event_calendarDataAgendamentoPropertyChange
 
     // criar agendamento de consulta (modo novo agendamento) 
     private void btnAgendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarActionPerformed
-        if(idPaciente <= 0){
+        if (idPaciente <= 0){
             JOptionPane.showMessageDialog(null, "Selecione um paciente!");
             return;
         }
         
-        if (this.tabelaAgendamentos.getSelectedRow() == -1) {
+        int idRow = this.tabelaAgendamentos.getSelectedRow();
+        if (idRow < 0) {
             JOptionPane.showMessageDialog(null, "Selecione um horário disponível!");
             return;
         } 
         
-        int idRow = this.tabelaAgendamentos.getSelectedRow();
-        
-        if(verificaAgendamento(idRow)){
+        if (isAgendamentoOcupado(idRow)){
             JOptionPane.showMessageDialog(null, "Data com agendamento marcado! Selecione outra data!");
             return;
         }
-        
+
         String[] dadosSelecionados = matrizAgendamento[idRow];
               
-        String idRowMedico = dadosSelecionados[5];
+        String idRowMedico = dadosSelecionados[ID_MEDICO.getIndex()];
         int idMedicoSelecionado = Integer.parseInt(idRowMedico);
         
-        String horario = dadosSelecionados[0];
+        String horario = dadosSelecionados[HORARIO.getIndex()];
         Time horarioSelecionado = Time.valueOf(horario);
         
-        Date dataAgendaConsulta = this.calendarDataAgendamento.getDate();
+        Date dataAgendaConsulta = calendarDataAgendamento.getDate();
         String nomePacinete = inputNomePaciente.getText();
                 
-        boolean agendamentoLivre = agendamentoLivreParaPaciente(horario, nomePacinete);   
-        if(agendamentoLivre != true) {
+        boolean agendamentoLivre = isAgendamentoLivreParaPaciente(horario, nomePacinete);   
+        if (agendamentoLivre != true) {
             JOptionPane.showMessageDialog(null, "Paciente com agendamento marcado no mesmo horário!");
             return;
         } 
@@ -594,28 +625,9 @@ public class TelaAgendamento extends javax.swing.JFrame {
         agendamentoController.cadastrarAgendamento(dataAgendaConsulta, horarioSelecionado, idMedicoSelecionado, idPaciente);
 
         JOptionPane.showMessageDialog(null, "Agendamento cadastrado com sucesso!");
-        atualizaTabela(); 
         limpaTelaAgendamento();
         limpaTabela();
     }//GEN-LAST:event_btnAgendarActionPerformed
-    
-        // método para preencher a tabela com os agendamentos
-    @SuppressWarnings("uncheced")
-    public void preencheTabela(String[][] matrizAgendamento) {
-        DefaultTableModel modelo = (DefaultTableModel) this.tabelaAgendamentos.getModel();
-        modelo.setNumRows(0);
-        
-        for (int i = 0; i < matrizAgendamento.length; i++) {
-            modelo.addRow(new Object[]{
-                    matrizAgendamento[i][0],
-                    matrizAgendamento[i][1],
-                    matrizAgendamento[i][2],
-                    matrizAgendamento[i][3],
-                    matrizAgendamento[i][4],
-            });
-        }
-        this.matrizAgendamento = matrizAgendamento;
-    }
 
     // btn cancelar modo agendamento
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -629,14 +641,16 @@ public class TelaAgendamento extends javax.swing.JFrame {
     
     // btn excluir modo edição do agendamento
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        int resposta_usuario = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja APAGAR este Agendamento?");
-        if (resposta_usuario == 0) { 
-            if (agendamentoController.apagarAgendamento(idAgendamento)) {
-                JOptionPane.showMessageDialog(rootPane, "Agendamento apagado com sucesso");
-                atualizaTabela();
-            }
+        int respostaUsuario = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja APAGAR este Agendamento?");
+        if (respostaUsuario != 0) {
             return;
-        }      
+        } 
+
+        boolean isSucesso = agendamentoController.apagarAgendamento(idAgendamento);
+        if (isSucesso) {
+            JOptionPane.showMessageDialog(rootPane, "Agendamento apagado com sucesso");
+            atualizaTabela();
+        }
     }//GEN-LAST:event_btnExcluirActionPerformed
     
     // btn reagendar modo edição do agendamento 
@@ -645,67 +659,61 @@ public class TelaAgendamento extends javax.swing.JFrame {
         if (idRow < 0) {
             JOptionPane.showMessageDialog(null, "Selecione um horário para reagendamento");
             return;
-        }
-        
+        }        
 
         String[] dadosSelecionados = matrizAgendamento[idRow];
+        String horarioTxt = dadosSelecionados[HORARIO.getIndex()];
+        String nomePaciente = inputNomePaciente.getText();
 
-        String idRowMedico = dadosSelecionados[5];
-        int idMedicoSelecionado = Integer.parseInt(idRowMedico);
-
-        String horario = dadosSelecionados[0];
-        Time horarioSelecionado = Time.valueOf(horario);
-
-        Date dataAgendaConsulta = this.calendarDataAgendamento.getDate();
-        String nomePacinete = inputNomePaciente.getText();
-
-        boolean agendamentoLivre = agendamentoLivreParaPaciente(horario, nomePacinete);
-        
-        //verifica se o paciente que quer fazer o reagendamento já possui agendamento no mesmo dia e horário (no outro consultório)
+        //verifica se o paciente deseja realizar o reagendamento já possui agendamento no mesmo dia e horário (no outro consultório)
+        boolean agendamentoLivre = isAgendamentoLivreParaPaciente(horarioTxt, nomePaciente);       
         if (agendamentoLivre != true) {
             JOptionPane.showMessageDialog(null, "Este paciente possui agendamento marcado no mesmo horário! \n Selecione um novo horário!");
             return;
         } 
         
-        // ve se linha destn tem paciente
-        if (dadosSelecionados[4] == null) { 
-            int resposta_usuario = JOptionPane.showConfirmDialog(null, "Deseja alterar o horário deste paciente?");
-            if (resposta_usuario == 0) {
-                reagendar();
-                atualizaTabela();
-//                setVisible(false);
-            }
-        }        
+        // verifica se linha destn tem paciente
+        String nomePacienteDadosSelecionados = dadosSelecionados[NOME_PACIENTE.getIndex()];
+        if (nomePacienteDadosSelecionados == null) { 
+            reagendar();
+        }
         else {
-            int resposta_usuario = JOptionPane.showConfirmDialog(null, "Horário selecionado possui agendamento. Deseja alterar este agendamento?");
-            if (resposta_usuario == 0) {
             swap();
-            atualizaTabela();
-            }
-        }   
+        }
     }//GEN-LAST:event_btnReagendarActionPerformed
     
     // método para reagendar uma consulta para o mesmo paciente
-    public void reagendar() {
-        this.btnAgendarActionPerformed(null);
+    private void reagendar() {
+        int respostaUsuario = JOptionPane.showConfirmDialog(null, "Deseja alterar o horário deste paciente?");
+        if (respostaUsuario != 0) {
+            return;
+        }
+
+        btnAgendarActionPerformed(null);
         agendamentoController.apagarAgendamento(idAgendamento);
+
         atualizaTabela();
     }
     
     // método para fazer remanejamento de consulta entre dois pacientes
-    public void swap() {
+    private void swap() {
+        int respostaUsuario = JOptionPane.showConfirmDialog(null, "Horário selecionado possui agendamento. Deseja alterar este agendamento?");
+        if (respostaUsuario != 0) {
+            return;
+        }
+            
         int idRow = this.tabelaAgendamentos.getSelectedRow();
         String[] dadosSelecionados = matrizAgendamento[idRow];
         
         //salva os dados do slot selecionado em variáveis no próprio método (dados do paciente destino)   
-        String horario = dadosSelecionados[0];
+        String horario = dadosSelecionados[HORARIO.getIndex()];
         Time horaDestn = Time.valueOf(horario);
                
-        int idMedicoDestn = Integer.parseInt(dadosSelecionados[5]);
-        int idAgendamentoDestn = Integer.parseInt(dadosSelecionados[6]);
+        int idMedicoDestn = Integer.parseInt(dadosSelecionados[ID_MEDICO.getIndex()]);
+        int idAgendamentoDestn = Integer.parseInt(dadosSelecionados[ID_AGENDAMENTO.getIndex()]);
         Date dataDestn = calendarDataAgendamento.getDate();
         
-        int idPacienteDestn = Integer.parseInt(dadosSelecionados[7]);
+        int idPacienteDestn = Integer.parseInt(dadosSelecionados[ID_PACIENTE.getIndex()]);
         int idPacienteOrigem = idPaciente;
 
         
