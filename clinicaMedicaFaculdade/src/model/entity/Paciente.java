@@ -37,5 +37,5 @@ public class Paciente extends Pessoa{
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
- 
+
 }

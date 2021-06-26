@@ -533,7 +533,7 @@ public class TelaAgendamento extends javax.swing.JFrame {
     
     private void limpaTabela() {
         // inicializa a matriz  com strings vazias.
-        String[][] matrizVazia = new String[5][5];
+        String[][] matrizVazia = new String[10][5];
 
         // fazer "for" que passa por todas as linhas e seta uma String vazia na  coluna.
         for (int i = 0; i < matrizVazia.length; i++) {

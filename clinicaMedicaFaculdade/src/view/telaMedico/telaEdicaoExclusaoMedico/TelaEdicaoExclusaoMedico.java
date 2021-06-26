@@ -34,8 +34,6 @@ public class TelaEdicaoExclusaoMedico extends javax.swing.JFrame {
         txtTituloMedico1 = new javax.swing.JLabel();
         txtNome1 = new javax.swing.JLabel();
         inputNome1 = new javax.swing.JTextField();
-        txtDataNascimento = new javax.swing.JLabel();
-        calendarDataNascimento = new com.toedter.calendar.JDateChooser();
         txtCRM = new javax.swing.JLabel();
         inputCRM = new javax.swing.JTextField();
         txtPeriodo1 = new javax.swing.JLabel();
@@ -44,8 +42,6 @@ public class TelaEdicaoExclusaoMedico extends javax.swing.JFrame {
         comboBoxPeriodo = new javax.swing.JComboBox<>();
         txtPeriodo2 = new javax.swing.JLabel();
         comboBoxConsultorio = new javax.swing.JComboBox<>();
-        txtEndereco = new javax.swing.JLabel();
-        inputEndereco = new javax.swing.JTextField();
         txtTelefone = new javax.swing.JLabel();
         inputTelefone = new javax.swing.JTextField();
         btnCancelar = new javax.swing.JButton();
@@ -72,9 +68,6 @@ public class TelaEdicaoExclusaoMedico extends javax.swing.JFrame {
         txtNome1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtNome1.setText("Nome");
 
-        txtDataNascimento.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txtDataNascimento.setText("Data de Nascimento");
-
         txtCRM.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtCRM.setText("CRM");
 
@@ -92,9 +85,6 @@ public class TelaEdicaoExclusaoMedico extends javax.swing.JFrame {
 
         comboBoxConsultorio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Consultório 1", "Consultório 2" }));
         comboBoxConsultorio.setSelectedIndex(-1);
-
-        txtEndereco.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txtEndereco.setText("Endereço");
 
         txtTelefone.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtTelefone.setText("Telefone");
@@ -125,13 +115,11 @@ public class TelaEdicaoExclusaoMedico extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtCRM, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDataNascimento)
                             .addComponent(txtPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtPeriodo1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEndereco)
                             .addComponent(txtTelefone)
                             .addComponent(txtNome1))
-                        .addGap(24, 24, 24)
+                        .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(comboBoxPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -155,10 +143,7 @@ public class TelaEdicaoExclusaoMedico extends javax.swing.JFrame {
                                     .addComponent(inputNome1, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(inputTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(inputEspecialidade, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(inputCRM, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(calendarDataNascimento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(inputEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(inputCRM, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         layout.setVerticalGroup(
@@ -171,11 +156,7 @@ public class TelaEdicaoExclusaoMedico extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNome1)
                     .addComponent(inputNome1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(55, 55, 55)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtDataNascimento)
-                    .addComponent(calendarDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                .addGap(107, 107, 107)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtCRM)
                     .addComponent(inputCRM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -189,11 +170,7 @@ public class TelaEdicaoExclusaoMedico extends javax.swing.JFrame {
                     .addComponent(comboBoxPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPeriodo2)
                     .addComponent(comboBoxConsultorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtEndereco)
-                    .addComponent(inputEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
+                .addGap(102, 102, 102)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTelefone)
                     .addComponent(inputTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -250,19 +227,15 @@ public class TelaEdicaoExclusaoMedico extends javax.swing.JFrame {
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnSalvar;
-    private com.toedter.calendar.JDateChooser calendarDataNascimento;
     private javax.swing.JComboBox<String> comboBoxConsultorio;
     private javax.swing.JComboBox<String> comboBoxPeriodo;
     private javax.swing.JTextField inputCRM;
-    private javax.swing.JTextField inputEndereco;
     private javax.swing.JTextField inputEspecialidade;
     private javax.swing.JTextField inputNome;
     private javax.swing.JTextField inputNome1;
     private javax.swing.JTextField inputTelefone;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel txtCRM;
-    private javax.swing.JLabel txtDataNascimento;
-    private javax.swing.JLabel txtEndereco;
     private javax.swing.JLabel txtNome;
     private javax.swing.JLabel txtNome1;
     private javax.swing.JLabel txtPeriodo;
