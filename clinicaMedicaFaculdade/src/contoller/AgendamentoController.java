@@ -35,23 +35,19 @@ public class AgendamentoController {
             
             AgendamentoWrapper agendamentoWrapper = listaAgendamentosWrappers.get(i);
             
-            String consultorio = "";
-            if (agendamentoWrapper.getConsultorio().equals(Consultorio.CONSULTORIO_1)) {
-                consultorio = "Consultório 1";
-            }
-            else {
-                consultorio = "Consultório 2";
-            }            
+
+            Consultorio cons = agendamentoWrapper.getConsultorio();
+            String consultorio = cons.getNomeFormatado();          
             
-            matrizAgendamentos[i][HORARIO.getIndex()] = agendamentoWrapper.getHorarioAgendamento()+ "";
-            matrizAgendamentos[i][NOME_MEDICO.getIndex()] = agendamentoWrapper.getNomeMedico()+ "";
-            matrizAgendamentos[i][ESPECIALIDADE.getIndex()] = agendamentoWrapper.getEspecialidade() + "";
-            matrizAgendamentos[i][CONSULTORIO.getIndex()] = consultorio;
-            matrizAgendamentos[i][NOME_PACIENTE.getIndex()] = agendamentoWrapper.getNomePaciente() + "";
+            matrizAgendamentos[i][HORARIO.ordinal()] = agendamentoWrapper.getHorarioAgendamento()+ "";
+            matrizAgendamentos[i][NOME_MEDICO.ordinal()] = agendamentoWrapper.getNomeMedico()+ "";
+            matrizAgendamentos[i][ESPECIALIDADE.ordinal()] = agendamentoWrapper.getEspecialidade() + "";
+            matrizAgendamentos[i][CONSULTORIO.ordinal()] = consultorio;
+            matrizAgendamentos[i][NOME_PACIENTE.ordinal()] = agendamentoWrapper.getNomePaciente() + "";
             
-            matrizAgendamentos[i][ID_MEDICO.getIndex()] = agendamentoWrapper.getIdMedico() + "";
-            matrizAgendamentos[i][ID_AGENDAMENTO.getIndex()] = agendamentoWrapper.getIdAgendamento() + "";
-            matrizAgendamentos[i][ID_PACIENTE.getIndex()] = agendamentoWrapper.getIdPaciente() + "";
+            matrizAgendamentos[i][ID_MEDICO.ordinal()] = agendamentoWrapper.getIdMedico() + "";
+            matrizAgendamentos[i][ID_AGENDAMENTO.ordinal()] = agendamentoWrapper.getIdAgendamento() + "";
+            matrizAgendamentos[i][ID_PACIENTE.ordinal()] = agendamentoWrapper.getIdPaciente() + "";
         }
 
         return matrizAgendamentos;
@@ -61,52 +57,40 @@ public class AgendamentoController {
     public String[][] getAgendamentosByDateConsulta(String nome, Date dataAgendamento){
         
         List<AgendamentoWrapper> listaAgendamentosWrappers = agendamentoBusinnes.getListaAgendamentoWrapper(nome, dataAgendamento);
-        String[][] matrizAgendamentosWrappers = new String[listaAgendamentosWrappers.size()][9];
+        String[][] matrizAgendamentosWrappers = new String[listaAgendamentosWrappers.size()][10];
         
         for(int i = 0; i < listaAgendamentosWrappers.size(); i++) {
             
             AgendamentoWrapper agendamentoWrapper = listaAgendamentosWrappers.get(i);
+                      
             
-            String consultorio = "";
-            if (agendamentoWrapper.getConsultorio().equals(Consultorio.CONSULTORIO_1)) {
-                consultorio = "Consultório 1";
-            }
-            else {
-                consultorio = "Consultório 2";
-            }            
-            
-            matrizAgendamentosWrappers[i][0] = agendamentoWrapper.getNomePaciente() + "";
-            matrizAgendamentosWrappers[i][1] = agendamentoWrapper.getDataNascimento() + "";
-            matrizAgendamentosWrappers[i][2] = agendamentoWrapper.getHorarioAgendamento()+ "";
-            matrizAgendamentosWrappers[i][3] = agendamentoWrapper.getDataAgendamento() + "";
-            matrizAgendamentosWrappers[i][4] = agendamentoWrapper.getNomeMedico()+ "";
-            matrizAgendamentosWrappers[i][5] = consultorio;
-            matrizAgendamentosWrappers[i][6] = agendamentoWrapper.getIdAgendamento() + "";
-            matrizAgendamentosWrappers[i][7] = agendamentoWrapper.getIdPaciente() + "";
-            matrizAgendamentosWrappers[i][8] = agendamentoWrapper.getIdMedico() + "";
+            Consultorio cons = agendamentoWrapper.getConsultorio();
+            String consultorio = cons.getNomeFormatado();
+
+            matrizAgendamentosWrappers[i][HORARIO.ordinal()] = agendamentoWrapper.getHorarioAgendamento()+ "";
+            matrizAgendamentosWrappers[i][NOME_MEDICO.ordinal()] = agendamentoWrapper.getNomeMedico()+ "";            
+            matrizAgendamentosWrappers[i][ESPECIALIDADE.ordinal()] = agendamentoWrapper.getEspecialidade() + "";
+            matrizAgendamentosWrappers[i][CONSULTORIO.ordinal()] = consultorio;            
+            matrizAgendamentosWrappers[i][NOME_PACIENTE.ordinal()] = agendamentoWrapper.getNomePaciente() + "";
+            matrizAgendamentosWrappers[i][ID_MEDICO.ordinal()] = agendamentoWrapper.getIdMedico() + "";
+            matrizAgendamentosWrappers[i][ID_AGENDAMENTO.ordinal()] = agendamentoWrapper.getIdAgendamento() + "";
+            matrizAgendamentosWrappers[i][ID_PACIENTE.ordinal()] = agendamentoWrapper.getIdPaciente() + "";
+            matrizAgendamentosWrappers[i][DATA_NASCIMENTO.ordinal()] = agendamentoWrapper.getDataNascimento() + "";
+            matrizAgendamentosWrappers[i][DATA_AGENDAMENTO.ordinal()] = agendamentoWrapper.getDataAgendamento() + "";
         }
         return matrizAgendamentosWrappers;
     }
 
     public enum DadosMatrizAgendamento {
-        HORARIO(0),
-        NOME_MEDICO(1),
-        ESPECIALIDADE(2),
-        CONSULTORIO(3),
-        NOME_PACIENTE(4),
-        ID_MEDICO(5),
-        ID_AGENDAMENTO(6),
-        ID_PACIENTE(7)
-        ;
-        
-        private final int index;
-        
-        DadosMatrizAgendamento(int index) {
-            this.index = index;
-        }
-        
-        public int getIndex() {
-            return index;
-        }
+        HORARIO,
+        NOME_MEDICO,
+        ESPECIALIDADE,
+        CONSULTORIO,
+        NOME_PACIENTE,
+        ID_MEDICO,
+        ID_AGENDAMENTO,
+        ID_PACIENTE,
+        DATA_NASCIMENTO,
+        DATA_AGENDAMENTO,
     }
 }

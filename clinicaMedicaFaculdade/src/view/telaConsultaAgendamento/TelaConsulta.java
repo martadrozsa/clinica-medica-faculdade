@@ -2,6 +2,7 @@ package view.telaConsultaAgendamento;
 
 import javax.swing.ImageIcon;
 import contoller.AgendamentoController;
+import static contoller.AgendamentoController.DadosMatrizAgendamento.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -247,19 +248,18 @@ public class TelaConsulta extends javax.swing.JFrame {
 
        for (int i = 0; i < matrizAgendamentosWrappers.length; i++) {
            modelo.addRow(new Object[]{
-           matrizAgendamentosWrappers[i][0],
-           matrizAgendamentosWrappers[i][1],
-           matrizAgendamentosWrappers[i][2],
-           matrizAgendamentosWrappers[i][3],
-           matrizAgendamentosWrappers[i][4],
-           matrizAgendamentosWrappers[i][5]
+           matrizAgendamentosWrappers[i][NOME_PACIENTE.ordinal()],
+           matrizAgendamentosWrappers[i][DATA_NASCIMENTO.ordinal()],
+           matrizAgendamentosWrappers[i][HORARIO.ordinal()],
+           matrizAgendamentosWrappers[i][DATA_AGENDAMENTO.ordinal()],
+           matrizAgendamentosWrappers[i][NOME_MEDICO.ordinal()],
+           matrizAgendamentosWrappers[i][CONSULTORIO.ordinal()]
            });
        }
     }
     
-    private void atualizaTabelaAgendaDaData() {
+    public void atualizaTabelaAgendaDaData() {
         dataAgendamento = calendarDataAgendamento.getDate(); 
-        
         String inputPesquisa = this.inputPesquisaAgenda.getText();
      
         String[][] linhasMatriz = agendamentoController.getAgendamentosByDateConsulta(inputPesquisa, dataAgendamento);
@@ -274,17 +274,17 @@ public class TelaConsulta extends javax.swing.JFrame {
     
     private void limpaTabela() {
         // inicializa a matriz  com strings vazias.
-        String[][] matrizVazia = new String[10][7];
+        String[][] matrizVazia = new String[10][10];
         
         // fazer "for" que passa por todas as linhas e seta uma String vazia na  coluna.
         for (int i = 0; i < matrizVazia.length; i++) {
-           matrizVazia[i][0] = "";
-           matrizVazia[i][1] = "";
-           matrizVazia[i][2] = "";
-           matrizVazia[i][3] = "";
-           matrizVazia[i][4] = "";
-           matrizVazia[i][5] = "";
-           matrizVazia[i][6] = "";
+           matrizVazia[i][NOME_PACIENTE.ordinal()] = "";
+           matrizVazia[i][DATA_NASCIMENTO.ordinal()] = "";
+           matrizVazia[i][HORARIO.ordinal()] = "";
+           matrizVazia[i][DATA_AGENDAMENTO.ordinal()] = "";
+           matrizVazia[i][NOME_MEDICO.ordinal()] = "";
+           matrizVazia[i][CONSULTORIO.ordinal()] = "";
+           matrizVazia[i][ID_AGENDAMENTO.ordinal()] = "";
         }
         preencheTabela(matrizVazia);
     }
@@ -312,15 +312,15 @@ public class TelaConsulta extends javax.swing.JFrame {
         
         int rowIdx = this.tabelaAgendamentosConsulta.getSelectedRow();
         
-        String nome = linhasMatriz[rowIdx][0];
-        String dataNascimento = linhasMatriz[rowIdx][1];
-        String horario = linhasMatriz[rowIdx][2];
-        String dataAgendamento = linhasMatriz[rowIdx][3];
-        String medico = linhasMatriz[rowIdx][4];
-        String consultorio = linhasMatriz[rowIdx][5];
-        String idAgendamento = linhasMatriz[rowIdx][6]; 
-        String idPaciente = linhasMatriz[rowIdx][7];
-        String idMedico = linhasMatriz[rowIdx][8];
+        String nome = linhasMatriz[rowIdx][NOME_PACIENTE.ordinal()];
+        String dataNascimento = linhasMatriz[rowIdx][DATA_NASCIMENTO.ordinal()];
+        String horario = linhasMatriz[rowIdx][HORARIO.ordinal()];
+        String dataAgendamento = linhasMatriz[rowIdx][DATA_AGENDAMENTO.ordinal()];
+        String medico = linhasMatriz[rowIdx][NOME_MEDICO.ordinal()];
+        String consultorio = linhasMatriz[rowIdx][CONSULTORIO.ordinal()];
+        String idAgendamento = linhasMatriz[rowIdx][ID_AGENDAMENTO.ordinal()]; 
+        String idPaciente = linhasMatriz[rowIdx][ID_PACIENTE.ordinal()];
+        String idMedico = linhasMatriz[rowIdx][ID_MEDICO.ordinal()];
         
         int idAgendamentoConsulta = Integer.parseInt(idAgendamento);
         int idPacienteConsulta = Integer.parseInt(idPaciente);
@@ -331,7 +331,7 @@ public class TelaConsulta extends javax.swing.JFrame {
 
         try {
             Date dataConsulta = formatter.parse(dataAgendamento);
-            agendamentoView.recebeDadosPaciente(nome, dataNascimento, horario, dataConsulta, idMedicoConsulta, medico, consultorio, idAgendamentoConsulta, idPacienteConsulta);
+            agendamentoView.recebeDadosPaciente(nome, dataNascimento, horario, dataConsulta, idMedicoConsulta, medico, consultorio, idAgendamentoConsulta, idPacienteConsulta, this);
         } catch (ParseException e) {
             e.printStackTrace();
         }
