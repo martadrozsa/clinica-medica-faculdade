@@ -163,7 +163,7 @@ public class MedicoDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
             List<Medico> medicos = parseResultSetToMedico(resultSet);
             preparedStatement.close();
-            // Todos os pacientes na lista "pacientes"
+            // Todos os médicos na lista "médicos"
             return medicos;
             
         } catch (Exception ex) {
