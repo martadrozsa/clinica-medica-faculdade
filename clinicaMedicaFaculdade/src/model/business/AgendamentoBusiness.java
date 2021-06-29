@@ -26,22 +26,17 @@ public class AgendamentoBusiness {
         pacienteBusiness = new PacienteBusiness();
         agendamentoWrapper = new AgendamentoWrapper();
     }
-    
-    
+     
     public boolean saveAgendamento(Agendamento agendamento) {
         boolean isSuccess = agendamentoDAO.insertAgendamento(agendamento);
         return isSuccess;
     }
    
-    
-
     public boolean deleteAgendamentoFromBD(int id) {
         return agendamentoDAO.deleteAgendamentoById(id);
     }
     
-    
-    
-    
+ 
     public List<AgendamentoWrapper> getListaAgendamento(Date dataAgendamento) {
         // todosAgendamentos (AgendamentoWrapper) <- todos os slots de agendamentos
         List<AgendamentoWrapper> todosAgendamentos = new ArrayList<>();

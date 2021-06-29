@@ -55,7 +55,7 @@
                       <Component id="panelBtns" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="inputPesquisa" min="-2" pref="924" max="-2" attributes="0"/>
+                              <Component id="inputPesquisaNome" min="-2" pref="924" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                               <Component id="comboBoxPesquisa" min="-2" pref="103" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
@@ -75,7 +75,7 @@
                   <Component id="painelImagemFundo1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="inputPesquisa" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="inputPesquisaNome" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="comboBoxPesquisa" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="btnPesquisar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
@@ -142,7 +142,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JTextField" name="inputPesquisa">
+        <Component class="javax.swing.JTextField" name="inputPesquisaNome">
         </Component>
         <Component class="javax.swing.JComboBox" name="comboBoxPesquisa">
           <Properties>

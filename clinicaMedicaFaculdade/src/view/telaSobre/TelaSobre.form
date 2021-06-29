@@ -149,7 +149,7 @@
                       <Font name="Verdana" size="12" style="0"/>
                     </Property>
                     <Property name="rows" type="int" value="5"/>
-                    <Property name="text" type="java.lang.String" value="Sistema desenvolvido por:&#xa; &#xa;Marta Denisczwicz Rozsa&#xa;Vitor Rozsa"/>
+                    <Property name="text" type="java.lang.String" value="Sistema desenvolvido por:&#xa; &#xa;Marta Denisczwicz Rozsa"/>
                   </Properties>
                 </Component>
               </SubComponents>

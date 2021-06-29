@@ -5,6 +5,7 @@ package view.telaPesquisa;
  */
 
 import contoller.MedicoController;
+import contoller.PacienteController;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -12,11 +13,15 @@ import javax.swing.table.DefaultTableModel;
 public class TelaPesquisa extends javax.swing.JFrame {
     
     private final MedicoController medicoController;
+    private final PacienteController pacienteController;
+    
+    
 
     public TelaPesquisa() {
         initComponents();
         
         medicoController = new MedicoController();
+        pacienteController = new PacienteController();
         
     }
 
@@ -34,7 +39,7 @@ public class TelaPesquisa extends javax.swing.JFrame {
         painelImagemFundo1 = new view.PainelImagemFundo();
         jLabel2 = new javax.swing.JLabel();
         txtTituloMedico2 = new javax.swing.JLabel();
-        inputPesquisa = new javax.swing.JTextField();
+        inputPesquisaNome = new javax.swing.JTextField();
         comboBoxPesquisa = new javax.swing.JComboBox<>();
         btnPesquisar = new javax.swing.JButton();
         panelTabelaPaciente = new javax.swing.JPanel();
@@ -236,7 +241,7 @@ public class TelaPesquisa extends javax.swing.JFrame {
                     .addComponent(panelBtns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(inputPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 924, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputPesquisaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 924, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(31, 31, 31)
                             .addComponent(comboBoxPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -251,7 +256,7 @@ public class TelaPesquisa extends javax.swing.JFrame {
                 .addComponent(painelImagemFundo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inputPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inputPesquisaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboBoxPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
@@ -339,12 +344,10 @@ public class TelaPesquisa extends javax.swing.JFrame {
             return false;
         }
         return true;
+        
     }
-
     
-    
-    
-    
+ 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
         setVisible(false);
     }//GEN-LAST:event_btSairActionPerformed
@@ -365,16 +368,30 @@ public class TelaPesquisa extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxPesquisaActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        
+        String inputPesquisa = inputPesquisaNome.getText();
+
+        boolean valido = validaInput(inputPesquisa);
+        if (valido != true) {
+            return;
+        }
+        
         Object inputComboBox = comboBoxPesquisa.getSelectedItem();
         String inputComboBoxString = (String) inputComboBox;
         
-        if (inputComboBoxString .equals("Médico")) {
-            medicoController.getMinhaMatrizTexto(inputComboBoxString);
+        if (inputComboBoxString.equals("Médico")) {
+            mostrarTabelaMedico();
+            String[][] linhasMatriz = medicoController.getMinhaMatrizTexto();
+            medicoController.getMinhaMatrizTexto();
+            carregaTabelaMedico(linhasMatriz);
         }
-        
-        
-        
-        
+        else {
+            mostrarTabelaPaciente();
+            String[][] linhasMatriz = pacienteController.getMinhaMatrizTexto(inputPesquisa);
+            pacienteController.getMinhaMatrizTexto(inputPesquisa);
+            carregaTabelaPaciente(linhasMatriz);
+        }
+          
         
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
@@ -420,7 +437,7 @@ public class TelaPesquisa extends javax.swing.JFrame {
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JComboBox<String> comboBoxPesquisa;
     private javax.swing.JTextField inputBuscarPaciente;
-    private javax.swing.JTextField inputPesquisa;
+    private javax.swing.JTextField inputPesquisaNome;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

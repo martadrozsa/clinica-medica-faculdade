@@ -55,7 +55,7 @@ public class TelaSobre extends javax.swing.JFrame {
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jTextArea1.setRows(5);
-        jTextArea1.setText("Sistema desenvolvido por:\n \nMarta Denisczwicz Rozsa\nVitor Rozsa");
+        jTextArea1.setText("Sistema desenvolvido por:\n \nMarta Denisczwicz Rozsa");
         jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
