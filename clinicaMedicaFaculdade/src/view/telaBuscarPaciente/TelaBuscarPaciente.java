@@ -5,7 +5,7 @@
  */
 package view.telaBuscarPaciente;
 
-import contoller.PacienteController;
+import controller.PacienteController;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;

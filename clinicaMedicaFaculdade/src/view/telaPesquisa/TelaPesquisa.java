@@ -4,16 +4,20 @@ package view.telaPesquisa;
  * @author Marta
  */
 
-import contoller.MedicoController;
-import contoller.PacienteController;
+import controller.MedicoController;
+import controller.PacienteController;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import view.telaMedico.telaEdicaoExclusaoMedico.TelaEdicaoExclusaoMedico;
+import view.telaPaciente.telaEdicaoExclusaoPaciente.TelaEdicaoExclusaoPaciente;
 
 public class TelaPesquisa extends javax.swing.JFrame {
     
     private final MedicoController medicoController;
     private final PacienteController pacienteController;
+    private final TelaEdicaoExclusaoPaciente pacienteEdicaoExclusao;;
+    private final TelaEdicaoExclusaoMedico medicoEdicaoExclusao;
     
     
 
@@ -22,6 +26,9 @@ public class TelaPesquisa extends javax.swing.JFrame {
         
         medicoController = new MedicoController();
         pacienteController = new PacienteController();
+        pacienteEdicaoExclusao = new TelaEdicaoExclusaoPaciente();
+        medicoEdicaoExclusao = new TelaEdicaoExclusaoMedico();
+        
         
     }
 
@@ -144,9 +151,8 @@ public class TelaPesquisa extends javax.swing.JFrame {
         panelTabelaPacienteLayout.setVerticalGroup(
             panelTabelaPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTabelaPacienteLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         panelTabelaMedico.setBackground(new java.awt.Color(255, 255, 255));
@@ -193,8 +199,8 @@ public class TelaPesquisa extends javax.swing.JFrame {
             panelTabelaMedicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTabelaMedicoLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelBtns.setBackground(new java.awt.Color(255, 255, 255));
@@ -209,25 +215,30 @@ public class TelaPesquisa extends javax.swing.JFrame {
 
         btVisualizar.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         btVisualizar.setText("Visualizar");
+        btVisualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btVisualizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelBtnsLayout = new javax.swing.GroupLayout(panelBtns);
         panelBtns.setLayout(panelBtnsLayout);
         panelBtnsLayout.setHorizontalGroup(
             panelBtnsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBtnsLayout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addGap(44, 44, 44)
                 .addComponent(btSair)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
                 .addComponent(btVisualizar))
         );
         panelBtnsLayout.setVerticalGroup(
             panelBtnsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBtnsLayout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
+            .addGroup(panelBtnsLayout.createSequentialGroup()
+                .addContainerGap(50, Short.MAX_VALUE)
                 .addGroup(panelBtnsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32))
+                    .addComponent(btVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -238,6 +249,7 @@ public class TelaPesquisa extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(47, 47, 47)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(panelTabelaMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelBtns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
@@ -246,8 +258,7 @@ public class TelaPesquisa extends javax.swing.JFrame {
                             .addComponent(comboBoxPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnPesquisar))
-                        .addComponent(panelTabelaPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(panelTabelaMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(panelTabelaPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -261,9 +272,9 @@ public class TelaPesquisa extends javax.swing.JFrame {
                     .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
                 .addComponent(panelTabelaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelTabelaMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelTabelaMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelBtns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
         );
@@ -352,23 +363,10 @@ public class TelaPesquisa extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_btSairActionPerformed
 
-    private void comboBoxPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxPesquisaActionPerformed
-        
-        Object inputComboBox = comboBoxPesquisa.getSelectedItem();
-        String inputComboBoxString = (String) inputComboBox;
-        
-        if (inputComboBoxString.equals("Médico")) {
-            mostrarTabelaMedico();
-        }
-        else {
-            mostrarTabelaPaciente();
-        }
-        
-        
-    }//GEN-LAST:event_comboBoxPesquisaActionPerformed
-
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         
+        
+        // fazer as validações
         String inputPesquisa = inputPesquisaNome.getText();
 
         boolean valido = validaInput(inputPesquisa);
@@ -390,10 +388,49 @@ public class TelaPesquisa extends javax.swing.JFrame {
             String[][] linhasMatriz = pacienteController.getMinhaMatrizTexto(inputPesquisa);
             pacienteController.getMinhaMatrizTexto(inputPesquisa);
             carregaTabelaPaciente(linhasMatriz);
-        }
-          
-        
+        }     
     }//GEN-LAST:event_btnPesquisarActionPerformed
+    
+    private void visualizarPaciente() {
+        if (this.tabelaPacientes.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Selecione um paciente");
+        } else {
+            String nome = this.tabelaPacientes.getValueAt(this.tabelaPacientes.getSelectedRow(),1).toString();
+            String dataNascimento = this.tabelaPacientes.getValueAt(this.tabelaPacientes.getSelectedRow(), 2).toString();
+            String telefone = this.tabelaPacientes.getValueAt(this.tabelaPacientes.getSelectedRow(), 3).toString();
+            String endereco = this.tabelaPacientes.getValueAt(this.tabelaPacientes.getSelectedRow(), 3).toString();
+            pacienteEdicaoExclusao.setVisible(true);
+        }
+    }
+    
+    private void visualizaMedico() {
+        // fazer igual do paciente
+    }
+    
+    
+    private void btVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVisualizarActionPerformed
+
+        Object inputComboBox = comboBoxPesquisa.getSelectedItem();
+        String inputComboBoxString = (String) inputComboBox;
+
+        if (inputComboBoxString.equals("Médico")) {
+            visualizaMedico();
+        } else {
+            visualizarPaciente();
+        }
+    }//GEN-LAST:event_btVisualizarActionPerformed
+
+    private void comboBoxPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxPesquisaActionPerformed
+        Object inputComboBox = comboBoxPesquisa.getSelectedItem();
+        String inputComboBoxString = (String) inputComboBox;
+
+        if (inputComboBoxString.equals("Médico")) {
+            mostrarTabelaMedico();
+        } else {
+            mostrarTabelaPaciente();
+        }
+        
+    }//GEN-LAST:event_comboBoxPesquisaActionPerformed
 
     /**
      * @param args the command line arguments

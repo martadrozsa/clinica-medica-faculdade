@@ -1,6 +1,6 @@
-package contoller;
+package controller;
 
-import static contoller.AgendamentoController.DadosMatrizAgendamento.*;
+import static controller.AgendamentoController.DadosMatrizAgendamento.*;
 import java.sql.Time;
 import java.util.Date;
 import java.util.List;

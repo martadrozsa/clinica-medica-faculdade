@@ -1,8 +1,8 @@
 package view.telaAgendamento;
 
 import javax.swing.ImageIcon;
-import contoller.AgendamentoController;
-import static contoller.AgendamentoController.DadosMatrizAgendamento.*;
+import controller.AgendamentoController;
+import static controller.AgendamentoController.DadosMatrizAgendamento.*;
 import java.awt.Color;
 import java.awt.Component;
 import java.sql.Time;

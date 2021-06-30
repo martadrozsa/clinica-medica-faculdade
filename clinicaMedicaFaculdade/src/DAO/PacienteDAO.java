@@ -164,7 +164,7 @@ public class PacienteDAO {
         String queryStatement = "SELECT * FROM paciente WHERE id=?";
         
         try {
-           PreparedStatement preparedStatement = connect.prepareCall(queryStatement);
+           PreparedStatement preparedStatement = connect.prepareStatement(queryStatement);
            preparedStatement.setInt(1, id);
            
            ResultSet resultSet = preparedStatement.executeQuery();

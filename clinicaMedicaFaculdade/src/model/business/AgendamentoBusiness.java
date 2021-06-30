@@ -142,7 +142,5 @@ public class AgendamentoBusiness {
             return new ArrayList<>();
         }
     }
-    
 
-   
 }

@@ -6,7 +6,7 @@
 package view.telaPaciente.telaCadastroPaciente;
 
 import javax.swing.ImageIcon;
-import contoller.PacienteController;
+import controller.PacienteController;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import view.Mensagem;
