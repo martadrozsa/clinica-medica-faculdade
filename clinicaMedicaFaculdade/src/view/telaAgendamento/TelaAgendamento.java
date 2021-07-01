@@ -10,8 +10,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import util.SwingUtil;
+import static util.SwingUtil.centralizaCells;
 import view.telaBuscarPaciente.TelaBuscarPaciente;
 import view.telaConsultaAgendamento.TelaConsulta;
 
@@ -41,6 +44,9 @@ public class TelaAgendamento extends javax.swing.JFrame {
 
         corAgendamentoOcupado = new Color(250, 124, 124);
         corAgendamentoLivre = new Color(124, 250, 124);
+        
+        SwingUtil.centralizaHeaderTabela(tabelaAgendamentos);
+        centralizaCells(tabelaAgendamentos, SwingConstants.CENTER);
     }
     
     public void mostraTelaModoReagendamento() {

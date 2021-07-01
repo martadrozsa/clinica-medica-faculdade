@@ -7,7 +7,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import util.SwingUtil;
+import static util.SwingUtil.centralizaCells;
 import view.telaAgendamento.TelaAgendamento;
 
 
@@ -22,7 +25,9 @@ public class TelaConsulta extends javax.swing.JFrame {
     public TelaConsulta() {
         initComponents();
         agendamentoController = new AgendamentoController();
-        agendamentoView = new TelaAgendamento();               
+        agendamentoView = new TelaAgendamento();
+        SwingUtil.centralizaHeaderTabela(tabelaAgendamentosConsulta);
+        centralizaCells(tabelaAgendamentosConsulta, SwingConstants.CENTER);
     }
 
     /**
